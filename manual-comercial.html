@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Comercial — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --orange: #E85A1A; --navy: #08112A; --navy-mid: #0F1E40; --navy-light: #162D5E;
+  --off: #F0EDE6; --gray: #C8C4BB; --gray-dark: #3A3530; --muted: #7A7570;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 700; background: var(--off); color: var(--navy); line-height: 1.3; }
+
+/* UTILS */
+.tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; padding: 5px 12px; border: 1.5px solid var(--orange); color: var(--orange); border-radius: 2px; }
+.tag-fill { background: var(--orange); color: #fff; border-color: var(--orange); }
+.tag-dark { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+
+/* COVER */
+.cover { background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.cover-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px); }
+.cover-slash { position: absolute; top: 0; right: 0; width: 35%; height: 100%; background: var(--orange); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.06; }
+.cover-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; padding: 2.5rem 3.5rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+.cover-nav { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); flex-wrap: wrap; gap: 1rem; }
+.cover-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: #fff; }
+.cover-logo span { color: var(--orange); }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 0 2.5rem; }
+.eyebrow { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem; }
+.eyebrow-line { width: 36px; height: 2px; background: var(--orange); }
+.eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+.cover-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; letter-spacing: 0.03em; color: #fff; margin-bottom: 0.4rem; }
+.cover-h1 span { color: var(--orange); display: block; }
+.cover-h1-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2.5rem); letter-spacing: 0.1em; color: rgba(255,255,255,0.2); display: block; margin-bottom: 2.5rem; }
+.cover-bar { width: 56px; height: 3px; background: var(--orange); margin-bottom: 2rem; }
+.cover-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.45); max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.cover-stats { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; max-width: 620px; }
+.cover-stat { flex: 1; min-width: 110px; padding: 1.25rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 3px; display: block; }
+.cover-foot { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.cover-quote { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.18); max-width: 500px; }
+
+/* BAND */
+.band { background: var(--orange); padding: 1.4rem 3.5rem; position: relative; overflow: hidden; }
+.band-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.1rem, 2.5vw, 2rem); letter-spacing: 0.06em; color: #fff; position: relative; z-index: 1; }
+.band::after { content: '→'; font-size: 6rem; color: rgba(255,255,255,0.1); position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); }
+
+/* LAYOUT */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.bg-navy { background: var(--navy); }
+.bg-off { background: var(--off); }
+.bg-mid { background: var(--navy-mid); }
+.sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%); }
+
+.sec-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+.sec-label::before { content:''; display:block; width:26px; height:2px; background:var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5.5vw, 4.5rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1rem; }
+.sec-h-w { color: #fff; }
+.sec-h-d { color: var(--navy); }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; max-width: 680px; line-height: 1.65; margin-bottom: 3rem; }
+.sec-d-w { color: rgba(255,255,255,0.32); }
+.sec-d-d { color: var(--muted); }
+
+/* PURPOSE BLOCK */
+.purpose-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.purpose-cell { background: rgba(255,255,255,0.025); padding: 2rem; }
+.purpose-cell-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(232,90,26,0.2); }
+.purpose-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.purpose-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+.purpose-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; }
+
+/* TOOLS GRID */
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.tool-card { background: var(--off); padding: 1.75rem; transition: background 0.15s; border-top: 4px solid transparent; }
+.tool-card:hover { background: #fff; border-top-color: var(--orange); }
+.tool-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.tool-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.5rem; }
+.tool-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.55; margin-bottom: 0.75rem; }
+.tool-suggestion { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(232,90,26,0.3); padding: 3px 8px; border-radius: 2px; display: inline-block; }
+
+/* FUNNEL */
+.funnel-steps { display: flex; flex-direction: column; gap: 2px; }
+.funnel-row { display: grid; grid-template-columns: 180px 1fr 180px; gap: 2px; border-radius: 2px; overflow: hidden; }
+.funnel-stage { background: rgba(232,90,26,0.1); border: 1px solid rgba(232,90,26,0.2); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: center; text-align: center; }
+.funnel-stage-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--orange); }
+.funnel-body { background: rgba(255,255,255,0.025); padding: 1rem 1.5rem; }
+.funnel-meaning { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.3rem; }
+.funnel-action { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; }
+.funnel-meta { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: center; text-align: center; }
+.funnel-meta-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.funnel-exit { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 2px; }
+.funnel-exit-cell { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 0.85rem 1.25rem; text-align: center; }
+.funnel-exit-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.25); display: block; margin-bottom: 3px; }
+.funnel-exit-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); }
+
+/* ICP */
+.icp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.icp-card { padding: 2rem; }
+.icp-card.green { background: var(--off); }
+.icp-card.red { background: #fff8f5; }
+.icp-card-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.08em; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid; }
+.icp-card.green .icp-card-h { color: var(--navy); border-color: var(--orange); }
+.icp-card.red .icp-card-h { color: #8B2500; border-color: #D4430E; }
+.icp-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.icp-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.4; display: flex; align-items: flex-start; gap: 0.5rem; }
+.icp-card.green .icp-list li { color: var(--gray-dark); }
+.icp-card.green .icp-list li::before { content: '✓'; color: var(--orange); flex-shrink: 0; }
+.icp-card.red .icp-list li { color: #8B2500; }
+.icp-card.red .icp-list li::before { content: '✗'; color: #D4430E; flex-shrink: 0; }
+
+/* CHANNELS */
+.channel-block { margin-bottom: 3px; border: 1px solid rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.channel-header { background: rgba(232,90,26,0.08); border-bottom: 1px solid rgba(232,90,26,0.18); padding: 1.25rem 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.channel-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(232,90,26,0.3); line-height: 1; }
+.channel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.06em; color: #fff; }
+.channel-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: rgba(255,255,255,0.015); }
+.channel-col { padding: 1.5rem 2rem; border-right: 1px solid rgba(255,255,255,0.06); }
+.channel-col:last-child { border-right: none; }
+.channel-col-h { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(232,90,26,0.18); display: block; }
+.channel-info { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.4); line-height: 1.6; margin-bottom: 0.75rem; }
+.channel-script { background: rgba(232,90,26,0.06); border-left: 2px solid var(--orange); padding: 0.75rem 1rem; border-radius: 0 2px 2px 0; }
+.channel-script-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.channel-script-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1.55; font-style: italic; }
+
+/* QUALIFICATION */
+.qual-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.qual-card { background: var(--off); padding: 1.75rem; transition: background 0.15s; border-top: 4px solid transparent; }
+.qual-card:hover { background: #fff; border-top-color: var(--orange); }
+.qual-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(8,17,42,0.06); line-height: 1; }
+.qual-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.qual-q { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.2; }
+.qual-why { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
+
+/* MEETING */
+.meeting-timeline { display: flex; flex-direction: column; gap: 2px; }
+.meeting-step { display: grid; grid-template-columns: 80px 1fr; border-radius: 2px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+.meeting-time { background: rgba(232,90,26,0.08); border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 0.5rem; text-align: center; }
+.meeting-min { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.meeting-unit { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+.meeting-body { padding: 1.25rem 1.5rem; background: rgba(255,255,255,0.02); }
+.meeting-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.35rem; }
+.meeting-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.55; }
+
+/* METRICS TABLE */
+.metrics-table { width: 100%; border-collapse: collapse; background: var(--off); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; font-size: 0.85rem; }
+.metrics-table thead { background: var(--navy); color: #fff; }
+.metrics-table th { padding: 1rem 1.25rem; text-align: left; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.metrics-table td { padding: 0.9rem 1.25rem; border-top: 1px solid var(--gray); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-dark); }
+.metrics-table tr:hover td { background: #fff; }
+.metrics-table .metric-name { color: var(--navy); font-weight: 900; }
+.metrics-table .metric-target { color: var(--orange); font-weight: 900; }
+
+/* PROCESS BLOCKS */
+.process-block { margin-bottom: 3px; border: 1px solid rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+.process-header { background: rgba(232,90,26,0.07); border-bottom: 1px solid rgba(232,90,26,0.18); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.process-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); }
+.process-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.06em; color: var(--navy); }
+.process-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--off); }
+.process-col { padding: 1.5rem; border-right: 1px solid var(--gray); }
+.process-col:last-child { border-right: none; }
+.process-col-h { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(232,90,26,0.2); display: block; }
+.process-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.6; }
+.process-steps { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.process-steps li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.process-steps li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.7rem; margin-top: 1px; }
+.process-highlight { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.2); padding: 4px 10px; border-radius: 2px; display: inline-block; margin-top: 0.5rem; }
+
+/* GROWTH */
+.growth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.growth-card { background: rgba(255,255,255,0.025); padding: 2rem; }
+.growth-phase { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.5rem; }
+.growth-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.75rem; }
+.growth-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.6; margin-bottom: 1rem; }
+.growth-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.growth-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.5); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.growth-list li::before { content: '+'; color: var(--orange); flex-shrink: 0; }
+
+/* ONBOARDING */
+.onboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.onboard-card { background: var(--off); padding: 1.5rem; transition: background 0.15s; }
+.onboard-card:hover { background: #fff; }
+.onboard-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(8,17,42,0.06); line-height: 1; }
+.onboard-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.06em; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.1; }
+.onboard-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
+
+/* FOOTER */
+.footer { background: var(--navy); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 3px solid var(--orange); }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #fff; }
+.footer-logo span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.18); text-align: right; }
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem;} .cover-inner{padding:1.5rem;}
+  .purpose-grid,.icp-grid,.channel-body,.process-body{grid-template-columns:1fr;}
+  .tools-grid,.growth-grid{grid-template-columns:1fr;}
+  .qual-grid,.onboard-grid{grid-template-columns:repeat(2,1fr);}
+  .funnel-row{grid-template-columns:1fr;}
+  .meeting-step{grid-template-columns:1fr;}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Área 01 · Dono: Pedro</span>
+      </div>
+      <div class="cover-h1">
+        ÁREA
+        <span>COMERCIAL</span>
+      </div>
+      <span class="cover-h1-sub">DO LEAD AO FECHAMENTO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área comercial — processos, ferramentas, métricas, scripts e como a área evolui com o crescimento da Nexo.</p>
+      <div class="cover-stats">
+        <div class="cover-stat">
+          <span class="cover-stat-n">4</span>
+          <span class="cover-stat-l">Canais</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">6</span>
+          <span class="cover-stat-l">Etapas do funil</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">3</span>
+          <span class="cover-stat-l">Processos</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">8</span>
+          <span class="cover-stat-l">Métricas</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">7</span>
+          <span class="cover-stat-l">Dias — ciclo</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div><span class="cover-quote">"Vender certo é mais importante do que vender muito — o cliente errado compromete a entrega inteira."</span>
+      <span class="tag tag-dark">Pedro · Responsável</span>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">LEAD → QUALIFICAÇÃO → DIAGNÓSTICO → PROPOSTA → FECHAMENTO → PASSAGEM — O CICLO COMERCIAL DA NEXO.</span>
+</div>
+
+<!-- PURPOSE -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para que existe</div>
+    <h2 class="sec-h sec-h-w">PROPÓSITO<br>DA ÁREA</h2>
+    <p class="sec-d sec-d-w">O Comercial transforma interesse em receita — e faz isso de forma qualificada. Não é só vender. É vender certo.</p>
+    <div class="purpose-grid">
+      <div class="purpose-cell">
+        <div class="purpose-cell-h">O QUE ESSA ÁREA FAZ</div>
+        <ul class="purpose-list">
+          <li>Gera e capta leads pelos 4 canais — tráfego, indicação, prospecção e redes sociais</li>
+          <li>Qualifica os leads antes de avançar para reunião</li>
+          <li>Conduz o processo de diagnóstico e proposta</li>
+          <li>Fecha contratos e faz a passagem para o Customer Success</li>
+          <li>Acompanha os indicadores e ajusta o processo conforme os dados</li>
+        </ul>
+      </div>
+      <div class="purpose-cell">
+        <div class="purpose-cell-h">O QUE NÃO É RESPONSABILIDADE DESTA ÁREA</div>
+        <ul class="purpose-list">
+          <li>Executar a entrega — isso é Projetos e Customer Success</li>
+          <li>Criar conteúdo ou gerir redes sociais — isso é Marketing</li>
+          <li>Controlar o financeiro — isso é Financeiro</li>
+          <li>Garantir resultado do cliente após o fechamento — isso é CS</li>
+          <li>Tomar decisão sobre desconto acima de 10% sem consultar Filipe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- TOOLS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Indispensável para funcionar</div>
+    <h2 class="sec-h sec-h-d">FERRAMENTAS<br>E MATERIAIS</h2>
+    <p class="sec-d sec-d-d">O que precisa existir para o comercial operar com consistência — sem depender de memória ou improvisação.</p>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <span class="tool-tag">Ferramenta 01 · Obrigatório</span>
+        <div class="tool-name">CRM</div>
+        <p class="tool-desc">Todo lead precisa estar registrado. Sem CRM, não há visibilidade do funil, não há follow-up sistemático e não há dado para decidir.</p>
+        <span class="tool-suggestion">HubSpot Free ou RD Station</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Ferramenta 02 · Obrigatório</span>
+        <div class="tool-name">WHATSAPP BUSINESS</div>
+        <p class="tool-desc">Canal principal de contato com leads e clientes. Business permite etiquetas, respostas rápidas e separação do pessoal do profissional.</p>
+        <span class="tool-suggestion">WhatsApp Business — já disponível</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Ferramenta 03 · Obrigatório</span>
+        <div class="tool-name">CALENDÁRIO DE AGENDAMENTO</div>
+        <p class="tool-desc">Elimina o vai e vem de "que dia você pode?" — o lead escolhe o horário disponível diretamente. Profissionaliza a entrada no funil.</p>
+        <span class="tool-suggestion">Calendly — plano gratuito</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Ferramenta 04 · Obrigatório</span>
+        <div class="tool-name">CONTRATO DIGITAL</div>
+        <p class="tool-desc">Assinatura digital elimina fricção no fechamento. Contrato enviado e assinado no mesmo dia — sem imprimir, sem esperar.</p>
+        <span class="tool-suggestion">Contraktor ou DocuSign</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Material 01 · Obrigatório</span>
+        <div class="tool-name">TEMPLATE DE PROPOSTA</div>
+        <p class="tool-desc">Proposta padrão por produto — personalizada para cada cliente mas com estrutura fixada. Garante consistência e velocidade.</p>
+        <span class="tool-suggestion">Atualizar por produto trimestral</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Material 02 · Obrigatório</span>
+        <div class="tool-name">GUIA DE OBJEÇÕES</div>
+        <p class="tool-desc">As principais objeções por produto e como responder cada uma. Atualizado conforme os motivos de perda registrados no CRM.</p>
+        <span class="tool-suggestion">Atualizar mensalmente</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FUNNEL -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Estrutura do funil</div>
+    <h2 class="sec-h sec-h-w">AS 6 ETAPAS<br>DO FUNIL NEXO</h2>
+    <p class="sec-d sec-d-w">Todo lead precisa estar em uma etapa no CRM. Sem etapa definida, não existe acompanhamento.</p>
+    <div class="funnel-steps">
+      <div class="funnel-row">
+        <div class="funnel-stage"><div class="funnel-stage-name">LEAD</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Primeiro contato recebido ou gerado</div>
+          <div class="funnel-action">Registrar no CRM em até 24h após o contato</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">Contato em até 2h no horário comercial</div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-stage"><div class="funnel-stage-name">QUALIFICADO</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Lead passou pelos critérios de ICP</div>
+          <div class="funnel-action">Agendar reunião de diagnóstico</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">4 perguntas de qualificação antes de avançar</div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-stage"><div class="funnel-stage-name">REUNIÃO AGENDADA</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Data e horário confirmados com o lead</div>
+          <div class="funnel-action">Enviar material prévio do produto indicado</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">Material enviado com até 24h de antecedência</div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-stage"><div class="funnel-stage-name">PROPOSTA ENVIADA</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Proposta personalizada enviada após reunião</div>
+          <div class="funnel-action">Follow-up em 48h se não houver resposta</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">Proposta em até 3 dias após reunião</div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-stage"><div class="funnel-stage-name">NEGOCIAÇÃO</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Cliente tem dúvidas ou pediu ajuste</div>
+          <div class="funnel-action">Resolver e reapresentar em até 3 dias</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">Desconto acima de 10% consultar Filipe</div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-stage" style="background: rgba(232,90,26,0.2);"><div class="funnel-stage-name">FECHADO</div></div>
+        <div class="funnel-body">
+          <div class="funnel-meaning">Contrato assinado e pagamento confirmado</div>
+          <div class="funnel-action">Passagem para Customer Success em até 5 dias</div>
+        </div>
+        <div class="funnel-meta"><div class="funnel-meta-text">Onboarding iniciado em até 5 dias</div></div>
+      </div>
+      <div class="funnel-exit">
+        <div class="funnel-exit-cell">
+          <span class="funnel-exit-label">Saída</span>
+          <div class="funnel-exit-name">DESQUALIFICADO — sem perfil, sem budget ou sem momento. Registrar motivo.</div>
+        </div>
+        <div class="funnel-exit-cell">
+          <span class="funnel-exit-label">Saída</span>
+          <div class="funnel-exit-name">PERDIDO — tinha perfil mas não fechou. Registrar motivo obrigatoriamente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ICP -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Perfil de Cliente Ideal</div>
+    <h2 class="sec-h sec-h-d">ICP — COM QUEM<br>A NEXO TRABALHA</h2>
+    <p class="sec-d sec-d-d">O tempo do Pedro é limitado. Não vale avançar com todo lead que aparece. Qualificar antes de investir tempo é indispensável.</p>
+    <div class="icp-grid">
+      <div class="icp-card green">
+        <div class="icp-card-h">PERFIL PRIORITÁRIO — AVANÇAR</div>
+        <ul class="icp-list">
+          <li>Empresa com faturamento entre R$30K e R$500K/mês</li>
+          <li>Dono presente e tomador de decisão</li>
+          <li>Empresa com time — pelo menos 3 pessoas além do dono</li>
+          <li>Sente que cresceu mas ficou desorganizada</li>
+          <li>Quer estruturar para escalar, não resolver problema pontual</li>
+          <li>Tem orçamento ou perspectiva clara de ter</li>
+        </ul>
+      </div>
+      <div class="icp-card red">
+        <div class="icp-card-h">SINAIS DE DESQUALIFICAÇÃO — NÃO AVANÇAR</div>
+        <ul class="icp-list">
+          <li>Quer só uma entrega isolada sem interesse em processo</li>
+          <li>Não tem orçamento nem perspectiva de ter</li>
+          <li>Dono não quer se envolver — quer delegar completamente</li>
+          <li>Empresa muito no início sem operação rodando</li>
+          <li>Já tentou resolver sozinho várias vezes e não implementou nada</li>
+          <li>Não tem urgência — "estou só pesquisando"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- CHANNELS -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Geração de demanda</div>
+    <h2 class="sec-h sec-h-w">OS 4 CANAIS<br>E COMO CADA UM FUNCIONA</h2>
+    <p class="sec-d sec-d-w">Cada canal tem um padrão de abordagem diferente. O que funciona no tráfego não funciona na prospecção ativa.</p>
+
+    <div class="channel-block">
+      <div class="channel-header">
+        <span class="channel-num">01</span>
+        <div class="channel-title">TRÁFEGO PAGO</div>
+        <span class="tag tag-fill">Contato em até 2h</span>
+      </div>
+      <div class="channel-body">
+        <div class="channel-col">
+          <span class="channel-col-h">COMO FUNCIONA</span>
+          <p class="channel-info">Lead chega via anúncio → preenche formulário ou manda mensagem → entra no funil como Lead. Gestão do tráfego é do terceirizado — contato com o lead é de Pedro.</p>
+          <p class="channel-info">Regra: nunca agendar reunião sem qualificar primeiro. A pergunta de qualificação inicial filtra leads sem perfil antes de ocupar a agenda.</p>
+        </div>
+        <div class="channel-col">
+          <span class="channel-col-h">SCRIPT DE PRIMEIRO CONTATO</span>
+          <div class="channel-script">
+            <span class="channel-script-label">Mensagem de abertura</span>
+            <p class="channel-script-text">"Oi [nome], vi que você se interessou pela Nexo! Antes de agendarmos uma conversa, me conta rapidinho: qual é o maior desafio que você está enfrentando na empresa hoje?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-block">
+      <div class="channel-header">
+        <span class="channel-num">02</span>
+        <div class="channel-title">INDICAÇÃO</div>
+        <span class="tag tag-fill">Contato em até 4h</span>
+      </div>
+      <div class="channel-body">
+        <div class="channel-col">
+          <span class="channel-col-h">COMO FUNCIONA</span>
+          <p class="channel-info">Cliente ou parceiro indica → lead chega com contexto → maior taxa de conversão do funil. Menos qualificação necessária mas ainda imprescindível confirmar perfil e momento.</p>
+          <p class="channel-info">Sempre mencionar quem indicou. Tom mais direto e caloroso — esse lead já tem pré-disposição positiva.</p>
+        </div>
+        <div class="channel-col">
+          <span class="channel-col-h">SCRIPT DE PRIMEIRO CONTATO</span>
+          <div class="channel-script">
+            <span class="channel-script-label">Mensagem de abertura</span>
+            <p class="channel-script-text">"Oi [nome], o [quem indicou] me passou seu contato. Já te contextualizou um pouco sobre o que a gente faz? Quero entender melhor o momento da sua empresa para ver como podemos ajudar."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-block">
+      <div class="channel-header">
+        <span class="channel-num">03</span>
+        <div class="channel-title">PROSPECÇÃO ATIVA</div>
+        <span class="tag tag-fill">Meta: 10 por semana</span>
+      </div>
+      <div class="channel-body">
+        <div class="channel-col">
+          <span class="channel-col-h">COMO FUNCIONA</span>
+          <p class="channel-info">Pedro ou SDR identifica lead qualificado → abordagem direta via WhatsApp ou LinkedIn → objetivo único: agendar reunião de diagnóstico. Não tentar vender na abordagem.</p>
+          <p class="channel-info">Personalização é obrigatória — mencionar algo específico da empresa ou do dono. Mensagem genérica tem taxa de resposta próxima de zero.</p>
+        </div>
+        <div class="channel-col">
+          <span class="channel-col-h">SCRIPT DE PROSPECÇÃO ATIVA</span>
+          <div class="channel-script">
+            <span class="channel-script-label">Mensagem de abertura</span>
+            <p class="channel-script-text">"Oi [nome], te acompanho pelo [Instagram/LinkedIn] e vi que você está [contexto específico]. A gente na Nexo ajuda empresas como a sua a [resultado relevante]. Faz sentido conversarmos 20 minutos?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-block">
+      <div class="channel-header">
+        <span class="channel-num">04</span>
+        <div class="channel-title">REDES SOCIAIS</div>
+        <span class="tag tag-fill">Contato em até 2h</span>
+      </div>
+      <div class="channel-body">
+        <div class="channel-col">
+          <span class="channel-col-h">COMO FUNCIONA</span>
+          <p class="channel-info">Lead manda mensagem no direct ou nos comentários → Pedro responde e move para WhatsApp → entra no funil como Lead para qualificação.</p>
+          <p class="channel-info">Regra absoluta: nunca tentar vender no direct. Objetivo é sempre mover para WhatsApp onde a conversa pode ser conduzida com mais controle.</p>
+        </div>
+        <div class="channel-col">
+          <span class="channel-col-h">SCRIPT DE RESPOSTA NO DIRECT</span>
+          <div class="channel-script">
+            <span class="channel-script-label">Mensagem de abertura</span>
+            <p class="channel-script-text">"Oi [nome]! Que bom que chegou até a gente. Para a gente conseguir te ajudar de verdade, prefiro continuar essa conversa pelo WhatsApp — [número]. Me chama lá!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- QUALIFICATION -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Qualificação</div>
+    <h2 class="sec-h sec-h-d">AS 4 PERGUNTAS<br>DE QUALIFICAÇÃO</h2>
+    <p class="sec-d sec-d-d">Antes de agendar qualquer reunião Pedro faz as 4 perguntas abaixo. Pode ser via WhatsApp em tom de conversa — não é formulário.</p>
+    <div class="qual-grid">
+      <div class="qual-card">
+        <div class="qual-n">01</div>
+        <span class="qual-label">Dor</span>
+        <div class="qual-q">QUAL O MAIOR DESAFIO DA EMPRESA HOJE?</div>
+        <p class="qual-why">Identifica se existe uma dor real e qual é. Lead sem dor clara não tem motivo para comprar agora.</p>
+      </div>
+      <div class="qual-card">
+        <div class="qual-n">02</div>
+        <span class="qual-label">Tempo</span>
+        <div class="qual-q">HÁ QUANTO TEMPO VOCÊ ESTÁ COM ESSE PROBLEMA?</div>
+        <p class="qual-why">Mede o nível de urgência. Problema antigo sem solução indica maior probabilidade de ação — ou resistência a mudança.</p>
+      </div>
+      <div class="qual-card">
+        <div class="qual-n">03</div>
+        <span class="qual-label">Tentativa</span>
+        <div class="qual-q">VOCÊ JÁ TENTOU RESOLVER DE ALGUMA FORMA?</div>
+        <p class="qual-why">Mostra maturidade do lead e o que já foi tentado. Evita propor algo que ele já descartou e contextualiza a conversa.</p>
+      </div>
+      <div class="qual-card">
+        <div class="qual-n">04</div>
+        <span class="qual-label">Momento</span>
+        <div class="qual-q">VOCÊ BUSCA UMA SOLUÇÃO AGORA OU AINDA ESTÁ PESQUISANDO?</div>
+        <p class="qual-why">Separa quem vai decidir agora de quem está só coletando informação. Define urgência e prioridade no pipeline.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- MEETING -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Processo principal</div>
+    <h2 class="sec-h sec-h-w">REUNIÃO DE<br>DIAGNÓSTICO</h2>
+    <p class="sec-d sec-d-w">A reunião mais importante do processo. Não é apresentação da Nexo — é diagnóstico do cliente. Quem fala mais é o cliente.</p>
+    <div class="meeting-timeline">
+      <div class="meeting-step">
+        <div class="meeting-time"><span class="meeting-min">10</span><span class="meeting-unit">min</span></div>
+        <div class="meeting-body">
+          <div class="meeting-title">ABERTURA E CONTEXTO</div>
+          <p class="meeting-desc">Contexto do cliente — o que ele faz, onde está hoje, o que o trouxe até a Nexo. Pedro ouve mais do que fala. O objetivo é entender antes de qualquer coisa.</p>
+        </div>
+      </div>
+      <div class="meeting-step">
+        <div class="meeting-time"><span class="meeting-min">20</span><span class="meeting-unit">min</span></div>
+        <div class="meeting-body">
+          <div class="meeting-title">DIAGNÓSTICO — PERGUNTAS SOBRE AS FRENTES</div>
+          <p class="meeting-desc">Pedro faz perguntas sobre as 6 dimensões Nexo — comercial, entrega, operação, pessoas, gestão e negócio. Identifica onde estão os maiores gargalos. Usa o Assessment como referência mas conduz como conversa, não questionário.</p>
+        </div>
+      </div>
+      <div class="meeting-step">
+        <div class="meeting-time"><span class="meeting-min">15</span><span class="meeting-unit">min</span></div>
+        <div class="meeting-body">
+          <div class="meeting-title">APRESENTAÇÃO DA SOLUÇÃO</div>
+          <p class="meeting-desc">Com base no diagnóstico, Pedro apresenta qual produto faz sentido e por quê para aquele caso específico. Conecta as dores identificadas com os entregáveis. Não apresenta todos os produtos — só o que é relevante para aquele cliente.</p>
+        </div>
+      </div>
+      <div class="meeting-step">
+        <div class="meeting-time"><span class="meeting-min">5</span><span class="meeting-unit">min</span></div>
+        <div class="meeting-body">
+          <div class="meeting-title">PRÓXIMOS PASSOS</div>
+          <p class="meeting-desc">Pedro define o que vem a seguir: proposta enviada em até 3 dias, follow-up agendado. O cliente sai sabendo exatamente o que acontece depois — sem ficar no ar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PROCESSES -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Processos da área</div>
+    <h2 class="sec-h sec-h-d">OS 3 PROCESSOS<br>DO COMERCIAL</h2>
+    <p class="sec-d sec-d-d">Cada processo tem gatilho, responsável, passo a passo e indicador. Documentado para que qualquer pessoa consiga executar.</p>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div>
+          <div class="process-num">Processo 01 · Comercial</div>
+          <div class="process-title">PROSPECÇÃO E QUALIFICAÇÃO</div>
+        </div>
+        <span class="tag tag-fill">Dono: Pedro</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO E RESPONSÁVEL</span>
+          <p class="process-text">Identificação de lead qualificado em qualquer canal</p>
+          <br>
+          <p class="process-text">Responsável: Pedro</p>
+          <span class="process-highlight">Prazo: contato em até 24h</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">PASSO A PASSO</span>
+          <ul class="process-steps">
+            <li>Pesquisa do lead — contexto antes de contatar</li>
+            <li>Primeiro contato via canal de origem</li>
+            <li>4 perguntas de qualificação via WhatsApp</li>
+            <li>Decisão: qualificar e agendar ou desqualificar</li>
+            <li>Registro no CRM com status e próximo passo</li>
+            <li>Agendamento da reunião de diagnóstico</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">CRITÉRIO E INDICADOR</span>
+          <p class="process-text">Critério de qualidade: lead respondeu às perguntas de qualificação e reunião foi agendada</p>
+          <br>
+          <p class="process-text">Indicador: taxa de resposta ao primeiro contato + taxa de qualificação</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div>
+          <div class="process-num">Processo 02 · Comercial</div>
+          <div class="process-title">PROPOSTA E NEGOCIAÇÃO</div>
+        </div>
+        <span class="tag tag-fill">Dono: Pedro</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO E RESPONSÁVEL</span>
+          <p class="process-text">Reunião de diagnóstico realizada</p>
+          <br>
+          <p class="process-text">Responsável: Pedro</p>
+          <span class="process-highlight">Prazo: proposta em até 3 dias</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">PASSO A PASSO</span>
+          <ul class="process-steps">
+            <li>Análise do que foi levantado no diagnóstico</li>
+            <li>Montagem da proposta personalizada</li>
+            <li>Revisão interna antes do envio</li>
+            <li>Envio da proposta com contexto por escrito</li>
+            <li>Follow-up em 48h se sem resposta</li>
+            <li>5 dias: ligação ou áudio</li>
+            <li>10 dias: último contato formal</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">CRITÉRIO E INDICADOR</span>
+          <p class="process-text">Critério de qualidade: proposta personalizada, não genérica — mostra que ouviu</p>
+          <br>
+          <p class="process-text">Regra de desconto: máximo 10% sem consultar Filipe. Nunca sem contrapartida.</p>
+          <br>
+          <p class="process-text">Indicador: taxa de conversão proposta → fechamento</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div>
+          <div class="process-num">Processo 03 · Comercial</div>
+          <div class="process-title">FECHAMENTO E PASSAGEM</div>
+        </div>
+        <span class="tag tag-fill">Pedro fecha · Filipe recebe</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO E RESPONSÁVEL</span>
+          <p class="process-text">Cliente aceitou a proposta</p>
+          <br>
+          <p class="process-text">Pedro: fechamento e contrato</p>
+          <p class="process-text">Filipe: recebe e inicia onboarding</p>
+          <span class="process-highlight">Prazo: onboarding em até 5 dias</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">PASSO A PASSO</span>
+          <ul class="process-steps">
+            <li>Contrato enviado para assinatura digital</li>
+            <li>Pagamento confirmado — ou primeira parcela</li>
+            <li>Cliente adicionado ao grupo de WhatsApp</li>
+            <li>Alinhamento interno — Pedro passa contexto para Filipe</li>
+            <li>Mensagem de boas-vindas ao cliente</li>
+            <li>Passagem formal para Customer Success</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">O QUE PEDRO PASSA PARA FILIPE</span>
+          <ul class="process-steps">
+            <li>Nome, empresa e contato do cliente</li>
+            <li>Produto contratado e valor</li>
+            <li>Principais dores e expectativas levantadas</li>
+            <li>Qualquer promessa feita durante a venda</li>
+            <li>Nível de urgência e perfil do dono</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- METRICS -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Indicadores</div>
+    <h2 class="sec-h sec-h-w">MÉTRICAS DA<br>ÁREA COMERCIAL</h2>
+    <p class="sec-d sec-d-w">O que Pedro acompanha toda semana. Sem dado, não há decisão — sem decisão, não há melhoria.</p>
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>O que mede</th>
+          <th>Meta de referência</th>
+          <th>Frequência</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric-name">Leads gerados</td>
+          <td>Volume de novos leads no funil</td>
+          <td class="metric-target">Definir meta mensal</td>
+          <td>Semanal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Taxa de qualificação</td>
+          <td>Leads qualificados / leads totais</td>
+          <td class="metric-target">Acima de 40%</td>
+          <td>Semanal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Taxa de reunião</td>
+          <td>Reuniões realizadas / leads qualificados</td>
+          <td class="metric-target">Acima de 60%</td>
+          <td>Semanal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Taxa de proposta</td>
+          <td>Propostas enviadas / reuniões realizadas</td>
+          <td class="metric-target">Acima de 80%</td>
+          <td>Semanal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Taxa de fechamento</td>
+          <td>Fechamentos / propostas enviadas</td>
+          <td class="metric-target">Acima de 30%</td>
+          <td>Semanal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Ciclo de vendas</td>
+          <td>Dias do primeiro contato ao fechamento</td>
+          <td class="metric-target">Abaixo de 10 dias</td>
+          <td>Mensal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Ticket médio</td>
+          <td>Receita total / número de fechamentos</td>
+          <td class="metric-target">Acompanhar evolução</td>
+          <td>Mensal</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Motivos de perda</td>
+          <td>Por que os leads não fecham</td>
+          <td class="metric-target">Registrar 100% dos perdidos</td>
+          <td>Sempre</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Evolução da área</div>
+    <h2 class="sec-h sec-h-d">COMO O COMERCIAL<br>CRESCE COM A NEXO</h2>
+    <p class="sec-d sec-d-d">O comercial de hoje funciona com Pedro fazendo tudo. Conforme a empresa cresce, a área evolui em etapas — cada contratação tem um gatilho claro.</p>
+    <div class="growth-grid">
+      <div class="growth-card">
+        <span class="growth-phase">Hoje · Fase Atual</span>
+        <div class="growth-title">SÓ PEDRO</div>
+        <p class="growth-desc">Pedro faz tudo — prospecção, qualificação, reunião, proposta e fechamento. Funciona para o volume atual.</p>
+        <ul class="growth-list">
+          <li>Pedro conduz todo o funil</li>
+          <li>CRM implementado e rodando</li>
+          <li>Scripts e materiais padronizados</li>
+          <li>Indicadores acompanhados semanalmente</li>
+        </ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Próximo passo · Quando leads aumentarem</span>
+        <div class="growth-title">PEDRO + SDR</div>
+        <p class="growth-desc">SDR assume prospecção ativa e qualificação inicial. Pedro se concentra em reuniões e fechamentos — as partes de maior valor.</p>
+        <ul class="growth-list">
+          <li>SDR faz prospecção ativa — 10+/semana</li>
+          <li>SDR qualifica e passa leads prontos para Pedro</li>
+          <li>Pedro só faz reunião, proposta e fechamento</li>
+          <li>Dobra a capacidade sem dobrar o esforço de Pedro</li>
+        </ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Fase seguinte · Carteira grande</span>
+        <div class="growth-title">PEDRO + SDR + CLOSER</div>
+        <p class="growth-desc">Com carteira grande e Pedro concentrado em gestão, um closer assume as reuniões e propostas. Pedro vira gestor comercial.</p>
+        <ul class="growth-list">
+          <li>Pedro gere a área e define estratégia</li>
+          <li>Closer conduz reuniões e propostas</li>
+          <li>SDR alimenta o topo do funil</li>
+          <li>Área opera sem depender do Pedro executor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-w">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-w">Todo colaborador que entrar no comercial precisa dominar esses 8 pontos antes de operar sozinho.</p>
+    <div class="onboard-grid">
+      <div class="onboard-card">
+        <div class="onboard-n">01</div>
+        <div class="onboard-title">O ICP DA NEXO</div>
+        <p class="onboard-desc">Quem é o cliente ideal e quem não é — sem isso, nenhuma qualificação funciona.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">02</div>
+        <div class="onboard-title">OS PRODUTOS</div>
+        <p class="onboard-desc">O que é cada produto, para quem é indicado e qual o diferencial de cada um.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">03</div>
+        <div class="onboard-title">O FUNIL NO CRM</div>
+        <p class="onboard-desc">Como registrar cada etapa, quando avançar e o que preencher obrigatoriamente.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">04</div>
+        <div class="onboard-title">SCRIPTS POR CANAL</div>
+        <p class="onboard-desc">Abordagem de tráfego, indicação, prospecção ativa e redes sociais — cada canal tem seu padrão.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">05</div>
+        <div class="onboard-title">QUALIFICAÇÃO</div>
+        <p class="onboard-desc">As 4 perguntas, os critérios para avançar e o que fazer quando o lead não qualifica.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">06</div>
+        <div class="onboard-title">REUNIÃO DE DIAGNÓSTICO</div>
+        <p class="onboard-desc">Estrutura da reunião, o que perguntar, como apresentar a solução e como definir próximos passos.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">07</div>
+        <div class="onboard-title">REGRAS DE DESCONTO</div>
+        <p class="onboard-desc">Máximo 10% sem consultar Filipe. Nunca sem contrapartida. Palavra final de Pedro.</p>
+      </div>
+      <div class="onboard-card">
+        <div class="onboard-n">08</div>
+        <div class="onboard-title">PASSAGEM PARA CS</div>
+        <p class="onboard-desc">Como fazer o handoff para o Customer Success — o que passar, quando e como.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Manual de Área · Comercial · Dono: Pedro<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>

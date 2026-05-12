@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form de Qualificação — Diagnóstico Nexo · Estratégia 03</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --orange: #E85A1A;
+  --orange-dim: #C44A10;
+  --navy: #08112A;
+  --navy-mid: #0F1E40;
+  --navy-light: #162D5E;
+  --off: #F0EDE6;
+  --gray: #C8C4BB;
+  --gray-dark: #3A3530;
+  --muted: #7A7570;
+  --white: #ffffff;
+  --green: #27AE60;
+  --yellow: #F39C12;
+  --red: #C0392B;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 600;
+  background: var(--navy);
+  color: var(--white);
+  line-height: 1.4;
+}
+
+/* HEADER */
+.doc-header { background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,.06); position: sticky; top: 0; z-index: 100; }
+.doc-header-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.doc-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+.doc-brand-name span { color: var(--orange); }
+.sep-line { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, transparent 100%); }
+.tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; border: 1.5px solid var(--orange); color: var(--orange); }
+.tag-dim { border-color: rgba(255,255,255,.15); color: rgba(255,255,255,.35); }
+.tag-green { background: var(--green); color: var(--white); border-color: var(--green); }
+.tag-yellow { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+.tag-red { background: var(--red); color: var(--white); border-color: var(--red); }
+
+/* COVER */
+.cover { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; padding: 70px 32px; max-width: 960px; margin: 0 auto; position: relative; }
+.cover::before { content: ''; position: fixed; top: 0; right: 0; width: 40%; height: 100vh; background: var(--orange); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.05; pointer-events: none; z-index: 0; }
+.cover-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.cover-eyebrow-line { width: 40px; height: 2px; background: var(--orange); }
+.cover-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+.cover-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 9vw, 7rem); line-height: 0.88; letter-spacing: 0.03em; color: var(--white); margin-bottom: 8px; position: relative; z-index: 1; }
+.cover-h1 em { color: var(--orange); font-style: normal; display: block; }
+.cover-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 0.1em; color: rgba(255,255,255,.2); margin-bottom: 32px; display: block; }
+.cover-bar { width: 60px; height: 3px; background: var(--orange); margin-bottom: 24px; }
+.cover-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.4); max-width: 620px; line-height: 1.65; margin-bottom: 40px; position: relative; z-index: 1; }
+.cover-stats { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; position: relative; z-index: 1; }
+.cover-stat { flex: 1; min-width: 100px; padding: 16px 20px; border-right: 1px solid rgba(255,255,255,.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-top: 3px; display: block; }
+
+/* SECTIONS */
+.section { padding: 64px 0 0; }
+.section-inner { max-width: 960px; margin: 0 auto; padding: 0 32px 64px; }
+.section-dark { background: var(--navy); }
+.section-mid { background: var(--navy-mid); }
+.section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.section-label::before { content: ''; display: block; width: 26px; height: 2px; background: var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 10px; color: var(--white); }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; max-width: 620px; line-height: 1.65; margin-bottom: 32px; color: rgba(255,255,255,.32); }
+.h-sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, transparent 100%); }
+
+/* OBJECTIVE BLOCK */
+.objective-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: rgba(255,255,255,.04); border-radius: 3px; overflow: hidden; }
+.objective-card { background: rgba(255,255,255,.025); padding: 22px 18px; border-top: 3px solid var(--orange); }
+.objective-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 5px; }
+.objective-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: var(--white); margin-bottom: 6px; line-height: 1.1; }
+.objective-divider { height: 1px; background: rgba(255,255,255,.06); margin: 10px 0; }
+.item-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.item-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.5); display: flex; align-items: flex-start; gap: 6px; line-height: 1.45; }
+.item-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.72rem; margin-top: 1px; }
+
+/* FORM PREVIEW (visual mockup) */
+.form-mockup { background: var(--off); border-radius: 4px; padding: 32px; color: var(--gray-dark); }
+.form-mockup-header { border-bottom: 2px solid var(--orange); padding-bottom: 16px; margin-bottom: 24px; }
+.form-mockup-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--navy); line-height: 1.05; margin-bottom: 6px; }
+.form-mockup-sub { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.form-intro { background: rgba(232,90,26,.06); border-left: 3px solid var(--orange); padding: 14px 16px; margin-bottom: 24px; border-radius: 0 3px 3px 0; }
+.form-intro-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 6px; }
+.form-intro-text { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--gray-dark); line-height: 1.55; }
+.form-intro-bullets { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.form-intro-bullets li { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.8rem; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 6px; }
+.form-intro-bullets li::before { content: '•'; color: var(--orange); font-weight: 900; }
+
+.form-block { margin-bottom: 20px; }
+.form-block-label { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--navy); margin-bottom: 8px; display: block; }
+.form-block-label .req { color: var(--orange); }
+.form-block-hint { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.74rem; color: var(--muted); margin-bottom: 8px; display: block; font-style: italic; }
+.form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--gray); background: var(--white); border-radius: 3px; font-family: 'Barlow', sans-serif; font-size: 0.88rem; color: var(--gray-dark); }
+.form-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--gray); background: var(--white); border-radius: 3px; font-family: 'Barlow', sans-serif; font-size: 0.88rem; color: var(--muted); min-height: 70px; resize: none; }
+.form-options { display: flex; flex-direction: column; gap: 6px; }
+.form-option { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: var(--white); border: 1px solid var(--gray); border-radius: 3px; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.84rem; color: var(--gray-dark); }
+.form-radio { width: 14px; height: 14px; border: 2px solid var(--gray); border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+.form-checkbox { width: 14px; height: 14px; border: 2px solid var(--gray); border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+
+.form-section-header { display: flex; align-items: center; gap: 10px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--gray); }
+.form-section-n { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--orange); line-height: 1; }
+.form-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.04em; color: var(--navy); }
+.form-section-sub { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.74rem; color: var(--muted); margin-left: auto; font-style: italic; }
+
+/* LOGIC/SCORING */
+.logic-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; background: rgba(255,255,255,.04); border-radius: 3px; overflow: hidden; }
+.logic-card { background: rgba(255,255,255,.025); padding: 22px 18px; border-top: 3px solid var(--orange); }
+.logic-card.green { border-top-color: var(--green); }
+.logic-card.yellow { border-top-color: var(--yellow); }
+.logic-card.red { border-top-color: var(--red); }
+.logic-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 5px; }
+.logic-card.green .logic-tag { color: var(--green); }
+.logic-card.yellow .logic-tag { color: var(--yellow); }
+.logic-card.red .logic-tag { color: #ff7259; }
+.logic-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 4px; }
+.logic-score { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--orange); line-height: 1; margin: 8px 0; }
+.logic-card.green .logic-score { color: var(--green); }
+.logic-card.yellow .logic-score { color: var(--yellow); }
+.logic-card.red .logic-score { color: #ff7259; }
+.logic-divider { height: 1px; background: rgba(255,255,255,.06); margin: 10px 0; }
+
+/* PRODUCT MAPPING TABLE */
+.data-table { width: 100%; border-collapse: collapse; border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.data-table thead { background: var(--navy); color: var(--white); }
+.data-table th { padding: 12px 14px; text-align: left; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); }
+.data-table td { padding: 10px 14px; border-top: 1px solid var(--gray); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-dark); background: var(--off); }
+.data-table tr:nth-child(even) td { background: #fff; }
+.data-table .td-prod { color: var(--orange); font-weight: 900; }
+.data-table .td-est { color: var(--navy); }
+
+/* NOTE BOX */
+.note-box { background: rgba(232,90,26,.07); border: 1px solid rgba(232,90,26,.22); border-radius: 3px; padding: 18px 20px; margin-top: 20px; }
+.note-box.pending { background: rgba(243,156,18,.06); border-color: rgba(243,156,18,.25); }
+.note-box.success { background: rgba(39,174,96,.06); border-color: rgba(39,174,96,.25); }
+.note-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 6px; }
+.note-box.pending .note-label { color: var(--yellow); }
+.note-box.success .note-label { color: var(--green); }
+.note-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.5); line-height: 1.65; }
+
+/* FOOTER */
+.doc-footer { background: var(--navy-mid); border-top: 3px solid var(--orange); padding: 24px 32px; }
+.doc-footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; color: var(--white); }
+.footer-brand span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.2); text-align: right; }
+.footer-lema { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.15); }
+
+@media(max-width:768px){
+  .cover, .section-inner { padding: 48px 20px; }
+  .doc-header-inner { padding: 0 20px; }
+  .doc-footer { padding: 20px; }
+  .objective-grid, .logic-grid { grid-template-columns: 1fr; }
+  .form-mockup { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY HEADER -->
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <div class="doc-brand-name">NEXO <span>Estratégia</span></div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <span class="tag tag-dim">Form de Qualificação · Estratégia 03</span>
+    </div>
+  </div>
+</div>
+<div class="sep-line"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">
+    <div class="cover-eyebrow-line"></div>
+    <span class="cover-eyebrow-text">Diagnóstico Estratégico · Pré-Call Inteligência · 2026</span>
+  </div>
+
+  <h1 class="cover-h1">
+    FORM DE
+    <em>QUALIFICAÇÃO</em>
+  </h1>
+  <span class="cover-sub">PARA O DIAGNÓSTICO GRATUITO NEXO</span>
+  <div class="cover-bar"></div>
+  <p class="cover-desc">Formulário de pré-call para a Estratégia 03 do Briefing de Tráfego Pago. Estrutura adaptada do modelo Pedro Germano e reorganizada para o portfólio da Nexo. Todo lead que completa agenda automaticamente — o objetivo é gerar inteligência para o consultor sênior chegar na reunião sabendo o produto certo para pitchar.</p>
+
+  <div class="cover-stats">
+    <div class="cover-stat"><span class="cover-stat-n">15</span><span class="cover-stat-l">Perguntas</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">4</span><span class="cover-stat-l">Blocos</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">6</span><span class="cover-stat-l">Dimensões</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">A · B · C</span><span class="cover-stat-l">Classificação</span></div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- SEÇÃO — OBJETIVOS DO FORM -->
+<div class="section section-mid">
+  <div class="section-inner">
+    <div class="section-label">Por Que Esse Form Funciona</div>
+    <h2 class="sec-h">FUNÇÃO ESTRATÉGICA<br>DO FORMULÁRIO</h2>
+    <p class="sec-d">Como ninguém é eliminado, o form deixa de ser filtro e passa a ser inteligência de pré-call. Cada resposta vira munição para o consultor sênior conduzir a reunião com ângulo correto e oferta certa.</p>
+
+    <div class="objective-grid">
+      <div class="objective-card">
+        <span class="objective-tag">O Que o Form Entrega ao Consultor</span>
+        <div class="objective-h">INTELIGÊNCIA DE PRÉ-CALL</div>
+        <div class="objective-divider"></div>
+        <ul class="item-list">
+          <li>Perfil completo da empresa antes da reunião</li>
+          <li>Classificação automática A · B · C por critérios objetivos</li>
+          <li>Produto indicado já sugerido pelas respostas</li>
+          <li>Principais dores mapeadas para o pitch</li>
+          <li>Nível de prontidão para tomar decisão</li>
+        </ul>
+      </div>
+      <div class="objective-card">
+        <span class="objective-tag">O Que o Form Entrega ao Lead</span>
+        <div class="objective-h">COMPROMETIMENTO E EXPECTATIVA</div>
+        <div class="objective-divider"></div>
+        <ul class="item-list">
+          <li>Tempo investido aumenta show rate da reunião</li>
+          <li>Lead já entende que a Nexo é estratégica · não rasa</li>
+          <li>Sinaliza o que será conversado · evita expectativa errada</li>
+          <li>Cria compromisso emocional antes do agendamento</li>
+          <li>Filtra curioso de comprador real pelo próprio esforço</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- SEÇÃO — O FORMULÁRIO -->
+<div class="section section-dark">
+  <div class="section-inner">
+    <div class="section-label">O Formulário · Versão Final</div>
+    <h2 class="sec-h">PLANO DE AÇÃO<br>GRATUITO · NEXO</h2>
+    <p class="sec-d">Preview de como o form aparece para o lead. As 15 perguntas estão organizadas em 4 blocos lógicos — do menos invasivo ao mais estratégico — para reduzir abandono e maximizar qualidade da resposta. O bloco de contexto usa as 6 dimensões do método Nexo · alinhando o lead ao framework já no primeiro contato.</p>
+
+    <!-- FORM MOCKUP -->
+    <div class="form-mockup">
+
+      <div class="form-mockup-header">
+        <h3 class="form-mockup-title">DIAGNÓSTICO ESTRATÉGICO GRATUITO — NEXO ESTRATÉGIA</h3>
+        <p class="form-mockup-sub">Plano de Ação para destravar sua empresa · Conduzido por consultor sênior da Nexo · Reunião de 45 minutos</p>
+      </div>
+
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos ver na sua sessão</span>
+        <p class="form-intro-text">Sua sessão é um diagnóstico estratégico · não uma reunião comercial disfarçada. Você sai com clareza · independentemente de fechar com a gente.</p>
+        <ul class="form-intro-bullets">
+          <li>Onde sua empresa está hoje e o que está travando o crescimento</li>
+          <li>Os 3 gargalos principais que limitam seu faturamento agora</li>
+          <li>Um plano de ação prático para os próximos 90 dias</li>
+          <li>Como o Método Nexo se aplica ao seu momento — se fizer sentido</li>
+        </ul>
+      </div>
+
+      <!-- BLOCO 1 -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">IDENTIFICAÇÃO</span>
+        <span class="form-section-sub">Quem é você — perguntas leves de entrada</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Nome completo <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="Seu nome">
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">E-mail <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="seuemail@empresa.com.br">
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">WhatsApp com DDD <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="(00) 00000-0000">
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual o nome da sua empresa? <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="Nome da empresa">
+      </div>
+
+      <!-- BLOCO 2 -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">SOBRE O NEGÓCIO</span>
+        <span class="form-section-sub">Dados objetivos — alimentam a classificação A · B · C</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual o segmento de atuação da empresa? <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="Ex: indústria, varejo, prestação de serviço, e-commerce, B2B…">
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Há quanto tempo a empresa existe? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Menos de 1 ano</div>
+          <div class="form-option"><div class="form-radio"></div>De 1 a 3 anos</div>
+          <div class="form-option"><div class="form-radio"></div>De 3 a 7 anos</div>
+          <div class="form-option"><div class="form-radio"></div>Mais de 7 anos</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual o faturamento médio mensal hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Ainda não fatura ou abaixo de R$10 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$10 mil a R$30 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$30 mil a R$100 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$100 mil a R$500 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>Acima de R$500 mil/mês</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quantas pessoas trabalham na empresa hoje · incluindo você? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sou só eu</div>
+          <div class="form-option"><div class="form-radio"></div>De 2 a 5 pessoas</div>
+          <div class="form-option"><div class="form-radio"></div>De 6 a 15 pessoas</div>
+          <div class="form-option"><div class="form-radio"></div>De 16 a 50 pessoas</div>
+          <div class="form-option"><div class="form-radio"></div>Mais de 50 pessoas</div>
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO E DOR</span>
+        <span class="form-section-sub">O que o consultor vai usar para o pitch personalizado</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual cenário melhor representa sua empresa hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Empresa cresceu mas ficou desorganizada · tudo passa por mim</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho time mas o comercial é inconsistente · vendas dependem de mim</div>
+          <div class="form-option"><div class="form-radio"></div>Estou começando ou reestruturando o negócio agora</div>
+          <div class="form-option"><div class="form-radio"></div>Fatura bem mas não sei quanto sobra de verdade · sem clareza financeira</div>
+          <div class="form-option"><div class="form-radio"></div>Quero escalar mas não consigo delegar · empresa para quando eu paro</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Em qual dimensão da sua empresa você sente o maior problema hoje? <span class="req">*</span></label>
+        <span class="form-block-hint">Selecione a dimensão que mais está travando seu crescimento agora</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div><strong>Negócio</strong> — modelo · posicionamento · proposta de valor · precificação · diferenciação</div>
+          <div class="form-option"><div class="form-radio"></div><strong>Comercial</strong> — processo de vendas · qualificação · funil · scripts · previsibilidade de receita</div>
+          <div class="form-option"><div class="form-radio"></div><strong>Entrega</strong> — jornada do cliente · padrão de processo · pós-venda · recompra</div>
+          <div class="form-option"><div class="form-radio"></div><strong>Operação</strong> — processos internos · comunicação entre setores · retrabalho · autonomia</div>
+          <div class="form-option"><div class="form-radio"></div><strong>Pessoas</strong> — cultura · alinhamento do time · contratação · performance · desenvolvimento</div>
+          <div class="form-option"><div class="form-radio"></div><strong>Gestão</strong> — ritos · dashboard de indicadores · tomada de decisão · visão e metas</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Conte um pouco mais sobre esse problema <span class="req">*</span></label>
+        <span class="form-block-hint">Quanto mais detalhe · mais preparado o consultor chega na sua sessão</span>
+        <div class="form-textarea">Resposta aberta · mínimo 30 caracteres</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você é o único tomador de decisão? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · decisão é só minha</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho sócio · decidimos juntos</div>
+          <div class="form-option"><div class="form-radio"></div>Preciso validar com terceiros antes de decidir</div>
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <div class="form-section-header">
+        <span class="form-section-n">04</span>
+        <span class="form-section-title">PRONTIDÃO</span>
+        <span class="form-section-sub">Mede temperatura · não filtra · gera inteligência</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual seu nível de urgência para resolver isso? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Preciso resolver agora · está doendo</div>
+          <div class="form-option"><div class="form-radio"></div>Quero resolver nos próximos 3 meses</div>
+          <div class="form-option"><div class="form-radio"></div>Estou planejando para o segundo semestre</div>
+          <div class="form-option"><div class="form-radio"></div>Ainda estou só me informando</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual é o seu orçamento disponível para investir na sua empresa atualmente? <span class="req">*</span></label>
+        <span class="form-block-hint">Resposta não compromete contratação · só ajuda a indicar o caminho certo</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Não tenho previsão de investir agora</div>
+          <div class="form-option"><div class="form-radio"></div>Até R$1.500 — produto pontual</div>
+          <div class="form-option"><div class="form-radio"></div>De R$3 mil a R$8 mil — projeto inicial</div>
+          <div class="form-option"><div class="form-radio"></div>De R$8 mil a R$15 mil — projeto completo</div>
+          <div class="form-option"><div class="form-radio"></div>Acima de R$15 mil — operação estruturada</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você tem interesse em um acompanhamento personalizado da Nexo para ajudar no desenvolvimento do seu time e empresa? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · quero entender como funciona</div>
+          <div class="form-option"><div class="form-radio"></div>Talvez · depende do que vier no diagnóstico</div>
+          <div class="form-option"><div class="form-radio"></div>Não · só quero o diagnóstico por enquanto</div>
+        </div>
+      </div>
+
+      <div class="form-block" style="margin-top:32px; padding-top:20px; border-top:2px solid var(--orange);">
+        <label class="form-block-label" style="font-size:1rem;">Pronto · escolha agora o melhor horário para sua sessão</label>
+        <span class="form-block-hint">Calendário de horários disponíveis com o consultor sênior · agendamento automático</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- SEÇÃO — CLASSIFICAÇÃO AUTOMÁTICA -->
+<div class="section section-mid">
+  <div class="section-inner">
+    <div class="section-label">Lógica de Classificação</div>
+    <h2 class="sec-h">CLASSIFICAÇÃO<br>AUTOMÁTICA A · B · C</h2>
+    <p class="sec-d">O form gera uma pontuação automática que classifica o lead em 3 níveis. O consultor sênior recebe essa classificação por e-mail antes da reunião e prioriza preparação conforme o nível.</p>
+
+    <div class="logic-grid">
+      <div class="logic-card green">
+        <span class="logic-tag">Lead Quente · Pronto para Fechar</span>
+        <div class="logic-h">CLASSE A</div>
+        <div class="logic-score">80–100</div>
+        <div class="logic-divider"></div>
+        <ul class="item-list">
+          <li>Fatura R$100K+ ou tem 6+ pessoas no time</li>
+          <li>Urgência alta · agora ou em 3 meses</li>
+          <li>Orçamento R$8K+ disponível</li>
+          <li>É o tomador de decisão direto</li>
+          <li>Pitch: Método Nexo completo · ticket alto</li>
+        </ul>
+      </div>
+      <div class="logic-card yellow">
+        <span class="logic-tag">Lead Morno · Construir Confiança</span>
+        <div class="logic-h">CLASSE B</div>
+        <div class="logic-score">50–79</div>
+        <div class="logic-divider"></div>
+        <ul class="item-list">
+          <li>Fatura R$30K a R$100K · time pequeno</li>
+          <li>Urgência média · planeja 2º semestre</li>
+          <li>Orçamento R$3K a R$8K</li>
+          <li>Sócio ou validador externo no processo</li>
+          <li>Pitch: Farol do Empreendedor · entrada</li>
+        </ul>
+      </div>
+      <div class="logic-card red">
+        <span class="logic-tag">Lead Frio · Educar e Nutrir</span>
+        <div class="logic-h">CLASSE C</div>
+        <div class="logic-score">0–49</div>
+        <div class="logic-divider"></div>
+        <ul class="item-list">
+          <li>Fatura abaixo de R$30K ou só o dono</li>
+          <li>Sem urgência · só se informando</li>
+          <li>Sem orçamento ou até R$1.500</li>
+          <li>Cenário sem operação rodando</li>
+          <li>Pitch: Checkmate ou Nexo Tools · ticket baixo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box success">
+      <span class="note-label">Critérios de Pontuação</span>
+      <p class="note-text">Faturamento vale até 30 pontos · tamanho do time até 15 · urgência até 20 · orçamento até 25 · tomada de decisão até 10. Total possível 100. O consultor recebe a pontuação detalhada por critério · não só o total · para identificar onde o lead está forte ou fraco.</p>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- SEÇÃO — INDICAÇÃO DE PRODUTO -->
+<div class="section section-dark">
+  <div class="section-inner">
+    <div class="section-label">Mapeamento de Produto por Perfil</div>
+    <h2 class="sec-h">QUAL PRODUTO<br>O CONSULTOR INDICA</h2>
+    <p class="sec-d">Tabela que mapeia a combinação de respostas para o produto certo. O consultor sênior usa como guia · mas tem autonomia para ajustar conforme a conversa.</p>
+
+    <div style="overflow-x:auto; margin-bottom:24px;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Perfil Identificado pelo Form</th>
+            <th>Produto Principal</th>
+            <th>Investimento</th>
+            <th>Classe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Empresa estruturada · quer escalar com método completo</td>
+            <td class="td-prod">Método Nexo de Crescimento</td>
+            <td>R$12.000 (6x)</td>
+            <td class="td-est">A</td>
+          </tr>
+          <tr>
+            <td>Empresa com time mas comercial fraco · só precisa do comercial</td>
+            <td class="td-prod">Checkmate Comercial + Mentoria</td>
+            <td>R$1.200 + recorrente</td>
+            <td class="td-est">A · B</td>
+          </tr>
+          <tr>
+            <td>Empresário abrindo ou reestruturando · precisa de direção</td>
+            <td class="td-prod">Farol do Empreendedor</td>
+            <td>R$4.500 / R$7.000</td>
+            <td class="td-est">B</td>
+          </tr>
+          <tr>
+            <td>Lead que precisa de quick win comercial isolado</td>
+            <td class="td-prod">Checkmate Comercial</td>
+            <td>R$1.200</td>
+            <td class="td-est">B · C</td>
+          </tr>
+          <tr>
+            <td>Lead frio · sem orçamento mas com potencial futuro</td>
+            <td class="td-prod">Nexo Tools / Kit Dashboards</td>
+            <td>R$197</td>
+            <td class="td-est">C</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <span class="note-label">Regra de Ouro do Pitch</span>
+      <p class="note-text">O produto certo é o que o lead consegue pagar com folga · não o mais caro que cabe no bolso dele. Vender Método Nexo para quem só tem R$3K vira inadimplência ou cancelamento. Vender Checkmate para quem precisa de Método é deixar dinheiro na mesa e perder o lead em 3 meses para um concorrente que ofereceu o pacote certo.</p>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- SEÇÃO — IMPLEMENTAÇÃO -->
+<div class="section section-mid">
+  <div class="section-inner">
+    <div class="section-label">Implementação Técnica</div>
+    <h2 class="sec-h">PRÓXIMOS PASSOS<br>PARA SUBIR O FORM</h2>
+    <p class="sec-d">Recomendações práticas para montar o form e integrar com agendamento automático · com base no que o briefing pedia ficar pronto.</p>
+
+    <div class="objective-grid">
+      <div class="objective-card">
+        <span class="objective-tag">Recomendação de Ferramenta</span>
+        <div class="objective-h">STACK SUGERIDA</div>
+        <div class="objective-divider"></div>
+        <ul class="item-list">
+          <li>Typeform ou Tally para o formulário · UX superior ao Meta Lead Ads</li>
+          <li>Calendly ou Cal.com para o agendamento automático</li>
+          <li>Make ou Zapier para enviar resposta + classificação para o consultor</li>
+          <li>Pixel do Meta disparando evento Lead ao completar o form</li>
+          <li>WhatsApp Business com mensagem de confirmação automática</li>
+        </ul>
+      </div>
+      <div class="objective-card">
+        <span class="objective-tag">Fluxo de Entrega ao Consultor</span>
+        <div class="objective-h">O QUE O CONSULTOR RECEBE</div>
+        <div class="objective-divider"></div>
+        <ul class="item-list">
+          <li>E-mail automático 1h antes da reunião</li>
+          <li>Resumo da empresa · faturamento · time · segmento</li>
+          <li>Classe A · B ou C com pontuação detalhada</li>
+          <li>Produto indicado conforme o mapeamento</li>
+          <li>Texto livre do lead destacado · ângulo do pitch</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box pending">
+      <span class="note-label">Pontos Sensíveis · Atenção do Filipe</span>
+      <p class="note-text">Sem critério eliminatório · vão entrar leads fora do ICP. Por isso a classificação A · B · C importa tanto · o consultor sênior precisa decidir no momento da reunião se investe os 45 min com Classe C ou se encurta a conversa para um pitch curto de Nexo Tools. Recomendo testar 30 dias e revisar show rate · taxa de fechamento e ticket médio por classe antes de mudar a lógica.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="h-sep"></div>
+<div class="doc-footer">
+  <div class="doc-footer-inner">
+    <div>
+      <div class="footer-brand">NEXO <span>Estratégia</span></div>
+      <div class="footer-lema">Plano · Foco · Execução · Conectamos pontos. Geramos direção. Criamos impacto.</div>
+    </div>
+    <div class="footer-meta">
+      Form de Qualificação · Estratégia 03 · Documento Interno<br>
+      Filipe + Pedro · nexoestrategia.com.br · 2026
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

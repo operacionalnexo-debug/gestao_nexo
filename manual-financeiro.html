@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Financeiro — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;--off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--off);color:var(--navy);line-height:1.3;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-slash{position:absolute;top:0;right:0;width:35%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.06;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2.5rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+.cover-stats{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;max-width:620px;}
+.cover-stat{flex:1;min-width:100px;padding:1.25rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);}
+.cover-stat:last-child{border-right:none;}
+.cover-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;display:block;}
+.cover-stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px;display:block;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}
+.cover-lema-line{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}
+.cover-lema-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.cover-lema-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cover-lema-tag em{color:var(--orange);font-style:normal;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'→';font-size:6rem;color:rgba(255,255,255,.1);position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-navy{background:var(--navy);}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+
+/* PURPOSE */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.two-col-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.two-col-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.item-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.item-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.item-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.item-list-d li{color:var(--gray-dark);}
+
+/* COBRANÇA TABLE */
+.data-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.data-table thead{background:var(--navy);color:#fff;}
+.data-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.data-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.data-table tr:hover td{background:#fff;}
+.mn{color:var(--navy);font-weight:900;}.mt{color:var(--orange);font-weight:900;}
+
+/* PLANILHA CARDS */
+.planilha-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.plan-card{background:var(--off);padding:1.75rem;transition:background .15s;border-top:4px solid transparent;}
+.plan-card:hover{background:#fff;border-top-color:var(--orange);}
+.plan-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(8,17,42,.06);line-height:1;}
+.plan-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.plan-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;color:var(--navy);margin-bottom:.5rem;line-height:1.1;}
+.plan-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.55;margin-bottom:.75rem;}
+.plan-items{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.plan-items li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.plan-items li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.65rem;}
+
+/* PROCESS BLOCKS */
+.process-block{margin-bottom:3px;border:1px solid rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+.process-header{background:rgba(232,90,26,.07);border-bottom:1px solid rgba(232,90,26,.18);padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.process-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);}
+.process-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:var(--navy);}
+.process-body{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--off);}
+.process-col{padding:1.5rem;border-right:1px solid var(--gray);}
+.process-col:last-child{border-right:none;}
+.process-col-h{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;color:var(--orange);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid rgba(232,90,26,.2);display:block;}
+.process-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.6;}
+.process-steps{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.process-steps li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.process-steps li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.7rem;margin-top:1px;}
+.process-highlight{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);padding:4px 10px;border-radius:2px;display:inline-block;margin-top:.5rem;}
+.process-alert{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#C03000;background:rgba(192,48,0,.08);border:1px solid rgba(192,48,0,.2);padding:4px 10px;border-radius:2px;display:inline-block;margin-top:.5rem;}
+
+/* JURIDICO */
+.juridico-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.jur-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.jur-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.jur-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.jur-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.jur-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+/* CHECKLIST */
+.checklist-box{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:3px;padding:2rem;margin-top:2rem;}
+.checklist-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--orange);margin-bottom:1rem;}
+.checklist-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.checklist-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.checklist-list li::before{content:'☐';color:var(--orange);flex-shrink:0;}
+
+/* METRICS */
+.metrics-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.metrics-table thead{background:var(--navy);color:#fff;}
+.metrics-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.metrics-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.metrics-table tr:hover td{background:#fff;}
+
+/* GROWTH */
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.growth-card{background:var(--off);padding:2rem;}
+.growth-phase{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.growth-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.75rem;}
+.growth-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.6;margin-bottom:1rem;}
+.growth-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.growth-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.growth-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+/* ONBOARDING */
+.onboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.onboard-card{background:var(--off);padding:1.5rem;transition:background .15s;}
+.onboard-card:hover{background:#fff;}
+.onboard-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(8,17,42,.06);line-height:1;}
+.onboard-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.5rem;line-height:1.1;}
+.onboard-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.5;}
+
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+.wrap{padding:3rem 1.5rem;}.cover-inner{padding:1.5rem;}
+.two-col,.juridico-grid{grid-template-columns:1fr;}
+.planilha-grid,.growth-grid{grid-template-columns:repeat(2,1fr);}
+.onboard-grid{grid-template-columns:repeat(2,1fr);}
+.process-body{grid-template-columns:1fr;}
+.band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Área 05 · Dono: Pedro</span></div>
+      <div class="cover-h1">ÁREA<br><span>FINANCEIRO</span></div>
+      <span class="cover-h1-sub">RECEITA · CUSTOS · JURÍDICO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área financeira — modelo de cobrança via Asaas, planilha com 5 abas, processos de cobrança e fechamento, jurídico e contratos.</p>
+      <div class="cover-stats">
+        <div class="cover-stat"><span class="cover-stat-n">5</span><span class="cover-stat-l">Abas planilha</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">ASAAS</span><span class="cover-stat-l">Plataforma</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">4</span><span class="cover-stat-l">Processos</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">40%+</span><span class="cover-stat-l">Meta margem</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">7</span><span class="cover-stat-l">Métricas</span></div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema">
+        <span class="cover-lema-line">Plano · Foco · Execução</span>
+        <span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span>
+        <span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span>
+      </div>
+      <span class="cover-quote">"Sem clareza financeira, os sócios trabalham muito e no fim do mês não sabem se ganharam ou perderam dinheiro."</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">COBRANÇA CONTROLADA + CUSTOS CLAROS + MARGEM REAL + CONTRATOS PROTEGIDOS = NEGÓCIO SUSTENTÁVEL.</span></div>
+
+<!-- PURPOSE -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para que existe</div>
+    <h2 class="sec-h sec-h-w">PROPÓSITO<br>DA ÁREA</h2>
+    <p class="sec-d sec-d-w">O Financeiro garante que a Nexo é um negócio sustentável — não só uma consultoria que fatura. Sem clareza financeira, não há decisão estratégica.</p>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <div class="two-col-h">O QUE ESSA ÁREA FAZ</div>
+        <ul class="item-list">
+          <li>Controla toda a receita — o que entrou, o que vai entrar e o que está em aberto</li>
+          <li>Controla todos os custos — fixos, variáveis e por projeto</li>
+          <li>Calcula a margem real de cada produto</li>
+          <li>Garante que as cobranças acontecem no prazo</li>
+          <li>Faz o fechamento mensal e apresenta na reunião de sócios</li>
+          <li>Mantém os contratos com clientes e terceirizados atualizados</li>
+          <li>Protege o método e os ativos intelectuais da Nexo</li>
+        </ul>
+      </div>
+      <div class="two-col-cell">
+        <div class="two-col-h">FERRAMENTAS INDISPENSÁVEIS</div>
+        <ul class="item-list">
+          <li>Asaas — plataforma de cobranças via PIX ou cartão</li>
+          <li>Planilha financeira — 5 abas controlando receita, custos, DRE e margem</li>
+          <li>Drive de contratos — pasta com todos os contratos assinados organizados por cliente</li>
+          <li>Planilha de contratos ativos — cliente, produto, valor, início, término, status</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- COBRANÇA -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Modelo de cobrança</div>
+    <h2 class="sec-h sec-h-d">COBRANÇA VIA ASAAS —<br>PIX OU CARTÃO</h2>
+    <p class="sec-d sec-d-d">O número de parcelas é igual ao número de meses do produto. Primeiro pagamento confirmado antes do onboarding começar — sem exceção.</p>
+    <table class="data-table">
+      <thead><tr><th>Produto</th><th>Valor</th><th>Parcelas máximas</th><th>Forma de pagamento</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">Método Nexo de Crescimento</td><td class="mt">R$12.000</td><td>6x</td><td>PIX ou Cartão</td></tr>
+        <tr><td class="mn">Farol Estrutura</td><td class="mt">R$4.500</td><td>3x</td><td>PIX ou Cartão</td></tr>
+        <tr><td class="mn">Farol Implementação</td><td class="mt">R$7.000</td><td>6x</td><td>PIX ou Cartão</td></tr>
+        <tr><td class="mn">Checkmate Comercial</td><td class="mt">R$1.200</td><td>1x ou 2x</td><td>PIX ou Cartão</td></tr>
+        <tr><td class="mn">Nexo Tools</td><td class="mt">R$197</td><td>1x</td><td>PIX ou Cartão</td></tr>
+        <tr><td class="mn">Kit Dashboards Nexo</td><td class="mt">R$197</td><td>1x</td><td>PIX ou Cartão</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PLANILHA -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Controle financeiro</div>
+    <h2 class="sec-h sec-h-w">A PLANILHA —<br>5 ABAS ESSENCIAIS</h2>
+    <p class="sec-d sec-d-w">Pedro alimenta e fecha todo mês. O Dashboard Geral é o que os dois sócios olham na reunião mensal de resultado.</p>
+    <div class="planilha-grid">
+      <div class="plan-card">
+        <div class="plan-n">01</div>
+        <span class="plan-tag">Aba 1 · Todo dia</span>
+        <div class="plan-title">DASHBOARD GERAL</div>
+        <p class="plan-desc">O que Pedro olha todo dia em menos de 5 minutos — visão geral do negócio em números.</p>
+        <ul class="plan-items">
+          <li>Faturamento do mês atual vs meta</li>
+          <li>Faturamento previsto para os próximos 3 meses</li>
+          <li>Caixa atual</li>
+          <li>Contas a receber — o que está em aberto</li>
+          <li>Contas a pagar — o que vence essa semana</li>
+          <li>Margem líquida do mês</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-n">02</div>
+        <span class="plan-tag">Aba 2 · Semanal</span>
+        <div class="plan-title">RECEITA</div>
+        <p class="plan-desc">Controle de tudo que entra — por cliente, por parcela e por canal de captação.</p>
+        <ul class="plan-items">
+          <li>Cliente · produto · valor total · parcelas</li>
+          <li>Status de cada parcela — pago, pendente, vencido</li>
+          <li>Data de cada vencimento</li>
+          <li>Canal de captação — tráfego, indicação, prospecção, redes</li>
+          <li>Total recebido no mês vs total previsto</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-n">03</div>
+        <span class="plan-tag">Aba 3 · Mensal</span>
+        <div class="plan-title">CUSTOS</div>
+        <p class="plan-desc">Controle de tudo que sai — dividido em fixos, variáveis e por projeto.</p>
+        <ul class="plan-items">
+          <li>Fixos: terceirizado de tráfego e filmagem, ferramentas</li>
+          <li>Variáveis: deslocamento, materiais por projeto</li>
+          <li>Por projeto: horas dedicadas e custos específicos</li>
+          <li>Total de custos do mês categorizado</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-n">04</div>
+        <span class="plan-tag">Aba 4 · Reunião mensal</span>
+        <div class="plan-title">DRE SIMPLIFICADO</div>
+        <p class="plan-desc">O que fecha todo mês — Pedro apresenta na reunião de sócios em até 20 minutos.</p>
+        <ul class="plan-items">
+          <li>Receita bruta do mês</li>
+          <li>Impostos e taxas — Asaas e cartão</li>
+          <li>Receita líquida</li>
+          <li>Custos fixos e variáveis</li>
+          <li>Margem de contribuição e resultado líquido</li>
+          <li>Comparativo com mês anterior e com a meta</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-n">05</div>
+        <span class="plan-tag">Aba 5 · Mais importante</span>
+        <div class="plan-title">MARGEM POR PRODUTO</div>
+        <p class="plan-desc">Quanto sobra de verdade em cada produto — a decisão estratégica mais importante. Sem isso, vocês podem estar investindo energia no produto errado.</p>
+        <ul class="plan-items">
+          <li>Receita do produto</li>
+          <li>Horas dedicadas pelos dois sócios estimadas</li>
+          <li>Custo hora definido pelos sócios</li>
+          <li>Custos diretos — ferramentas e deslocamento</li>
+          <li>Margem bruta e líquida</li>
+          <li>% de margem por produto — comparativo entre produtos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PROCESSES -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Processos da área</div>
+    <h2 class="sec-h sec-h-d">OS 4 PROCESSOS<br>DO FINANCEIRO</h2>
+    <p class="sec-d sec-d-d">Cada processo tem gatilho, responsável, passo a passo e critério de qualidade. Documentado para que qualquer pessoa consiga executar.</p>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div><div class="process-num">Processo 01 · Financeiro</div><div class="process-title">COBRANÇA</div></div>
+        <span class="tag tag-fill">Dono: Pedro</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO E RESPONSÁVEL</span>
+          <p class="process-text">Fechamento de contrato com cliente</p><br>
+          <p class="process-text">Responsável: Pedro</p>
+          <span class="process-highlight">Cobrança gerada antes do onboarding</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">PASSO A PASSO</span>
+          <ul class="process-steps">
+            <li>Cliente assinou o contrato → gerar cobrança no Asaas</li>
+            <li>Link enviado junto com as boas-vindas</li>
+            <li>Primeiro pagamento confirmado → onboarding autorizado</li>
+            <li>Asaas envia lembrete automático 5 dias antes de cada vencimento</li>
+            <li>Pedro confirma pagamento e registra na planilha</li>
+            <li>Inadimplência em até 2 dias: mensagem direta — tom parceiro, não cobrador</li>
+            <li>5 dias sem pagamento: suspensão do serviço — comunicar com antecedência no contrato</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">CRITÉRIO E INDICADOR</span>
+          <p class="process-text">Critério de qualidade: zero inadimplência surpresa — Pedro sabe o status de cada cobrança toda semana</p><br>
+          <span class="process-alert">⚠ Nunca iniciar onboarding sem pagamento confirmado</span><br><br>
+          <p class="process-text">Indicador: taxa de inadimplência — meta: zero</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div><div class="process-num">Processo 02 · Financeiro</div><div class="process-title">FECHAMENTO MENSAL</div></div>
+        <span class="tag tag-fill">Dono: Pedro</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO E RESPONSÁVEL</span>
+          <p class="process-text">Último dia útil de cada mês</p><br>
+          <p class="process-text">Responsável: Pedro</p>
+          <span class="process-highlight">Apresentado até o 3º dia útil do mês seguinte</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">PASSO A PASSO</span>
+          <ul class="process-steps">
+            <li>Consolidação de todas as receitas recebidas no mês</li>
+            <li>Consolidação de todos os custos pagos no mês</li>
+            <li>Cálculo do DRE simplificado</li>
+            <li>Atualização da margem por produto com os dados do mês</li>
+            <li>Projeção dos próximos 3 meses com base na carteira atual</li>
+            <li>Apresentação na reunião mensal — 20 minutos, objetivo</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">O QUE OS SÓCIOS PRECISAM SABER</span>
+          <ul class="process-steps">
+            <li>Quanto faturamos no mês</li>
+            <li>Quanto sobrou — margem líquida real</li>
+            <li>Qual produto gerou mais margem</li>
+            <li>O que muda no próximo mês — ajuste de estratégia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div><div class="process-num">Processo 03 · Financeiro</div><div class="process-title">GESTÃO DE CONTRATOS COM CLIENTES</div></div>
+        <span class="tag tag-fill">Dono: Pedro</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">GATILHO</span>
+          <p class="process-text">Todo novo fechamento ou renovação de contrato</p><br>
+          <span class="process-highlight">Contrato enviado em até 24h após fechamento verbal</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">O QUE O CONTRATO PRECISA TER</span>
+          <ul class="process-steps">
+            <li>Identificação das partes — Nexo e cliente</li>
+            <li>Produto contratado e descrição do escopo claro</li>
+            <li>Valor total e condições de pagamento</li>
+            <li>Prazo do contrato — data de início e término</li>
+            <li>O que está incluído e o que não está</li>
+            <li>Política de cancelamento</li>
+            <li>Política de inadimplência</li>
+            <li>Direitos sobre entregáveis — após quitação total</li>
+            <li>Confidencialidade — cliente não repassa o método para terceiros</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">CONTROLE DE CONTRATOS</span>
+          <ul class="process-steps">
+            <li>Pasta no Drive com todos os contratos assinados — por cliente e data</li>
+            <li>Planilha de contratos ativos — cliente, produto, valor, início, término, status</li>
+            <li>Alerta de vencimento — Pedro avisa Filipe 30 dias antes do término</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-block">
+      <div class="process-header">
+        <div><div class="process-num">Processo 04 · Financeiro</div><div class="process-title">GESTÃO DE CONTRATOS COM TERCEIRIZADOS</div></div>
+        <span class="tag tag-fill">Dono: Pedro · Próximo passo</span>
+      </div>
+      <div class="process-body">
+        <div class="process-col">
+          <span class="process-col-h">STATUS ATUAL</span>
+          <p class="process-text">Existe contrato com clientes. Criar contratos com terceirizados é o próximo passo urgente.</p><br>
+          <span class="process-alert">⚠ Terceirizados sem contrato = risco jurídico</span>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">O QUE O CONTRATO COM TERCEIRIZADO PRECISA TER</span>
+          <ul class="process-steps">
+            <li>Escopo do serviço — o que está incluído e o que não está</li>
+            <li>Valor e forma de pagamento</li>
+            <li>Prazo de entrega dos materiais</li>
+            <li>Quantas rodadas de revisão estão incluídas</li>
+            <li>Confidencialidade — não pode divulgar dados dos clientes da Nexo</li>
+            <li>Direitos sobre material produzido — pertence à Nexo após pagamento</li>
+            <li>Prazo de aviso para encerramento da relação</li>
+          </ul>
+        </div>
+        <div class="process-col">
+          <span class="process-col-h">TERCEIRIZADOS QUE PRECISAM DE CONTRATO AGORA</span>
+          <ul class="process-steps">
+            <li>Terceirizado de tráfego pago</li>
+            <li>Terceirizado de filmagem e edição</li>
+            <li>Qualquer outro prestador recorrente que entrar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- JURIDICO -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Frente Jurídica</div>
+    <h2 class="sec-h sec-h-w">O QUE PROTEGER<br>AGORA</h2>
+    <p class="sec-d sec-d-w">O jurídico da Nexo hoje tem o essencial — contrato com clientes. Mas conforme o método cresce, existem ativos que precisam de proteção urgente.</p>
+    <div class="juridico-grid">
+      <div class="jur-cell">
+        <div class="jur-h">PROPRIEDADE INTELECTUAL — PROTEGER JÁ</div>
+        <ul class="jur-list">
+          <li>O Método Nexo de Crescimento é propriedade intelectual da Nexo</li>
+          <li>O Nexo Assessment, o Índice Nexo e todos os frameworks também</li>
+          <li>O cliente recebe o resultado — não o método</li>
+          <li>Os terceirizados não podem usar o método em outros projetos</li>
+          <li>Incluir cláusula de PI em todos os contratos — clientes e terceirizados</li>
+          <li>Documentar data de criação de tudo até o registro no INPI</li>
+        </ul>
+      </div>
+      <div class="jur-cell">
+        <div class="jur-h">ACORDO DE SÓCIOS — PRÓXIMO PASSO</div>
+        <ul class="jur-list">
+          <li>Formalizar o acordo de sócios com um advogado</li>
+          <li>O acordo define o que acontece em caso de saída de um sócio</li>
+          <li>Divisão de lucros e regras de tomada de decisão</li>
+          <li>Isso protege os dois — não é desconfiança, é profissionalismo</li>
+          <li>Registro da marca Nexo Estratégia no INPI — quando o caixa permitir</li>
+          <li>Proteção dos nomes dos produtos — Método Nexo, Farol, Checkmate</li>
+        </ul>
+      </div>
+    </div>
+    <div class="checklist-box">
+      <div class="checklist-title">CHECKLIST JURÍDICO — PRÓXIMOS 90 DIAS</div>
+      <ul class="checklist-list">
+        <li>Criar contrato com o terceirizado de tráfego pago</li>
+        <li>Criar contrato com o terceirizado de filmagem e edição</li>
+        <li>Revisar o contrato com clientes com um advogado — incluir cláusula de PI</li>
+        <li>Incluir cláusula de confidencialidade em todos os contratos com terceirizados</li>
+        <li>Iniciar o processo de registro de marca no INPI — Nexo Estratégia</li>
+        <li>Formalizar o acordo de sócios com um advogado</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- METRICS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Indicadores</div>
+    <h2 class="sec-h sec-h-d">MÉTRICAS<br>DA ÁREA FINANCEIRA</h2>
+    <p class="sec-d sec-d-d">O que Pedro acompanha para saber se o financeiro da Nexo está saudável e crescendo.</p>
+    <table class="metrics-table">
+      <thead><tr><th>Indicador</th><th>O que mede</th><th>Meta</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">Faturamento mensal</td><td>Receita total do mês</td><td class="mt">Meta mensal definida</td><td>Mensal</td></tr>
+        <tr><td class="mn">Receita recorrente</td><td>Parcelas de contratos ativos já garantidas</td><td class="mt">Crescimento mês a mês</td><td>Mensal</td></tr>
+        <tr><td class="mn">Margem líquida</td><td>% que sobra após todos os custos</td><td class="mt">Acima de 40%</td><td>Mensal</td></tr>
+        <tr><td class="mn">Margem por produto</td><td>Rentabilidade real de cada produto</td><td class="mt">Acompanhar e comparar</td><td>Mensal</td></tr>
+        <tr><td class="mn">Taxa de inadimplência</td><td>% de parcelas em atraso</td><td class="mt">Zero</td><td>Semanal</td></tr>
+        <tr><td class="mn">Projeção de caixa 3 meses</td><td>Quanto vai entrar nos próximos 3 meses</td><td class="mt">Sempre positivo</td><td>Mensal</td></tr>
+        <tr><td class="mn">Custo por cliente</td><td>Custo total de atender cada cliente</td><td class="mt">Reduzir com escala</td><td>Mensal</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Evolução da área</div>
+    <h2 class="sec-h sec-h-w">COMO O FINANCEIRO<br>CRESCE COM A NEXO</h2>
+    <p class="sec-d sec-d-w">A área evolui conforme o volume de transações e produtos crescem.</p>
+    <div class="growth-grid" style="background:rgba(255,255,255,.05);">
+      <div class="growth-card" style="background:rgba(255,255,255,.025);">
+        <span class="growth-phase">Hoje · Fase atual</span>
+        <div class="growth-title" style="color:#fff;">SÓ PEDRO</div>
+        <p class="growth-desc" style="color:rgba(255,255,255,.38);">Pedro controla tudo — cobrança, planilha, contratos e jurídico básico. Funciona para o volume atual com a planilha estruturada.</p>
+        <ul class="growth-list" style="">
+          <li style="color:rgba(255,255,255,.5);">Pedro alimenta a planilha semanalmente</li>
+          <li style="color:rgba(255,255,255,.5);">Fechamento mensal apresentado na reunião de sócios</li>
+          <li style="color:rgba(255,255,255,.5);">Contratos gerados e controlados por Pedro</li>
+          <li style="color:rgba(255,255,255,.5);">Asaas automatiza cobranças e lembretes</li>
+        </ul>
+      </div>
+      <div class="growth-card" style="background:rgba(255,255,255,.025);">
+        <span class="growth-phase">Próximo passo · Volume crescendo</span>
+        <div class="growth-title" style="color:#fff;">+ CONTADOR OU BPO FINANCEIRO</div>
+        <p class="growth-desc" style="color:rgba(255,255,255,.38);">Quando o volume de transações crescer e os produtos digitais estiverem rodando, entra um contador ou BPO para cuidar da parte fiscal e contábil.</p>
+        <ul class="growth-list">
+          <li style="color:rgba(255,255,255,.5);">Contador cuida de impostos e obrigações fiscais</li>
+          <li style="color:rgba(255,255,255,.5);">Pedro mantém o controle estratégico</li>
+          <li style="color:rgba(255,255,255,.5);">BPO pode assumir contas a pagar e a receber</li>
+          <li style="color:rgba(255,255,255,.5);">Pedro foca em faturamento, margem e decisão</li>
+        </ul>
+      </div>
+      <div class="growth-card" style="background:rgba(255,255,255,.025);">
+        <span class="growth-phase">Nível seguinte · Operação madura</span>
+        <div class="growth-title" style="color:#fff;">FINANCEIRO DEDICADO</div>
+        <p class="growth-desc" style="color:rgba(255,255,255,.38);">Com carteira grande e múltiplos produtos rodando, entra um responsável financeiro dedicado. Pedro passa a ser gestor da área.</p>
+        <ul class="growth-list">
+          <li style="color:rgba(255,255,255,.5);">Pedro define metas e acompanha números</li>
+          <li style="color:rgba(255,255,255,.5);">Financeiro opera o dia a dia</li>
+          <li style="color:rgba(255,255,255,.5);">Dashboard automático alimentado pelo time</li>
+          <li style="color:rgba(255,255,255,.5);">Pedro como CFO estratégico</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-d">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-d">Todo colaborador que entrar no financeiro precisa dominar esses pontos antes de operar sozinho.</p>
+    <div class="onboard-grid">
+      <div class="onboard-card"><div class="onboard-n">01</div><div class="onboard-title">COMO USAR O ASAAS</div><p class="onboard-desc">Gerar cobrança, acompanhar pagamento, registrar inadimplência e configurar lembretes automáticos.</p></div>
+      <div class="onboard-card"><div class="onboard-n">02</div><div class="onboard-title">A PLANILHA FINANCEIRA</div><p class="onboard-desc">Como alimentar as 5 abas — receita, custos, DRE, margem por produto e dashboard geral.</p></div>
+      <div class="onboard-card"><div class="onboard-n">03</div><div class="onboard-title">MODELO DE COBRANÇA</div><p class="onboard-desc">Parcelas por produto, prazos, regras e o que fazer quando o cliente não paga.</p></div>
+      <div class="onboard-card"><div class="onboard-n">04</div><div class="onboard-title">PROCESSO DE CONTRATOS</div><p class="onboard-desc">Onde ficam, como gerar, como controlar vencimentos e o que deve ter em cada contrato.</p></div>
+      <div class="onboard-card"><div class="onboard-n">05</div><div class="onboard-title">PROTOCOLO DE INADIMPLÊNCIA</div><p class="onboard-desc">Quando e como abordar, tom de comunicação e quando suspender o serviço.</p></div>
+      <div class="onboard-card"><div class="onboard-n">06</div><div class="onboard-title">CONFIDENCIALIDADE</div><p class="onboard-desc">Dados financeiros dos clientes não saem da empresa. Nenhuma informação é compartilhada sem autorização de Pedro.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Manual de Área · Financeiro · Dono: Pedro<br>nexoestrategia.com.br · 2026</div>
+</div>
+</body>
+</html>

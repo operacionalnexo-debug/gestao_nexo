@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo Tools — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --orange: #E85A1A; --navy: #08112A; --navy-mid: #0F1E40; --navy-light: #162D5E;
+  --off: #F0EDE6; --gray: #C8C4BB; --gray-dark: #3A3530; --muted: #7A7570;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 700; background: var(--off); color: var(--navy); line-height: 1.3; }
+
+.tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; padding: 5px 12px; border: 1.5px solid var(--orange); color: var(--orange); border-radius: 2px; }
+.tag-fill { background: var(--orange); color: #fff; border-color: var(--orange); }
+.tag-dark { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+.tag-navy { border-color: var(--navy); color: var(--navy); }
+
+/* COVER */
+.cover { background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.cover-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px); }
+.cover-slash { position: absolute; top: 0; right: 0; width: 35%; height: 100%; background: var(--orange); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.06; }
+.cover-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; padding: 2.5rem 3.5rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+.cover-nav { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); flex-wrap: wrap; gap: 1rem; }
+.cover-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: #fff; }
+.cover-logo span { color: var(--orange); }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 0 2.5rem; }
+.eyebrow { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem; }
+.eyebrow-line { width: 36px; height: 2px; background: var(--orange); }
+.eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+.cover-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 8.5rem); line-height: 0.9; letter-spacing: 0.03em; color: #fff; margin-bottom: 0.4rem; }
+.cover-h1 span { color: var(--orange); display: block; }
+.cover-h1-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2.5rem); letter-spacing: 0.1em; color: rgba(255,255,255,0.2); display: block; margin-bottom: 2.5rem; }
+.cover-bar { width: 56px; height: 3px; background: var(--orange); margin-bottom: 2rem; }
+.cover-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.45); max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.cover-stats { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; max-width: 620px; }
+.cover-stat { flex: 1; min-width: 100px; padding: 1.25rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 3px; display: block; }
+.cover-foot { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.cover-quote { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.18); max-width: 500px; }
+
+/* BAND */
+.band { background: var(--orange); padding: 1.4rem 3.5rem; position: relative; overflow: hidden; }
+.band-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.1rem, 2.5vw, 2rem); letter-spacing: 0.06em; color: #fff; position: relative; z-index: 1; }
+.band::after { content: '⚡'; font-size: 5rem; color: rgba(255,255,255,0.1); position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); }
+
+/* WRAP */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.bg-navy { background: var(--navy); }
+.bg-off { background: var(--off); }
+
+.sec-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+.sec-label::before { content:''; display:block; width:26px; height:2px; background:var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5.5vw, 4.5rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1rem; }
+.sec-h-w { color: #fff; }
+.sec-h-d { color: var(--navy); }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.sec-d-w { color: rgba(255,255,255,0.32); }
+.sec-d-d { color: var(--muted); }
+.sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%); }
+
+/* GPT GRID */
+.gpt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.gpt-card { background: var(--navy-mid); padding: 1.75rem; transition: background 0.15s; position: relative; }
+.gpt-card:hover { background: var(--navy-light); }
+.gpt-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
+.gpt-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(232,90,26,0.12); line-height: 1; }
+.gpt-cat { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(232,90,26,0.3); padding: 3px 8px; border-radius: 2px; }
+.gpt-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.5rem; }
+.gpt-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.42); line-height: 1.6; }
+.gpt-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--orange); opacity: 0; transition: opacity 0.15s; }
+.gpt-card:hover .gpt-accent { opacity: 1; }
+
+/* SKILLS */
+.skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.skill-card { background: var(--off); padding: 1.75rem; transition: background 0.15s; border-top: 4px solid transparent; }
+.skill-card:hover { background: #fff; border-top-color: var(--orange); }
+.skill-n { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: rgba(8,17,42,0.05); line-height: 1; }
+.skill-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.skill-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.1; }
+.skill-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.6; margin-bottom: 0.75rem; }
+.skill-out { display: flex; align-items: flex-start; gap: 0.5rem; background: rgba(232,90,26,0.08); border-left: 2px solid var(--orange); padding: 0.5rem 0.75rem; border-radius: 0 2px 2px 0; }
+.skill-out-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); flex-shrink: 0; }
+.skill-out-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-dark); line-height: 1.4; }
+
+/* FRAMEWORKS */
+.fw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.fw-card { background: rgba(255,255,255,0.025); padding: 1.75rem; }
+.fw-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(232,90,26,0.12); line-height: 1; }
+.fw-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.fw-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; color: #fff; margin-bottom: 0.6rem; line-height: 1.1; }
+.fw-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.4); line-height: 1.6; margin-bottom: 0.6rem; }
+.fw-format { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(232,90,26,0.25); padding: 3px 8px; border-radius: 2px; display: inline-block; }
+
+/* SUMMARY */
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--navy); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.summary-cell { background: var(--off); padding: 2rem 1.5rem; text-align: center; }
+.summary-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--orange); line-height: 1; display: block; }
+.summary-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); margin-top: 4px; display: block; }
+.summary-cell.highlight { background: var(--navy); }
+.summary-cell.highlight .summary-n { font-size: 3.5rem; }
+.summary-cell.highlight .summary-label { color: rgba(255,255,255,0.4); }
+
+/* ENTRY BOX */
+.entry-box { background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.2); border-radius: 3px; padding: 2rem; margin-top: 2rem; }
+.entry-box-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.75rem; }
+.entry-box-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45); line-height: 1.7; }
+.entry-box-text strong { color: var(--orange); }
+
+/* FOOTER */
+.footer { background: var(--navy); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 3px solid var(--orange); }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #fff; }
+.footer-logo span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.18); text-align: right; }
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem;} .cover-inner{padding:1.5rem;}
+  .gpt-grid,.skill-grid,.fw-grid,.summary-grid{grid-template-columns:1fr;}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Digital 01 · Porta de Entrada · R$197</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Produto Digital · Kit de Ferramentas com IA</span>
+      </div>
+      <div class="cover-h1">
+        NEXO
+        <span>TOOLS</span>
+      </div>
+      <span class="cover-h1-sub">21 FERRAMENTAS. UM LINK. RESULTADO IMEDIATO.</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Ferramentas estratégicas e operacionais para acelerar o crescimento, identificar seus gargalos e garantir ajuda estratégica e operacional — por R$197.</p>
+      <div class="cover-stats">
+        <div class="cover-stat">
+          <span class="cover-stat-n">10</span>
+          <span class="cover-stat-l">GPTs</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">5</span>
+          <span class="cover-stat-l">Skills Claude</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">6</span>
+          <span class="cover-stat-l">Frameworks</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">21</span>
+          <span class="cover-stat-l">Total</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">R$197</span>
+          <span class="cover-stat-l">Preço</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot"><div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div>
+      <span class="cover-quote">"Acesso via link — experiência de app com 21 ferramentas de gestão e comercial."</span>
+      <span class="tag tag-dark">nexoestrategia.com.br</span>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">GPTs CUSTOMIZADOS + SKILLS DO CLAUDE + FRAMEWORKS — PLANEJE, EXECUTE E MEÇA. O CICLO COMPLETO DO EMPRESÁRIO.</span>
+</div>
+
+<!-- GPTs -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Categoria 01</div>
+    <h2 class="sec-h sec-h-w">10 GPTs<br>CUSTOMIZADOS</h2>
+    <p class="sec-d sec-d-w">Cada GPT resolve um problema específico. O empresário digita o contexto e recebe o entregável pronto — sem precisar saber usar IA.</p>
+    <div class="gpt-grid">
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">01</span><span class="gpt-cat">Pré-venda</span></div>
+        <div class="gpt-name">PROSPECTOR NEXO</div>
+        <p class="gpt-desc">Monta abordagem de prospecção personalizada — mensagem, canal, tom e sequência para cada perfil de cliente ideal. O empresário informa o produto e o canal e recebe a abordagem pronta.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">02</span><span class="gpt-cat">Venda</span></div>
+        <div class="gpt-name">CLOSR NEXO</div>
+        <p class="gpt-desc">Conduz o vendedor pela reunião de vendas — script completo, contorno de objeções e técnica de fechamento personalizada para aquele produto. Roteiro de venda completo em minutos.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">03</span><span class="gpt-cat">Venda</span></div>
+        <div class="gpt-name">FOLLOW PRO</div>
+        <p class="gpt-desc">Gera sequência de follow-up personalizada por canal — WhatsApp, e-mail, ligação — com cadência definida e o que falar em cada contato. Nunca mais perder venda por falta de acompanhamento.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">04</span><span class="gpt-cat">Venda</span></div>
+        <div class="gpt-name">PROPOSTA NEXO</div>
+        <p class="gpt-desc">Monta estrutura de proposta comercial personalizada — do diagnóstico do problema do cliente ao investimento. O empresário descreve o serviço e o cliente e recebe a proposta estruturada.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">05</span><span class="gpt-cat">Gestão</span></div>
+        <div class="gpt-name">GESTOR NEXO</div>
+        <p class="gpt-desc">Ajuda o dono a estruturar a semana, priorizar decisões e montar rituais de gestão para o time. Informa os objetivos e os desafios e recebe um plano de gestão semanal pronto.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">06</span><span class="gpt-cat">Gestão</span></div>
+        <div class="gpt-name">CONTRATA NEXO</div>
+        <p class="gpt-desc">Monta processo seletivo completo, perguntas de entrevista e critérios de avaliação para qualquer vaga. O empresário informa a função e o perfil e recebe o processo de contratação pronto.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">07</span><span class="gpt-cat">Gestão</span></div>
+        <div class="gpt-name">CULTURA GPT</div>
+        <p class="gpt-desc">Ajuda o empresário a definir valores reais, comportamentos esperados e como comunicar a cultura para o time. Transforma o que está na cabeça do dono em linguagem prática para o dia a dia.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">08</span><span class="gpt-cat">Indicadores</span></div>
+        <div class="gpt-name">KPI NEXO</div>
+        <p class="gpt-desc">Define os indicadores certos para aquele negócio específico — não lista genérica. O empresário informa o setor, tamanho e objetivos e recebe os KPIs que realmente importam com frequência de acompanhamento.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">09</span><span class="gpt-cat">Decisão</span></div>
+        <div class="gpt-name">DECISÃO NEXO</div>
+        <p class="gpt-desc">Estrutura o processo de tomada de decisão — o empresário descreve o cenário, as opções e os critérios e o GPT organiza o raciocínio e aponta o caminho mais lógico com base nos dados fornecidos.</p>
+      </div>
+      <div class="gpt-card">
+        <div class="gpt-accent"></div>
+        <div class="gpt-top"><span class="gpt-n">10</span><span class="gpt-cat">Gestão</span></div>
+        <div class="gpt-name">REUNIÃO NEXO</div>
+        <p class="gpt-desc">Gera pauta estruturada, conduz a lógica da reunião e entrega ata com próximos passos e responsáveis. Transforma qualquer reunião em algo que gera resultado e não perde tempo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- SKILLS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Categoria 02</div>
+    <h2 class="sec-h sec-h-d">5 SKILLS<br>DO CLAUDE</h2>
+    <p class="sec-d sec-d-d">Diferente dos GPTs — aqui o empresário cola uma informação ou responde perguntas e recebe um entregável pronto para usar imediatamente.</p>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <div class="skill-n">01</div>
+        <span class="skill-tag">Diagnóstico</span>
+        <div class="skill-name">DIAGNÓSTICO RÁPIDO NEXO</div>
+        <p class="skill-desc">O empresário responde 10 perguntas sobre o negócio e recebe um mini diagnóstico das principais frentes com prioridades de ação claras.</p>
+        <div class="skill-out"><span class="skill-out-label">Entrega:</span><span class="skill-out-text">Relatório de 1 página com pontos críticos e próximos passos imediatos</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-n">02</div>
+        <span class="skill-tag">Comercial</span>
+        <div class="skill-name">GERADOR DE PLAYBOOK COMERCIAL</div>
+        <p class="skill-desc">O empresário descreve o produto, o cliente ideal e o processo atual de vendas — a skill monta o playbook comercial completo.</p>
+        <div class="skill-out"><span class="skill-out-label">Entrega:</span><span class="skill-out-text">Playbook pronto para o time usar no dia seguinte</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-n">03</div>
+        <span class="skill-tag">Gestão</span>
+        <div class="skill-name">CRIADOR DE ROTINA SEMANAL</div>
+        <p class="skill-desc">O empresário informa o tamanho do time e os objetivos do mês — a skill monta a rotina de gestão da semana inteira com ritos e responsáveis.</p>
+        <div class="skill-out"><span class="skill-out-label">Entrega:</span><span class="skill-out-text">Calendário semanal completo pronto para implementar</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-n">04</div>
+        <span class="skill-tag">Vendas</span>
+        <div class="skill-name">ANALISADOR DE OBJEÇÕES</div>
+        <p class="skill-desc">O empresário cola as principais objeções que ouve — a skill gera resposta estratégica para cada uma com argumentação e tom certo.</p>
+        <div class="skill-out"><span class="skill-out-label">Entrega:</span><span class="skill-out-text">Guia de objeções pronto para treinar o time</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-n">05</div>
+        <span class="skill-tag">Metas</span>
+        <div class="skill-name">CONSTRUTOR DE META COMERCIAL</div>
+        <p class="skill-desc">O empresário informa o faturamento desejado e o ticket médio — a skill quebra em metas diárias, semanais e por vendedor com plano de ação.</p>
+        <div class="skill-out"><span class="skill-out-label">Entrega:</span><span class="skill-out-text">Dashboard de metas pronto para usar</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FRAMEWORKS -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Categoria 03</div>
+    <h2 class="sec-h sec-h-w">6 FRAMEWORKS<br>E GUIAS</h2>
+    <p class="sec-d sec-d-w">Materiais que o empresário baixa, abre e aplica sozinho — sem precisar de consultoria para usar. Referências visuais e passo a passo prontos.</p>
+    <div class="fw-grid">
+      <div class="fw-card">
+        <div class="fw-n">01</div>
+        <span class="fw-tag">Comercial</span>
+        <div class="fw-name">FRAMEWORK DO FUNIL NEXO</div>
+        <p class="fw-desc">Mapa visual do funil de vendas ideal — etapas, critérios de avanço e o que fazer em cada uma. Referência para estruturar ou revisar o processo comercial.</p>
+        <span class="fw-format">PDF Visual · 1 Página</span>
+      </div>
+      <div class="fw-card">
+        <div class="fw-n">02</div>
+        <span class="fw-tag">Comercial</span>
+        <div class="fw-name">GUIA DE ROTINA COMERCIAL</div>
+        <p class="fw-desc">Como estruturar a semana do time de vendas — daily, pipeline review, acompanhamento de meta e fechamento de semana. Passo a passo aplicável imediatamente.</p>
+        <span class="fw-format">PDF Passo a Passo</span>
+      </div>
+      <div class="fw-card">
+        <div class="fw-n">03</div>
+        <span class="fw-tag">Gestão</span>
+        <div class="fw-name">FRAMEWORK DE GESTÃO SEMANAL</div>
+        <p class="fw-desc">O modelo de semana ideal para o dono — onde colocar estratégia, operacional e tempo com o time. Resolve o principal problema: a semana que some sem resultado.</p>
+        <span class="fw-format">PDF Visual · 1 Página</span>
+      </div>
+      <div class="fw-card">
+        <div class="fw-n">04</div>
+        <span class="fw-tag">Pessoas</span>
+        <div class="fw-name">GUIA DE CONTRATAÇÃO RÁPIDA</div>
+        <p class="fw-desc">Como contratar a pessoa certa sem processo longo — etapas simples, perguntas certas e critérios de decisão claros. Sem enrolação, sem erro.</p>
+        <span class="fw-format">PDF Passo a Passo</span>
+      </div>
+      <div class="fw-card">
+        <div class="fw-n">05</div>
+        <span class="fw-tag">Indicadores</span>
+        <div class="fw-name">FRAMEWORK DE INDICADORES ESSENCIAIS</div>
+        <p class="fw-desc">Os 10 números que todo empresário precisa acompanhar — o que é cada um, por que importa e como medir. Resolve o problema de quem olha tudo ou não olha nada.</p>
+        <span class="fw-format">PDF Visual</span>
+      </div>
+      <div class="fw-card">
+        <div class="fw-n">06</div>
+        <span class="fw-tag">Gestão</span>
+        <div class="fw-name">GUIA DE REUNIÃO PRODUTIVA</div>
+        <p class="fw-desc">Como conduzir reuniões que geram resultado — estrutura, pauta, tempo e próximos passos. Acaba com reunião que consome tempo e não decide nada.</p>
+        <span class="fw-format">PDF Passo a Passo</span>
+      </div>
+    </div>
+
+    <div class="entry-box">
+      <div class="entry-box-title">POR QUE FUNCIONA COMO PORTA DE ENTRADA</div>
+      <p class="entry-box-text">O empresário compra por R$197, usa uma ferramenta, resolve um problema real — e sente na prática o nível do trabalho da Nexo. A próxima pergunta natural é: <strong>"o que vocês fazem quando entram de verdade na empresa?"</strong> É aí que entra o Método Nexo de Crescimento.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Resumo</div>
+    <h2 class="sec-h sec-h-d">21 FERRAMENTAS<br>UM LINK</h2>
+    <p class="sec-d sec-d-d">Tudo organizado em uma página de acesso estilo app — o empresário acessa, escolhe a ferramenta e usa.</p>
+    <div class="summary-grid">
+      <div class="summary-cell">
+        <span class="summary-n">10</span>
+        <span class="summary-label">GPTs Customizados</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-n">5</span>
+        <span class="summary-label">Skills do Claude</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-n">6</span>
+        <span class="summary-label">Frameworks e Guias</span>
+      </div>
+      <div class="summary-cell highlight">
+        <span class="summary-n" style="color:var(--orange)">R$197</span>
+        <span class="summary-label">Investimento</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Nexo Tools · Produto Digital 01 · Porta de Entrada<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>

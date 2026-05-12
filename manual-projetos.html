@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Projetos — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;--off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--off);color:var(--navy);line-height:1.3;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-logo-bg{position:absolute;right:-8%;bottom:-10%;width:55%;opacity:.04;pointer-events:none;}
+.cover-slash{position:absolute;top:0;right:0;width:35%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.06;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-brand{display:flex;align-items:center;gap:.75rem;}
+.cover-brand-logo{width:36px;height:36px;object-fit:contain;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2.5rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+.cover-stats{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;max-width:620px;}
+.cover-stat{flex:1;min-width:100px;padding:1.25rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);}
+.cover-stat:last-child{border-right:none;}
+.cover-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;display:block;}
+.cover-stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px;display:block;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'→';font-size:6rem;color:rgba(255,255,255,.1);position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-navy{background:var(--navy);}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.two-col-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.two-col-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.item-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.item-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.item-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.item-list-d li{color:var(--gray-dark);}
+
+/* SPRINT */
+.sprint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.sprint-card{background:var(--off);padding:1.75rem;transition:background .15s;border-top:4px solid transparent;}
+.sprint-card:hover{background:#fff;border-top-color:var(--orange);}
+.sprint-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.sprint-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;color:var(--navy);margin-bottom:.6rem;line-height:1.1;}
+.sprint-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.6;margin-bottom:.75rem;}
+.sprint-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.sprint-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.sprint-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+/* TABLE */
+.div-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.div-table thead{background:var(--navy);color:#fff;}
+.div-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.div-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.div-table tr:hover td{background:#fff;}
+.mn{color:var(--navy);font-weight:900;}.mt{color:var(--orange);font-weight:900;}.mf{color:var(--muted);}
+
+/* TREE */
+.tree-block{background:var(--navy-mid);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:2;}
+.tree-block .root{color:var(--orange);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;}
+.tree-block .branch{color:#fff;padding-left:1.5rem;}
+.tree-block .leaf{color:rgba(255,255,255,.45);padding-left:3rem;}
+
+/* SCOPE BOX */
+.scope-box{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:3px;padding:2rem;margin-top:2rem;}
+.scope-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:#fff;margin-bottom:.75rem;}
+.scope-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.7;}
+.scope-text strong{color:var(--orange);}
+.script-box{background:rgba(232,90,26,.07);border-left:3px solid var(--orange);padding:1.25rem 1.5rem;border-radius:0 3px 3px 0;margin-top:1rem;}
+.script-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.script-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic;}
+
+/* GROWTH */
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.growth-card{background:rgba(255,255,255,.025);padding:2rem;}
+.growth-phase{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.growth-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:#fff;margin-bottom:.75rem;}
+.growth-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:1rem;}
+.growth-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.growth-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.growth-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+.onboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.onboard-card{background:var(--off);padding:1.5rem;transition:background .15s;}
+.onboard-card:hover{background:#fff;}
+.onboard-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(8,17,42,.06);line-height:1;}
+.onboard-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.5rem;line-height:1.1;}
+.onboard-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.5;}
+
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-brand{display:flex;align-items:center;gap:.75rem;}
+.footer-logo-img{width:28px;height:28px;object-fit:contain;opacity:.7;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+.wrap{padding:3rem 1.5rem;}.cover-inner{padding:1.5rem;}
+.two-col,.sprint-grid,.growth-grid{grid-template-columns:1fr;}
+.onboard-grid{grid-template-columns:repeat(2,1fr);}
+.band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-brand"><div class="cover-logo">NEXO <span>Estratégia</span></div></div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Área 03 · Dono: Filipe</span></div>
+      <div class="cover-h1">ÁREA DE<br><span>PROJETOS</span></div>
+      <span class="cover-h1-sub">DO PLANO À EXECUÇÃO REAL</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área de projetos — como transformar o Mapa de Crescimento em entregáveis reais, com sequência, prazo e qualidade.</p>
+      <div class="cover-stats">
+        <div class="cover-stat"><span class="cover-stat-n">2</span><span class="cover-stat-l">Semanas/sprint</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">6</span><span class="cover-stat-l">Frentes</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">2</span><span class="cover-stat-l">Sócios exec.</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">100%</span><span class="cover-stat-l">Na Base Nexo</span></div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div><span class="cover-quote">"Projetos existe para que a execução siga um trilho — não onde o cliente puxa."</span>
+      <span class="tag tag-dark">Filipe · Responsável</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">PLANEJAMENTO → SPRINT 1 → SPRINT 2 → SPRINT N → REVISÃO DE ROTA → ENCERRAMENTO — A LÓGICA DE EXECUÇÃO DA NEXO.</span></div>
+
+<!-- PURPOSE -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para que existe</div>
+    <h2 class="sec-h sec-h-w">PROPÓSITO<br>DA ÁREA</h2>
+    <p class="sec-d sec-d-w">Projetos transforma o plano validado em realidade — com sequência, prazo e qualidade. Sem essa área, a execução vai onde o cliente puxa.</p>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <div class="two-col-h">O QUE ESSA ÁREA FAZ</div>
+        <ul class="item-list">
+          <li>Transforma o Mapa de Crescimento em plano de execução sequenciado</li>
+          <li>Define o que é construído em qual ordem e por quem</li>
+          <li>Garante que cada entregável tem prazo, responsável e critério de qualidade</li>
+          <li>Constrói e entrega todos os entregáveis do Método Nexo</li>
+          <li>Mantém a Base do Cliente atualizada com tudo que foi produzido</li>
+          <li>Controla o escopo — o que entrou no contrato e o que não entrou</li>
+        </ul>
+      </div>
+      <div class="two-col-cell">
+        <div class="two-col-h">FERRAMENTAS INDISPENSÁVEIS</div>
+        <ul class="item-list">
+          <li>Base do Cliente em HTML — hub de entregáveis por cliente</li>
+          <li>Drive por cliente — repositório de arquivos e versões</li>
+          <li>Notion — gestão de tarefas, prazos e status por projeto</li>
+          <li>Template de Mapa de Execução — sprint por sprint dos 6 meses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- SPRINT LOGIC -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Lógica de execução</div>
+    <h2 class="sec-h sec-h-d">SPRINTS DE<br>2 SEMANAS</h2>
+    <p class="sec-d sec-d-d">O problema de ir onde o cliente puxa é que não existe sequência. A solução é trabalhar em sprints de 2 semanas — blocos fixos com entregáveis definidos no início e entregues no fim.</p>
+    <div class="sprint-grid">
+      <div class="sprint-card">
+        <span class="sprint-tag">Início do sprint</span>
+        <div class="sprint-title">PLANEJAMENTO DO SPRINT</div>
+        <p class="sprint-desc">Filipe e Pedro definem o que vai ser construído nas próximas 2 semanas com base no Mapa de Crescimento.</p>
+        <ul class="sprint-list"><li>Quais entregáveis entram nesse sprint</li><li>Quem produz cada entregável</li><li>Prazo de entrega de cada um</li><li>Critério de qualidade definido</li></ul>
+      </div>
+      <div class="sprint-card">
+        <span class="sprint-tag">Durante o sprint</span>
+        <div class="sprint-title">EXECUÇÃO E REVISÃO</div>
+        <p class="sprint-desc">Cada sócio trabalha nos entregáveis da sua frente. Revisão cruzada obrigatória antes de ir para o cliente.</p>
+        <ul class="sprint-list"><li>Cada um produz os entregáveis da sua frente</li><li>Check de progresso na metade do sprint</li><li>Pedro revisa o de Filipe — Filipe revisa o de Pedro</li><li>Ajustes antes da entrega</li></ul>
+      </div>
+      <div class="sprint-card">
+        <span class="sprint-tag">Fim do sprint</span>
+        <div class="sprint-title">ENTREGA E APRESENTAÇÃO</div>
+        <p class="sprint-desc">Entregável publicado na Base do Cliente e apresentado na reunião quinzenal com líderes.</p>
+        <ul class="sprint-list"><li>Entregável publicado na Base Nexo no mesmo dia</li><li>Reunião quinzenal — apresentação ao cliente</li><li>Feedback coletado e registrado</li><li>Próximo sprint planejado</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DIVISION -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Divisão de entregáveis</div>
+    <h2 class="sec-h sec-h-w">QUEM FAZ<br>O QUÊ</h2>
+    <p class="sec-d sec-d-w">Cada frente tem um responsável primário. Todo entregável é revisado pelo outro sócio antes de ir para o cliente — sem exceção.</p>
+    <table class="div-table">
+      <thead><tr><th>Frente</th><th>Entregáveis</th><th>Responsável</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">Comercial</td><td>Processo de vendas, Playbook de rotina, Scripts, Indicadores comerciais</td><td class="mt">Pedro</td></tr>
+        <tr><td class="mn">Financeiro</td><td>Dashboard financeiro, KPIs, Indicadores de gestão</td><td class="mt">Pedro</td></tr>
+        <tr><td class="mn">Cultura e Pessoas</td><td>Playbook de cultura, Processo de contratação, Onboarding de colaborador</td><td class="mt">Filipe</td></tr>
+        <tr><td class="mn">Operação e Processos</td><td>Processos internos documentados, Rotinas por área</td><td class="mt">Filipe</td></tr>
+        <tr><td class="mn">Jornada do Cliente</td><td>Mapa da jornada atual, Jornada redesenhada, Pós-venda</td><td class="mt">Filipe</td></tr>
+        <tr><td class="mn">Gestão</td><td>Ritos de gestão, Dashboard de indicadores, Tomada de decisão</td><td class="mt">Filipe</td></tr>
+        <tr><td class="mn">Negócio</td><td>Posicionamento, Modelo de negócio, Precificação</td><td class="mt">Os dois</td></tr>
+      </tbody>
+    </table>
+    <div class="scope-box">
+      <div class="scope-title">REGRA DE QUALIDADE</div>
+      <p class="scope-text">Todo entregável produzido por um sócio é revisado pelo outro antes de ir para o cliente. <strong>Sem exceção.</strong> Se não foi revisado, não foi entregue.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- BASE STRUCTURE -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Hub do cliente</div>
+    <h2 class="sec-h sec-h-d">ESTRUTURA DA<br>BASE DO CLIENTE</h2>
+    <p class="sec-d sec-d-d">A Base do Cliente é o ativo mais tangível que a Nexo entrega. Todo entregável publicado vai para a Base no mesmo dia — o cliente vê o progresso em tempo real.</p>
+    <div class="tree-block">
+      <div class="root">BASE NEXO — [NOME DA EMPRESA]</div>
+      <div class="branch">├── 01. Diagnóstico</div>
+      <div class="leaf">├── Relatório Raio-X Nexo</div>
+      <div class="leaf">└── Índice Nexo Inicial</div>
+      <div class="branch">├── 02. Estratégia</div>
+      <div class="leaf">└── Mapa de Crescimento Nexo</div>
+      <div class="branch">├── 03. Comercial</div>
+      <div class="leaf">├── Processo de Vendas</div>
+      <div class="leaf">├── Playbook de Rotina Comercial</div>
+      <div class="leaf">└── Scripts por etapa</div>
+      <div class="branch">├── 04. Entrega e Jornada</div>
+      <div class="leaf">├── Mapa da Jornada Atual</div>
+      <div class="leaf">└── Jornada Redesenhada</div>
+      <div class="branch">├── 05. Operação</div>
+      <div class="leaf">└── Processos Internos por Área</div>
+      <div class="branch">├── 06. Pessoas e Cultura</div>
+      <div class="leaf">├── Playbook de Cultura</div>
+      <div class="leaf">└── Onboarding de Colaborador</div>
+      <div class="branch">├── 07. Gestão</div>
+      <div class="leaf">├── Ritos de Gestão</div>
+      <div class="leaf">└── Dashboard de Indicadores</div>
+      <div class="branch">└── 08. Encerramento</div>
+      <div class="leaf">├── Índice Nexo Final</div>
+      <div class="leaf">└── Dossiê Nexo Completo</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- SCOPE CONTROL -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Controle de escopo</div>
+    <h2 class="sec-h sec-h-w">COMO RESPONDER<br>PEDIDOS FORA DO ESCOPO</h2>
+    <p class="sec-d sec-d-w">O Mapa de Crescimento define o escopo. Pedidos fora do mapa são registrados — não ignorados, não aceitos automaticamente.</p>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <div class="two-col-h">REGRAS DE ESCOPO</div>
+        <ul class="item-list">
+          <li>O Mapa de Crescimento define o que está no contrato</li>
+          <li>Pedidos fora do mapa são registrados e analisados — nunca ignorados</li>
+          <li>Se fizer sentido incluir: ajusta o mapa e comunica ao cliente</li>
+          <li>Se for algo muito além: conversa de expansão de contrato</li>
+          <li>Nunca aceitar escopo extra por boa vontade sem formalizar</li>
+        </ul>
+        <div class="script-box">
+          <span class="script-label">Como responder ao cliente</span>
+          <p class="script-text">"[Nome], faz todo sentido olhar para isso. Deixa eu verificar se conseguimos encaixar no plano atual ou se seria melhor tratado como um próximo passo após o contrato."</p>
+        </div>
+      </div>
+      <div class="two-col-cell">
+        <div class="two-col-h">MÉTRICAS DA ÁREA</div>
+        <ul class="item-list">
+          <li>Sprints concluídos no prazo — acima de 85%</li>
+          <li>Entregáveis na Base — 100% sempre</li>
+          <li>Tempo médio por entregável — acompanhar e reduzir</li>
+          <li>Solicitações fora do escopo — registrar todas</li>
+          <li>Satisfação com entregáveis — NPS acima de 8</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Evolução da área</div>
+    <h2 class="sec-h sec-h-d">COMO PROJETOS<br>CRESCE COM A NEXO</h2>
+    <p class="sec-d sec-d-d">A área evolui conforme a carteira cresce — cada fase tem um gatilho claro.</p>
+    <div class="growth-grid" style="background:var(--gray);">
+      <div class="growth-card" style="background:var(--off);">
+        <span class="growth-phase" >Hoje</span>
+        <div class="growth-title" style="color:var(--navy);">FILIPE + PEDRO</div>
+        <p class="growth-desc" style="color:var(--muted);">Os dois sócios dividem a produção por frente. Funciona para até 4 a 5 clientes simultâneos com qualidade.</p>
+        <ul class="growth-list">
+          <li style="color:var(--gray-dark);">Pedro: comercial e financeiro</li>
+          <li style="color:var(--gray-dark);">Filipe: cultura, operação, jornada e gestão</li>
+          <li style="color:var(--gray-dark);">Revisão cruzada obrigatória</li>
+        </ul>
+      </div>
+      <div class="growth-card" style="background:var(--off);">
+        <span class="growth-phase">Próximo passo</span>
+        <div class="growth-title" style="color:var(--navy);">+ CONSULTOR DE IMPLEMENTAÇÃO</div>
+        <p class="growth-desc" style="color:var(--muted);">Quando a carteira crescer, entra um consultor que executa os entregáveis operacionais sob supervisão dos sócios.</p>
+        <ul class="growth-list">
+          <li style="color:var(--gray-dark);">Consultor produz entregáveis operacionais</li>
+          <li style="color:var(--gray-dark);">Filipe e Pedro revisam e validam</li>
+          <li style="color:var(--gray-dark);">Sócios focam em estratégia e relação</li>
+        </ul>
+      </div>
+      <div class="growth-card" style="background:var(--off);">
+        <span class="growth-phase">Nível seguinte</span>
+        <div class="growth-title" style="color:var(--navy);">TIME DE CONSULTORES</div>
+        <p class="growth-desc" style="color:var(--muted);">Com carteira grande, time de consultores segmentado por frente. Sócios como head de qualidade e estratégia.</p>
+        <ul class="growth-list">
+          <li style="color:var(--gray-dark);">Consultores por especialidade</li>
+          <li style="color:var(--gray-dark);">Head de projetos coordena os sprints</li>
+          <li style="color:var(--gray-dark);">Sócios como diretores de qualidade</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-w">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-w">Todo consultor que entrar na área de projetos precisa dominar esses pontos antes de produzir qualquer entregável sozinho.</p>
+    <div class="onboard-grid">
+      <div class="onboard-card"><div class="onboard-n">01</div><div class="onboard-title">O MÉTODO NEXO COMPLETO</div><p class="onboard-desc">O que é cada entregável, como se encaixa no todo e qual o padrão de qualidade esperado.</p></div>
+      <div class="onboard-card"><div class="onboard-n">02</div><div class="onboard-title">A BASE DO CLIENTE</div><p class="onboard-desc">Como usar o HTML, como atualizar e o padrão visual e de linguagem de cada seção.</p></div>
+      <div class="onboard-card"><div class="onboard-n">03</div><div class="onboard-title">O NOTION DE PROJETOS</div><p class="onboard-desc">Como registrar tarefas, status e prazos — tudo atualizado em tempo real.</p></div>
+      <div class="onboard-card"><div class="onboard-n">04</div><div class="onboard-title">LÓGICA DE SPRINTS</div><p class="onboard-desc">Como planejar, executar e entregar dentro de 2 semanas sem desviar do plano.</p></div>
+      <div class="onboard-card"><div class="onboard-n">05</div><div class="onboard-title">DIVISÃO POR FRENTE</div><p class="onboard-desc">Quem faz o quê, quando pedir revisão e como fazer o handoff entre sócios.</p></div>
+      <div class="onboard-card"><div class="onboard-n">06</div><div class="onboard-title">PADRÃO DE QUALIDADE</div><p class="onboard-desc">Critério de aprovação de cada tipo de entregável antes de ir para a Base.</p></div>
+      <div class="onboard-card"><div class="onboard-n">07</div><div class="onboard-title">CONTROLE DE ESCOPO</div><p class="onboard-desc">O que aceitar, o que registrar e como responder quando o cliente pede algo fora.</p></div>
+      <div class="onboard-card"><div class="onboard-n">08</div><div class="onboard-title">REGRA DA REVISÃO</div><p class="onboard-desc">Todo entregável é revisado pelo outro sócio. Sem exceção. Nunca vai direto para o cliente.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand"><div class="footer-logo">NEXO <span>Estratégia</span></div></div>
+  <div class="footer-meta">Manual de Área · Projetos · Dono: Filipe<br>nexoestrategia.com.br · 2026</div>
+</div>
+</body>
+</html>

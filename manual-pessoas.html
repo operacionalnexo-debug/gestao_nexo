@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Pessoas — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;--off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--off);color:var(--navy);line-height:1.3;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-slash{position:absolute;top:0;right:0;width:35%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.06;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2.5rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+.cover-stats{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;max-width:620px;}
+.cover-stat{flex:1;min-width:100px;padding:1.25rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);}
+.cover-stat:last-child{border-right:none;}
+.cover-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;display:block;}
+.cover-stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px;display:block;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}
+.cover-lema-line{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}
+.cover-lema-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.cover-lema-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cover-lema-tag em{color:var(--orange);font-style:normal;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'→';font-size:6rem;color:rgba(255,255,255,.1);position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-navy{background:var(--navy);}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+
+/* VALUES */
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.value-card{background:rgba(232,90,26,.07);border:1px solid rgba(232,90,26,.2);padding:2rem;}
+.value-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;}
+.value-def{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:1rem;border-left:2px solid var(--orange);padding-left:.75rem;}
+.value-behaviors{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.value-behaviors li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.45);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.value-behaviors li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+/* CULTURA */
+.cultura-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.cultura-card{padding:2rem;}
+.cultura-card.verde{background:var(--off);}
+.cultura-card.vermelho{background:#FFF0EE;}
+.cultura-h{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid;}
+.cultura-card.verde .cultura-h{color:var(--navy);border-color:var(--orange);}
+.cultura-card.vermelho .cultura-h{color:#C03000;border-color:#D4430E;}
+.cultura-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cultura-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;line-height:1.4;display:flex;align-items:flex-start;gap:.5rem;}
+.cultura-card.verde .cultura-list li{color:var(--gray-dark);}
+.cultura-card.verde .cultura-list li::before{content:'✓';color:var(--orange);flex-shrink:0;}
+.cultura-card.vermelho .cultura-list li{color:#8B2500;}
+.cultura-card.vermelho .cultura-list li::before{content:'✗';color:#D4430E;flex-shrink:0;}
+
+/* GATILHOS */
+.gatilhos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.gatilho-card{background:var(--off);padding:2rem;border-top:4px solid transparent;transition:background .15s;}
+.gatilho-card:hover{background:#fff;border-top-color:var(--orange);}
+.gatilho-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(8,17,42,.06);line-height:1;}
+.gatilho-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.gatilho-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;color:var(--navy);margin-bottom:.6rem;}
+.gatilho-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.6;}
+
+/* ROADMAP */
+.roadmap-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.roadmap-table thead{background:var(--navy);color:#fff;}
+.roadmap-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.roadmap-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.roadmap-table tr:hover td{background:#fff;}
+.mn{color:var(--navy);font-weight:900;}.mt{color:var(--orange);font-weight:900;}
+
+/* SELETIVO */
+.seletivo-steps{display:flex;flex-direction:column;gap:3px;}
+.seletivo-row{display:grid;grid-template-columns:90px 1fr;border-radius:3px;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.seletivo-side{background:rgba(232,90,26,.08);border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem .5rem;text-align:center;}
+.seletivo-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--orange);line-height:1;display:block;}
+.seletivo-week{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);display:block;margin-top:3px;}
+.seletivo-body{padding:1.5rem 2rem;background:rgba(255,255,255,.02);}
+.seletivo-header{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.seletivo-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:#fff;}
+.seletivo-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:.75rem;}
+.seletivo-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.seletivo-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.seletivo-list li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.7rem;}
+.seletivo-alert{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:2px;padding:.5rem .75rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);display:inline-block;margin-top:.5rem;}
+
+/* PERGUNTAS CULTURAIS */
+.perguntas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.pergunta-card{background:rgba(255,255,255,.025);padding:1.5rem;}
+.pergunta-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(232,90,26,.15);line-height:1;}
+.pergunta-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:.5rem;font-style:italic;}
+.pergunta-why{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.3);line-height:1.5;}
+
+/* ONBOARDING FASES */
+.onboard-phases{display:flex;flex-direction:column;gap:3px;}
+.onboard-phase{display:grid;grid-template-columns:90px 1fr;border-radius:3px;overflow:hidden;border:1px solid var(--gray);}
+.onboard-side{background:rgba(232,90,26,.08);border-right:1px solid var(--gray);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem .5rem;text-align:center;}
+.onboard-side-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--orange);line-height:1;display:block;}
+.onboard-side-week{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-top:3px;}
+.onboard-body{padding:1.5rem 2rem;background:var(--off);}
+.onboard-phase-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:var(--navy);margin-bottom:.5rem;}
+.onboard-phase-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);line-height:1.6;margin-bottom:.75rem;}
+.onboard-phase-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.onboard-phase-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.onboard-phase-list li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.7rem;}
+
+/* DESENVOLVIMENTO */
+.dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.dev-card{background:var(--off);padding:1.75rem;transition:background .15s;border-top:4px solid transparent;}
+.dev-card:hover{background:#fff;border-top-color:var(--orange);}
+.dev-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.dev-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;color:var(--navy);margin-bottom:.5rem;}
+.dev-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.6;margin-bottom:.75rem;}
+.dev-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.dev-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.dev-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+/* DESLIGAMENTO */
+.desl-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.desl-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.desl-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.desl-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.desl-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.desl-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.desl-alert{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#C03000;background:rgba(192,48,0,.08);border:1px solid rgba(192,48,0,.2);padding:4px 10px;border-radius:2px;display:inline-block;margin-top:.75rem;}
+
+/* METRICS */
+.metrics-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.metrics-table thead{background:var(--navy);color:#fff;}
+.metrics-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.metrics-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.metrics-table tr:hover td{background:#fff;}
+
+/* GROWTH */
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.growth-card{background:rgba(255,255,255,.025);padding:2rem;}
+.growth-phase{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.growth-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:#fff;margin-bottom:.75rem;}
+.growth-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:1rem;}
+.growth-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.growth-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.growth-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+/* ONBOARDING NEW */
+.onboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.onboard-card{background:var(--off);padding:1.5rem;transition:background .15s;}
+.onboard-card:hover{background:#fff;}
+.onboard-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(8,17,42,.06);line-height:1;}
+.onboard-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.5rem;line-height:1.1;}
+.onboard-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.5;}
+
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+.wrap{padding:3rem 1.5rem;}.cover-inner{padding:1.5rem;}
+.values-grid,.cultura-grid,.perguntas-grid,.desl-grid{grid-template-columns:1fr;}
+.gatilhos-grid,.dev-grid,.growth-grid{grid-template-columns:1fr;}
+.onboard-grid{grid-template-columns:repeat(2,1fr);}
+.seletivo-row,.onboard-phase{grid-template-columns:1fr;}
+.band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Área 06 · Dono: Filipe</span></div>
+      <div class="cover-h1">ÁREA DE<br><span>PESSOAS</span></div>
+      <span class="cover-h1-sub">TIME CERTO · CULTURA VIVA · CRESCIMENTO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área de pessoas — quando contratar, como contratar, processo seletivo, onboarding de 30 dias, cultura, desenvolvimento e desligamento.</p>
+      <div class="cover-stats">
+        <div class="cover-stat"><span class="cover-stat-n">3</span><span class="cover-stat-l">Gatilhos</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">7</span><span class="cover-stat-l">Etapas seletivo</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">30</span><span class="cover-stat-l">Dias onboarding</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">2</span><span class="cover-stat-l">Valores centrais</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">5</span><span class="cover-stat-l">Próx. contrat.</span></div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema">
+        <span class="cover-lema-line">Plano · Foco · Execução</span>
+        <span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span>
+        <span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span>
+      </div>
+      <span class="cover-quote">"Contratar errado compromete a entrega. Contratar certo sem onboarding compromete o mesmo."</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">QUANDO CONTRATAR → QUEM CONTRATAR → PROCESSO SELETIVO → ONBOARDING → CULTURA → DESENVOLVIMENTO.</span></div>
+
+<!-- VALORES -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Os valores centrais</div>
+    <h2 class="sec-h sec-h-w">A CULTURA<br>DA NEXO</h2>
+    <p class="sec-d sec-d-w">Dois valores que guiam tudo. Todo colaborador precisa entender e viver os dois — não só declarar. Valores que ficam no papel não são valores.</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-title">RESULTADO</div>
+        <p class="value-def">Na Nexo o que importa é o que foi entregue — com qualidade e com agilidade. Tempo importa sim: agilidade de execução é primordial. Não é sobre trabalhar mais horas, é sobre entregar no prazo combinado sem comprometer a qualidade. Todo colaborador precisa saber qual é o seu resultado esperado, quando precisa estar pronto e ser cobrado por ambos.</p>
+        <ul class="value-behaviors">
+          <li>Entrega no prazo combinado — sem precisar ser cobrado</li>
+          <li>Qualidade não negocia — o padrão Nexo em tudo</li>
+          <li>Agilidade é diferencial — quem executa rápido e bem cria vantagem</li>
+          <li>Faz acontecer — encontra o caminho, não a desculpa</li>
+        </ul>
+      </div>
+      <div class="value-card">
+        <div class="value-title">COMPROMETIMENTO</div>
+        <p class="value-def">Comprometimento na Nexo não é fazer o mínimo combinado. É se importar com o que está fazendo, avisar quando algo vai travar, não deixar o colega na mão e tratar o trabalho como se fosse seu. É a diferença entre quem entrega e quem cumpre tabela.</p>
+        <ul class="value-behaviors">
+          <li>Avisa antes — se vai atrasar, se travou, se precisa de ajuda. Nunca surpresa.</li>
+          <li>Trata o cliente como se fosse seu — mesmo quem não está na linha de frente</li>
+          <li>Dá e recebe feedback sem drama — é ferramenta, não ataque</li>
+          <li>Trabalha híbrido com disciplina — presença quando precisa, autonomia quando não precisa</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- COMPORTAMENTOS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Cultura na prática</div>
+    <h2 class="sec-h sec-h-d">COMPORTAMENTOS<br>ESPERADOS E NÃO TOLERADOS</h2>
+    <p class="sec-d sec-d-d">Cultura é o que as pessoas fazem quando ninguém está olhando. Precisa estar documentado, ser apresentado no onboarding e cobrado no dia a dia.</p>
+    <div class="cultura-grid">
+      <div class="cultura-card verde">
+        <div class="cultura-h">COMPORTAMENTOS ESPERADOS</div>
+        <ul class="cultura-list">
+          <li>Avisa antes — se vai atrasar, se travou, se precisa de ajuda. Nunca surpresa.</li>
+          <li>Faz acontecer — encontra o caminho, não a desculpa</li>
+          <li>Trata o cliente como se fosse seu — mesmo quem não está na linha de frente</li>
+          <li>Dá e recebe feedback sem drama — é ferramenta, não ataque pessoal</li>
+          <li>Trabalha híbrido com disciplina — presença quando precisa, autonomia quando não precisa</li>
+          <li>Entrega no prazo com qualidade — os dois juntos, não um ou outro</li>
+          <li>Documenta o que faz — o conhecimento não fica só na cabeça</li>
+        </ul>
+      </div>
+      <div class="cultura-card vermelho">
+        <div class="cultura-h">O QUE NÃO TOLERAMOS</div>
+        <ul class="cultura-list">
+          <li>Entrega sem qualidade sem avisar antes — surpresa ruim não tem espaço aqui</li>
+          <li>Comprometimento verbal sem execução real — dizer que vai fazer e não fazer</li>
+          <li>Fofoca ou desalinhamento falado fora do lugar certo — o problema se resolve na conversa direta</li>
+          <li>Tratar cliente com descaso — qualquer cliente, em qualquer momento</li>
+          <li>Atraso sem aviso prévio — o mínimo é comunicar antes</li>
+          <li>Postura de "não é minha responsabilidade" — na Nexo todo mundo se importa com o todo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GATILHOS -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Quando contratar</div>
+    <h2 class="sec-h sec-h-w">OS 3 GATILHOS QUE<br>JUSTIFICAM CONTRATAR</h2>
+    <p class="sec-d sec-d-w">Nenhuma contratação acontece sem que os 3 gatilhos estejam presentes. Contratar por pressão é um dos erros mais caros de uma empresa pequena — a pessoa entra sem estrutura e não performa.</p>
+    <div class="gatilhos-grid" style="background:rgba(255,255,255,.05);">
+      <div class="gatilho-card" style="background:rgba(255,255,255,.025);border-top-color:rgba(232,90,26,0);" onmouseover="this.style.background='rgba(255,255,255,.05)';this.style.borderTopColor='var(--orange)';" onmouseout="this.style.background='rgba(255,255,255,.025)';this.style.borderTopColor='transparent';">
+        <div class="gatilho-n" style="color:rgba(232,90,26,.15);">01</div>
+        <span class="gatilho-tag">Gatilho 1</span>
+        <div class="gatilho-title" style="color:#fff;">CAPACIDADE ESGOTADA</div>
+        <p class="gatilho-desc" style="color:rgba(255,255,255,.38);">O sócio responsável pela área está com mais de 80% do tempo ocupado com operacional e não consegue evoluir estrategicamente. A contratação libera capacidade — não cria capacidade do nada.</p>
+      </div>
+      <div class="gatilho-card" style="background:rgba(255,255,255,.025);" onmouseover="this.style.background='rgba(255,255,255,.05)';" onmouseout="this.style.background='rgba(255,255,255,.025)';">
+        <div class="gatilho-n" style="color:rgba(232,90,26,.15);">02</div>
+        <span class="gatilho-tag">Gatilho 2</span>
+        <div class="gatilho-title" style="color:#fff;">OPORTUNIDADE TRAVADA</div>
+        <p class="gatilho-desc" style="color:rgba(255,255,255,.38);">Existe demanda real — leads, clientes, projetos — mas não existe time para atender com qualidade. A contratação captura oportunidade real, não especulativa.</p>
+      </div>
+      <div class="gatilho-card" style="background:rgba(255,255,255,.025);" onmouseover="this.style.background='rgba(255,255,255,.05)';" onmouseout="this.style.background='rgba(255,255,255,.025)';">
+        <div class="gatilho-n" style="color:rgba(232,90,26,.15);">03</div>
+        <span class="gatilho-tag">Gatilho 3</span>
+        <div class="gatilho-title" style="color:#fff;">PROCESSO DOCUMENTADO</div>
+        <p class="gatilho-desc" style="color:rgba(255,255,255,.38);">A função que vai ser contratada tem processo documentado, ferramentas definidas e critério de qualidade claro. Se não tem — não é hora de contratar. É hora de documentar primeiro.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ROADMAP -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Próximas contratações</div>
+    <h2 class="sec-h sec-h-d">ROADMAP DE<br>CONTRATAÇÕES — 18 MESES</h2>
+    <p class="sec-d sec-d-d">A ordem pode mudar conforme o crescimento. O gatilho é o que define — não o planejamento rígido. Mas a sequência lógica já está pensada.</p>
+    <table class="roadmap-table">
+      <thead><tr><th>Ordem</th><th>Função</th><th>Área</th><th>Gatilho que dispara</th><th>Modelo</th></tr></thead>
+      <tbody>
+        <tr><td class="mt">1ª</td><td class="mn">SDR</td><td>Comercial</td><td>Pedro com mais de 80% do tempo em prospecção e qualificação</td><td>PJ</td></tr>
+        <tr><td class="mt">2ª</td><td class="mn">Gestor de Tráfego Dedicado</td><td>Marketing</td><td>Volume de leads crescendo e terceirizado atual no limite de capacidade</td><td>PJ</td></tr>
+        <tr><td class="mt">3ª</td><td class="mn">Consultor de Projetos e CS</td><td>Projetos / CS</td><td>Carteira acima de 6 clientes simultâneos com qualidade comprometida</td><td>PJ</td></tr>
+        <tr><td class="mt">4ª</td><td class="mn">Designer</td><td>Marketing</td><td>Volume de conteúdo crescendo e qualidade visual comprometida</td><td>PJ ou Freelancer</td></tr>
+        <tr><td class="mt">5ª</td><td class="mn">Social Media</td><td>Marketing</td><td>Filipe gastando mais de 30% do tempo com publicação e monitoramento</td><td>PJ</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PROCESSO SELETIVO -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Processo seletivo</div>
+    <h2 class="sec-h sec-h-w">AS 7 ETAPAS<br>DO PROCESSO SELETIVO</h2>
+    <p class="sec-d sec-d-w">Prazo estimado: 3 a 4 semanas do início ao fim. Filipe conduz, Pedro valida. Os dois precisam dizer sim — se um diz não, não avança.</p>
+    <div class="seletivo-steps">
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">01</span><span class="seletivo-week">Dias 1–2</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">DEFINIÇÃO DO PERFIL</div><span class="tag tag-fill">Filipe + Pedro</span></div>
+          <p class="seletivo-desc">Antes de divulgar qualquer vaga, os dois sócios respondem juntos: qual é a função exata, quais são os entregáveis esperados, qual é o perfil técnico e cultural, qual é o modelo e o budget.</p>
+          <p class="seletivo-desc" style="margin-top:.5rem;">Entregável: documento de perfil da vaga — uma página com tudo respondido antes de abrir o processo.</p>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">02</span><span class="seletivo-week">Dias 3–7</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">DIVULGAÇÃO</div><span class="tag tag-fill">Filipe</span></div>
+          <p class="seletivo-desc">Vaga publicada no LinkedIn com descrição clara e honesta. Compartilhamento na rede dos dois sócios — indicação é o melhor canal. Formulário de triagem enviado para todos os candidatos antes da entrevista.</p>
+          <p class="seletivo-desc" style="margin-top:.5rem;">O formulário precisa ter: por que quer trabalhar na Nexo, experiência relevante, maior resultado gerado em função parecida, disponibilidade e expectativa de remuneração.</p>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">03</span><span class="seletivo-week">Dias 8–12</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">TRIAGEM</div><span class="tag tag-fill">Filipe</span></div>
+          <p class="seletivo-desc">Filipe revisa os formulários e seleciona os 5 a 8 melhores perfis. Critério de corte: alinhamento cultural aparente + experiência mínima para a função.</p>
+          <span class="seletivo-alert">Candidatos que não avançam recebem retorno — sempre. Sem exceção.</span>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">04</span><span class="seletivo-week">Dias 13–17</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">ENTREVISTA TÉCNICA</div><span class="tag tag-fill">Filipe · 30 a 45 min</span></div>
+          <p class="seletivo-desc">Objetivo: entender a experiência real, o que já fez e como pensa sobre o trabalho. Usa o roteiro técnico específico da função. No final: apresenta a Nexo, o método e como a função se encaixa.</p>
+          <p class="seletivo-desc" style="margin-top:.5rem;">Critério para avançar: candidato tem a experiência mínima e parece capaz de executar a função com autonomia em até 60 dias.</p>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">05</span><span class="seletivo-week">Dias 17–20</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">ENTREVISTA CULTURAL</div><span class="tag tag-fill">Pedro + Filipe · 30 min</span></div>
+          <p class="seletivo-desc">Objetivo: entender se a pessoa vive os valores da Nexo — resultado e comprometimento. Perguntas situacionais — como agiu em situações específicas, não o que faria hipoteticamente.</p>
+          <span class="seletivo-alert">Os dois sócios precisam dizer sim. Se um diz não, não avança — sem exceção.</span>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">06</span><span class="seletivo-week">Dias 21–23</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">DECISÃO E PROPOSTA</div><span class="tag tag-fill">Filipe + Pedro</span></div>
+          <p class="seletivo-desc">Filipe e Pedro alinham a decisão final. Proposta enviada por escrito — função, escopo, remuneração e modelo. Prazo para resposta: 48h.</p>
+          <ul class="seletivo-list">
+            <li>Candidatos que não foram selecionados recebem retorno com feedback honesto</li>
+            <li>Nunca deixar candidato sem resposta — mesmo os que não foram contratados</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="seletivo-row">
+        <div class="seletivo-side"><span class="seletivo-n">07</span><span class="seletivo-week">1º dia</span></div>
+        <div class="seletivo-body">
+          <div class="seletivo-header"><div class="seletivo-title">ONBOARDING COMEÇA</div><span class="tag tag-fill">Filipe · 30 dias</span></div>
+          <p class="seletivo-desc">Contrato PJ enviado antes do início. Onboarding começa no primeiro dia — nunca improvisar a entrada de um novo colaborador.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PERGUNTAS CULTURAIS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Entrevista cultural</div>
+    <h2 class="sec-h sec-h-d">AS 4 PERGUNTAS<br>CULTURAIS OBRIGATÓRIAS</h2>
+    <p class="sec-d sec-d-d">Perguntas situacionais — como agiu em situações específicas. Não "o que você faria?" mas "o que você fez?". Resposta real vale mais do que resposta ensaiada.</p>
+    <div class="perguntas-grid">
+      <div class="pergunta-card">
+        <div class="pergunta-n">01</div>
+        <p class="pergunta-text">"Me conta uma situação em que você entregou resultado mesmo com obstáculos no caminho."</p>
+        <p class="pergunta-why">Avalia: capacidade de execução sob pressão e comprometimento com o resultado mesmo quando é difícil.</p>
+      </div>
+      <div class="pergunta-card">
+        <div class="pergunta-n">02</div>
+        <p class="pergunta-text">"Me conta uma vez em que você errou e o que fez depois."</p>
+        <p class="pergunta-why">Avalia: maturidade, responsabilidade e capacidade de aprender. Quem não assume erro não cresce.</p>
+      </div>
+      <div class="pergunta-card">
+        <div class="pergunta-n">03</div>
+        <p class="pergunta-text">"Como você organiza seu trabalho quando tem múltiplas prioridades ao mesmo tempo?"</p>
+        <p class="pergunta-why">Avalia: autonomia, organização e capacidade de tomar decisão sem precisar de direção constante.</p>
+      </div>
+      <div class="pergunta-card">
+        <div class="pergunta-n">04</div>
+        <p class="pergunta-text">"O que comprometimento significa para você na prática — me dá um exemplo real."</p>
+        <p class="pergunta-why">Avalia: se o valor de comprometimento existe de verdade ou é só discurso. Exemplo concreto mostra o que a pessoa faz, não o que diz que faz.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Onboarding de colaborador</div>
+    <h2 class="sec-h sec-h-w">30 DIAS PARA<br>OPERAR COM AUTONOMIA</h2>
+    <p class="sec-d sec-d-w">O onboarding da Nexo tem 3 fases. A pessoa precisa entender onde está antes de começar a trabalhar — e entender o que vai fazer antes de fazer sozinha.</p>
+    <div class="onboard-phases">
+
+      <div class="onboard-phase">
+        <div class="onboard-side"><span class="onboard-side-n">01</span><span class="onboard-side-week">Semana 1</span></div>
+        <div class="onboard-body">
+          <div class="onboard-phase-title">IMERSÃO NA EMPRESA</div>
+          <p class="onboard-phase-desc">A pessoa precisa entender onde está antes de começar a trabalhar. Sem isso, executa sem contexto.</p>
+          <ul class="onboard-phase-list">
+            <li>Apresentação da história da Nexo — de onde veio e para onde vai</li>
+            <li>Apresentação do posicionamento — o que fazemos, para quem e por quê</li>
+            <li>Apresentação de todos os produtos — o que é cada um e como se encaixam</li>
+            <li>Apresentação da cultura — valores, comportamentos esperados e o que não toleramos</li>
+            <li>Acesso a todas as ferramentas — Notion, Drive, WhatsApp, Base do Cliente</li>
+            <li>Apresentação do manual da área que vai atuar — leitura completa obrigatória</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="onboard-phase">
+        <div class="onboard-side"><span class="onboard-side-n">02</span><span class="onboard-side-week">Semanas 2–3</span></div>
+        <div class="onboard-body">
+          <div class="onboard-phase-title">IMERSÃO NA FUNÇÃO</div>
+          <p class="onboard-phase-desc">A pessoa precisa entender o que vai fazer antes de fazer sozinha. Errar com supervisão é aprendizado — errar sozinho é custo.</p>
+          <ul class="onboard-phase-list">
+            <li>Acompanhamento do sócio responsável na execução das tarefas da função</li>
+            <li>Primeiras tarefas simples com supervisão próxima</li>
+            <li>Dúvidas documentadas e respondidas — não deixar acumular</li>
+            <li>Filipe disponível para perguntas a qualquer momento</li>
+            <li>Feedback contínuo — o que está bem e o que precisa ajustar</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="onboard-phase">
+        <div class="onboard-side"><span class="onboard-side-n">03</span><span class="onboard-side-week">Semana 4</span></div>
+        <div class="onboard-body">
+          <div class="onboard-phase-title">EXECUÇÃO SUPERVISIONADA</div>
+          <p class="onboard-phase-desc">A pessoa começa a executar com autonomia crescente — check-in diário e check-in de 30 dias ao fim da semana.</p>
+          <ul class="onboard-phase-list">
+            <li>Execução das tarefas da função com autonomia crescente</li>
+            <li>Check-in diário rápido — 10 minutos no início do dia</li>
+            <li>Feedback contínuo — não acumular para a avaliação formal</li>
+            <li>Check-in de 30 dias — avaliação formal do primeiro mês</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DESENVOLVIMENTO -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Desenvolvimento do time</div>
+    <h2 class="sec-h sec-h-d">COMO O TIME<br>CRESCE NA NEXO</h2>
+    <p class="sec-d sec-d-d">Desenvolvimento não acontece por acidente — precisa de estrutura. Para cada colaborador, Filipe define o plano e os rituais de acompanhamento.</p>
+    <div class="dev-grid">
+      <div class="dev-card">
+        <span class="dev-tag">Ritmo trimestral</span>
+        <div class="dev-title">PLANO DE DESENVOLVIMENTO</div>
+        <p class="dev-desc">Para cada colaborador, todo trimestre Filipe define o que a pessoa precisa aprender, as metas de performance e o que a Nexo vai oferecer de suporte.</p>
+        <ul class="dev-list">
+          <li>O que a pessoa precisa aprender para crescer na função</li>
+          <li>Metas de performance do trimestre</li>
+          <li>O que a Nexo vai oferecer — curso, mentoria, acompanhamento</li>
+          <li>O que a pessoa se compromete a fazer</li>
+        </ul>
+      </div>
+      <div class="dev-card">
+        <span class="dev-tag">Rituais de desenvolvimento</span>
+        <div class="dev-title">CHECK-IN E AVALIAÇÃO</div>
+        <p class="dev-desc">Dois rituais fixos para garantir que o desenvolvimento está acontecendo e que a pessoa está alinhada.</p>
+        <ul class="dev-list">
+          <li>Check-in mensal — 30 min com Filipe. O que está indo bem, o que precisa melhorar, o que a pessoa precisa de suporte</li>
+          <li>Avaliação trimestral — performance e cultura. Resultado e alinhamento.</li>
+          <li>Feedback contínuo — não acumular para a avaliação. O que precisa ser dito, diz na hora.</li>
+        </ul>
+      </div>
+      <div class="dev-card">
+        <span class="dev-tag">Progressão</span>
+        <div class="dev-title">COMO FUNCIONA O CRESCIMENTO</div>
+        <p class="dev-desc">Quem entrega resultado consistente e vive a cultura tem caminho claro de crescimento na Nexo.</p>
+        <ul class="dev-list">
+          <li>Crescimento baseado em resultado documentado — não em tempo de casa</li>
+          <li>Pode ser em escopo, em remuneração ou em responsabilidade</li>
+          <li>Não existe progressão automática — é conquistada</li>
+          <li>A conversa de crescimento acontece na avaliação trimestral</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DESLIGAMENTO -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Quando e como desligar</div>
+    <h2 class="sec-h sec-h-w">PROCESSO DE<br>DESLIGAMENTO</h2>
+    <p class="sec-d sec-d-w">Desligamento mal feito compromete a cultura e a reputação da Nexo. Precisa ser humano, claro e rápido. Arrastar uma situação ruim é pior do que resolver logo.</p>
+    <div class="desl-grid">
+      <div class="desl-cell">
+        <div class="desl-h">QUANDO DESLIGAR</div>
+        <ul class="desl-list">
+          <li>Performance consistentemente abaixo do esperado após feedback claro e prazo de melhoria dado</li>
+          <li>Comportamento que viola a cultura — especialmente comprometimento e resultado</li>
+          <li>Mudança de estratégia que torna a função desnecessária</li>
+        </ul>
+        <div class="desl-alert">⚠ Não arrastar situação ruim esperando que melhore sozinha</div>
+      </div>
+      <div class="desl-cell">
+        <div class="desl-h">COMO FAZER</div>
+        <ul class="desl-list">
+          <li>Conversa direta com Filipe — sem intermediários, sem surpresa</li>
+          <li>Motivo claro e honesto — sem enrolação ou meias verdades</li>
+          <li>O que acontece nos próximos dias — último dia, acesso revogado, pagamento</li>
+          <li>Feedback final — o que a pessoa pode levar de aprendizado</li>
+          <li>Tudo documentado por escrito após a conversa</li>
+        </ul>
+        <div class="desl-alert">⚠ Nunca desligar por mensagem ou de forma indireta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- METRICS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Indicadores</div>
+    <h2 class="sec-h sec-h-d">MÉTRICAS DA<br>ÁREA DE PESSOAS</h2>
+    <p class="sec-d sec-d-d">O que Filipe acompanha para saber se a área de pessoas está funcionando e se o time está saudável.</p>
+    <table class="metrics-table">
+      <thead><tr><th>Indicador</th><th>O que mede</th><th>Meta</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">Tempo de ramp-up</td><td>Quanto tempo até o colaborador operar com autonomia real</td><td class="mt">Abaixo de 60 dias</td><td>Por contratação</td></tr>
+        <tr><td class="mn">Check-in de 30 dias</td><td>Colaborador alinhado e performando?</td><td class="mt">100% realizados</td><td>Por contratação</td></tr>
+        <tr><td class="mn">Taxa de retenção</td><td>Colaboradores que ficam após 6 meses</td><td class="mt">Acima de 80%</td><td>Semestral</td></tr>
+        <tr><td class="mn">Avaliações trimestrais realizadas</td><td>Consistência do ciclo de desenvolvimento</td><td class="mt">100% realizadas</td><td>Trimestral</td></tr>
+        <tr><td class="mn">Tempo de processo seletivo</td><td>Do início ao colaborador contratado</td><td class="mt">Abaixo de 4 semanas</td><td>Por contratação</td></tr>
+        <tr><td class="mn">NPS interno</td><td>Colaboradores recomendariam trabalhar na Nexo?</td><td class="mt">Acima de 8</td><td>Semestral</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Evolução da área</div>
+    <h2 class="sec-h sec-h-w">COMO PESSOAS<br>CRESCE COM A NEXO</h2>
+    <p class="sec-d sec-d-w">A área evolui conforme o time cresce — cada fase tem um gatilho claro para a próxima mudança de estrutura.</p>
+    <div class="growth-grid">
+      <div class="growth-card">
+        <span class="growth-phase">Hoje · Fase atual</span>
+        <div class="growth-title">SÓ FILIPE</div>
+        <p class="growth-desc">Filipe cuida de tudo — contratação, onboarding, desenvolvimento e cultura. Funciona para um time pequeno de até 6 a 8 pessoas.</p>
+        <ul class="growth-list">
+          <li>Filipe conduz todos os processos seletivos</li>
+          <li>Manuais de área documentados por função</li>
+          <li>Onboarding segue o documento — não depende da memória</li>
+          <li>Avaliações trimestrais para todos os colaboradores</li>
+        </ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Próximo passo · Time acima de 8 pessoas</span>
+        <div class="growth-title">FILIPE + PROCESSOS ESCALADOS</div>
+        <p class="growth-desc">Com time maior, os processos de RH precisam ser mais sistemáticos. Filipe ainda é o responsável estratégico mas com processos mais automatizados.</p>
+        <ul class="growth-list">
+          <li>Plataforma de gestão de pessoas — contratos, férias, documentos</li>
+          <li>Processo de avaliação de desempenho estruturado em ferramenta</li>
+          <li>Onboarding em Notion com checklist digital por função</li>
+          <li>NPS interno trimestral automatizado</li>
+        </ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Nível seguinte · Time acima de 15 pessoas</span>
+        <div class="growth-title">RH DEDICADO</div>
+        <p class="growth-desc">Com time grande, entra alguém dedicado a pessoas. Cuida do dia a dia de RH, avaliações e desenvolvimento. Filipe mantém a visão estratégica da cultura.</p>
+        <ul class="growth-list">
+          <li>RH cuida de recrutamento, onboarding e avaliações</li>
+          <li>Filipe como head de cultura e estratégia de pessoas</li>
+          <li>Programas de desenvolvimento estruturados</li>
+          <li>Cultura documentada e vivida de forma sistemática</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING CHECKLIST -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-d">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-d">8 pontos que todo colaborador precisa dominar antes de operar sozinho na Nexo — independente da função.</p>
+    <div class="onboard-grid">
+      <div class="onboard-card"><div class="onboard-n">01</div><div class="onboard-title">HISTÓRIA E POSICIONAMENTO</div><p class="onboard-desc">De onde veio a Nexo, para onde vai e o que a diferencia de qualquer outra consultoria.</p></div>
+      <div class="onboard-card"><div class="onboard-n">02</div><div class="onboard-title">TODOS OS PRODUTOS</div><p class="onboard-desc">O que é cada produto, para quem é indicado, o que entrega e qual o diferencial de cada um.</p></div>
+      <div class="onboard-card"><div class="onboard-n">03</div><div class="onboard-title">A CULTURA NEXO</div><p class="onboard-desc">Valores, comportamentos esperados e o que não toleramos — vividos, não só lidos em documento.</p></div>
+      <div class="onboard-card"><div class="onboard-n">04</div><div class="onboard-title">MANUAL DA ÁREA</div><p class="onboard-desc">Leitura completa do manual da área onde vai atuar antes de executar qualquer tarefa sozinho.</p></div>
+      <div class="onboard-card"><div class="onboard-n">05</div><div class="onboard-title">AS FERRAMENTAS</div><p class="onboard-desc">Notion, Drive, WhatsApp Business e Base do Cliente — acesso configurado e uso de cada uma.</p></div>
+      <div class="onboard-card"><div class="onboard-n">06</div><div class="onboard-title">QUEM FAZ O QUÊ</div><p class="onboard-desc">A divisão entre Filipe e Pedro — o que é de cada um e como não criar ruído ou duplicidade.</p></div>
+      <div class="onboard-card"><div class="onboard-n">07</div><div class="onboard-title">COMO FUNCIONA O FEEDBACK</div><p class="onboard-desc">Contínuo e direto — não acumula para a avaliação. O que precisa ser dito, diz na hora.</p></div>
+      <div class="onboard-card"><div class="onboard-n">08</div><div class="onboard-title">O SEU RESULTADO ESPERADO</div><p class="onboard-desc">O que significa resultado na sua função específica — o que vai ser cobrado, como e com qual frequência.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Manual de Área · Pessoas · Dono: Filipe<br>nexoestrategia.com.br · 2026</div>
+</div>
+</body>
+</html>

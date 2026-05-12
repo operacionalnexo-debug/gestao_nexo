@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkmate Comercial — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #E85A1A;
+  --navy: #08112A;
+  --navy-mid: #0F1E40;
+  --navy-light: #162D5E;
+  --off: #F0EDE6;
+  --gray: #C8C4BB;
+  --gray-dark: #3A3530;
+  --muted: #7A7570;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 700; background: var(--navy); color: #fff; line-height: 1.3; }
+
+.tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; padding: 5px 12px; border: 1.5px solid var(--orange); color: var(--orange); border-radius: 2px; }
+.tag-fill { background: var(--orange); color: #fff; border-color: var(--orange); }
+.tag-dark { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+.tag-off { border-color: var(--navy); color: var(--navy); }
+
+/* COVER */
+.cover { background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.cover-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px); }
+.cover-slash { position: absolute; top: 0; right: 0; width: 35%; height: 100%; background: var(--orange); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.06; }
+.cover-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; padding: 2.5rem 3.5rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+.cover-nav { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); flex-wrap: wrap; gap: 1rem; }
+.cover-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: #fff; }
+.cover-logo span { color: var(--orange); }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 0 2.5rem; }
+.eyebrow { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem; }
+.eyebrow-line { width: 36px; height: 2px; background: var(--orange); }
+.eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+.cover-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 0.9; letter-spacing: 0.03em; color: #fff; margin-bottom: 0.4rem; }
+.cover-h1 span { color: var(--orange); display: block; }
+.cover-h1-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2.5rem); letter-spacing: 0.1em; color: rgba(255,255,255,0.2); display: block; margin-bottom: 2.5rem; }
+.cover-bar { width: 56px; height: 3px; background: var(--orange); margin-bottom: 2rem; }
+.cover-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.45); max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.cover-stats { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; max-width: 680px; }
+.cover-stat { flex: 1; min-width: 110px; padding: 1.25rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 3px; display: block; }
+.cover-foot { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.cover-quote { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.18); max-width: 500px; }
+
+/* BAND */
+.band { background: var(--orange); padding: 1.4rem 3.5rem; position: relative; overflow: hidden; }
+.band-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.1rem, 2.5vw, 2rem); letter-spacing: 0.06em; color: #fff; position: relative; z-index: 1; }
+.band::after { content: '♟'; font-size: 5rem; color: rgba(255,255,255,0.1); position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); }
+
+/* WRAP */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.wrap-off { background: var(--off); }
+.wrap-navy { background: var(--navy-mid); }
+
+.sec-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+.sec-label::before { content:''; display:block; width:26px; height:2px; background:var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5.5vw, 4.5rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1rem; }
+.sec-h-dark { color: var(--navy); }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.sec-d-dark { color: var(--muted); }
+.sec-d-light { color: rgba(255,255,255,0.32); }
+
+.sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%); }
+
+/* TIMELINE — MODULES */
+.timeline { display: flex; flex-direction: column; gap: 3px; }
+
+.module-row { display: grid; grid-template-columns: 80px 1fr; border-radius: 3px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+.module-side { background: rgba(232,90,26,0.08); border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem 0.5rem; text-align: center; }
+.module-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--orange); line-height: 1; display: block; }
+.module-time { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-top: 4px; display: block; }
+.module-body { padding: 1.75rem 2rem; background: rgba(255,255,255,0.025); }
+.module-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.module-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.05em; color: #fff; }
+.module-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.6; margin-bottom: 1.25rem; }
+.module-topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; }
+.module-topic { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 2px; padding: 0.85rem 1rem; }
+.topic-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.3rem; }
+.topic-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.35rem; }
+.topic-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.5; }
+
+/* DELIVERABLES */
+.del-wrap { background: var(--off); padding: 5rem 0; }
+.del-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.del-card { background: var(--off); padding: 2rem 1.75rem; transition: background 0.15s; border-top: 4px solid transparent; }
+.del-card:hover { background: #fff; border-top-color: var(--orange); }
+.del-n { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: rgba(8,17,42,0.06); line-height: 1; }
+.del-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.del-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.1; }
+.del-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+.del-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.del-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.del-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.7rem; margin-top: 1px; }
+
+/* FORMAT */
+.format-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.format-cell { background: rgba(255,255,255,0.025); padding: 2rem 1.5rem; }
+.format-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(232,90,26,0.3); line-height: 1; display: block; margin-bottom: 0.75rem; }
+.format-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+.format-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.format-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.format-list li::before { content: '—'; color: var(--orange); flex-shrink: 0; }
+
+/* EXPERT TIP */
+.tip-block { background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.2); border-radius: 3px; padding: 2rem; margin-top: 3rem; }
+.tip-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+.tip-eyebrow::before { content: '★'; font-size: 0.8rem; }
+.tip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.tip-col-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; color: #fff; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(232,90,26,0.2); }
+.tip-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.tip-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.5); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.tip-list li::before { content: '+'; color: var(--orange); flex-shrink: 0; }
+
+/* FOOTER */
+.footer { background: var(--navy); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 3px solid var(--orange); }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #fff; }
+.footer-logo span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.18); text-align: right; }
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem;}
+  .cover-inner{padding:1.5rem;}
+  .module-row{grid-template-columns:1fr;}
+  .module-side{flex-direction:row;gap:1rem;padding:1rem 1.5rem;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .del-grid{grid-template-columns:1fr;}
+  .format-strip{grid-template-columns:1fr;}
+  .tip-grid{grid-template-columns:1fr;}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Treinamento · Presencial ou Online</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Treinamento Comercial · 2h30 de Alto Impacto</span>
+      </div>
+      <div class="cover-h1">
+        CHECKMATE
+        <span>COMERCIAL</span>
+      </div>
+      <span class="cover-h1-sub">A JORNADA DO VENDEDOR DE ALTO IMPACTO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Diagnóstico do time + 2 treinamentos em 30 dias — do mindset ao fechamento. Capacitação prática com entregáveis reais que o vendedor usa desde o primeiro dia.</p>
+      <div class="cover-stats">
+        <div class="cover-stat">
+          <span class="cover-stat-n">30</span>
+          <span class="cover-stat-l">Dias</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">2</span>
+          <span class="cover-stat-l">Treinamentos</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">R$1.200</span>
+          <span class="cover-stat-l">Investimento</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">4</span>
+          <span class="cover-stat-l">Entregáveis</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">2</span>
+          <span class="cover-stat-l">Formatos</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">100%</span>
+          <span class="cover-stat-l">Prático</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot"><div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div>
+      <span class="cover-quote">"O vendedor que entende o cliente antes de vender fecha mais do que o que fala mais."</span>
+      <span class="tag tag-dark">nexoestrategia.com.br</span>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">DIAGNÓSTICO DO TIME → TREINAMENTO 1 (DIA 1–15) → TREINAMENTO 2 (DIA 16–30) — 30 DIAS QUE MUDAM O COMERCIAL.</span>
+</div>
+
+<!-- JORNADA 30 DIAS -->
+<style>
+.jornada-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-bottom: 4rem; }
+.jornada-cell { background: rgba(255,255,255,0.025); padding: 2rem 1.5rem; text-align: center; position: relative; }
+.jornada-cell.active { background: rgba(232,90,26,0.1); border-top: 3px solid var(--orange); }
+.jornada-phase { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.5rem; }
+.jornada-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.5rem; }
+.jornada-period { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; display: block; margin-bottom: 0.75rem; }
+.jornada-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.38); line-height: 1.55; }
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+
+<!-- MODULES -->
+<div class="wrap">
+  <div class="sec-label">Estrutura dos 30 dias</div>
+  <h2 class="sec-h">COMO FUNCIONA<br>O PROGRAMA</h2>
+  <p class="sec-d sec-d-light">Antes de treinar qualquer coisa, entendemos o time. O diagnóstico define o que precisa ser trabalhado — o treinamento é construído em cima da realidade de cada empresa.</p>
+
+  <div class="jornada-strip">
+    <div class="jornada-cell active">
+      <span class="jornada-phase">Fase 01 · Antes de tudo</span>
+      <div class="jornada-title">DIAGNÓSTICO CONSOLIDADO</div>
+      <span class="jornada-period">Reunião inicial</span>
+      <p class="jornada-desc">Reunião de diagnóstico com o gestor e o time — mapeamos o nível atual, os gaps e as dores reais do comercial. O treinamento é customizado com base no que encontramos.</p>
+    </div>
+    <div class="jornada-cell active">
+      <span class="jornada-phase">Fase 02 · Dias 1–15</span>
+      <div class="jornada-title">TREINAMENTO 1</div>
+      <span class="jornada-period">2h30 · Presencial ou Online</span>
+      <p class="jornada-desc">Mentalidade, prospecção qualificada e diagnóstico do cliente — a base que faz o vendedor chegar à reunião preparado e sair com mais chances de fechar.</p>
+    </div>
+    <div class="jornada-cell active">
+      <span class="jornada-phase">Fase 03 · Dias 16–30</span>
+      <div class="jornada-title">TREINAMENTO 2</div>
+      <span class="jornada-period">2h30 · Presencial ou Online</span>
+      <p class="jornada-desc">Gestão de objeções, fechamento e pós-venda — as técnicas que transformam interesse em venda e venda em indicação. Aplicação prática com casos reais do time.</p>
+    </div>
+  </div>
+
+  <div class="sec-label">Conteúdo dos Treinamentos</div>
+  <h2 class="sec-h">OS 5 MÓDULOS<br>DO CHECKMATE</h2>
+  <p class="sec-d sec-d-light">Distribuídos entre os 2 treinamentos conforme o diagnóstico — cada módulo é uma fase do ciclo de vendas.</p>
+
+  <div class="timeline">
+
+    <!-- MÓDULO 1 -->
+    <div class="module-row">
+      <div class="module-side">
+        <span class="module-n">01</span>
+        <span class="module-time">20 min</span>
+      </div>
+      <div class="module-body">
+        <div class="module-header">
+          <div class="module-title">ABERTURA E MENTALIDADE DE SUCESSO</div>
+          <span class="tag tag-fill">Base Psicológica</span>
+        </div>
+        <p class="module-desc">O foco aqui é alinhar a expectativa e preparar o terreno psicológico para as técnicas que virão. Sem a mentalidade certa, as melhores técnicas não funcionam.</p>
+        <div class="module-topics">
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 01</span>
+            <div class="topic-name">VENDEDOR CONSULTOR VS TIRADOR DE PEDIDO</div>
+            <p class="topic-desc">A transição da venda de produtos para a venda de soluções — como o vendedor muda o papel que ocupa na conversa.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 02</span>
+            <div class="topic-name">INTELIGÊNCIA EMOCIONAL EM VENDAS</div>
+            <p class="topic-desc">Como lidar com a rejeição e manter a constância no pipeline — o que separa quem desiste do que persiste com método.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 03</span>
+            <div class="topic-name">PILAR DA CONFIANÇA</div>
+            <p class="topic-desc">O triângulo Produto–Empresa–Vendedor. O cliente compra quando confia nos três. Como construir e comunicar cada um.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2 -->
+    <div class="module-row">
+      <div class="module-side">
+        <span class="module-n">02</span>
+        <span class="module-time">35 min</span>
+      </div>
+      <div class="module-body">
+        <div class="module-header">
+          <div class="module-title">PROSPECÇÃO E QUALIFICAÇÃO ESTRATÉGICA</div>
+          <span class="tag tag-fill">Topo do Funil</span>
+        </div>
+        <p class="module-desc">A maior parte das vendas é perdida no início, não no fim. Vamos otimizar o tempo do vendedor — quem prospectar certo fecha mais gastando menos energia.</p>
+        <div class="module-topics">
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 01</span>
+            <div class="topic-name">ICP — PERFIL DE CLIENTE IDEAL</div>
+            <p class="topic-desc">Como identificar quem realmente tem potencial de compra — parando de perder tempo com leads que nunca vão fechar.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 02</span>
+            <div class="topic-name">BANT OU GPCT — QUALIFICAÇÃO</div>
+            <p class="topic-desc">Metodologias de qualificação para saber se vale a pena avançar na oportunidade — critérios claros, decisão rápida.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 03</span>
+            <div class="topic-name">ABORDAGEM MULTICANAL</div>
+            <p class="topic-desc">Melhores práticas para WhatsApp, LinkedIn e Cold Calls que não parecem telemarketing — como abrir conversa de verdade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 3 -->
+    <div class="module-row">
+      <div class="module-side">
+        <span class="module-n">03</span>
+        <span class="module-time">40 min</span>
+      </div>
+      <div class="module-body">
+        <div class="module-header">
+          <div class="module-title">DIAGNÓSTICO E PROPOSTA DE VALOR</div>
+          <span class="tag tag-fill">Meio do Funil</span>
+        </div>
+        <p class="module-desc">O momento de ouvir mais do que falar. Quem pergunta melhor vende mais — aqui o vendedor aprende a fazer o cliente sentir a dor antes de apresentar a solução.</p>
+        <div class="module-topics">
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 01</span>
+            <div class="topic-name">SPIN SELLING NA PRÁTICA</div>
+            <p class="topic-desc">Estruturação de perguntas de Situação, Problema, Implicação e Necessidade — o roteiro que faz o cliente chegar à solução sozinho.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 02</span>
+            <div class="topic-name">PINTANDO O CENÁRIO DE DOR</div>
+            <p class="topic-desc">Como fazer o cliente sentir o custo da inércia — o que acontece se ele não fizer nada. A urgência que nasce do problema, não da pressão.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 03</span>
+            <div class="topic-name">APRESENTAÇÃO DE VALOR</div>
+            <p class="topic-desc">Transformando características técnicas em benefícios tangíveis para o negócio do cliente — falar a língua de quem compra, não de quem vende.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4 -->
+    <div class="module-row">
+      <div class="module-side">
+        <span class="module-n">04</span>
+        <span class="module-time">40 min</span>
+      </div>
+      <div class="module-body">
+        <div class="module-header">
+          <div class="module-title">GESTÃO DE OBJEÇÕES E FECHAMENTO</div>
+          <span class="tag tag-fill">Fundo do Funil</span>
+        </div>
+        <p class="module-desc">Transformar o "não" ou o "está caro" em oportunidade de esclarecimento — objeção não é rejeição, é pedido de mais informação.</p>
+        <div class="module-topics">
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 01</span>
+            <div class="topic-name">MÉTODO LACE</div>
+            <p class="topic-desc">Listen, Acknowledge, Explore, Respond — o framework para desarmar objeções sem confrontar o cliente e sem ceder desnecessariamente.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 02</span>
+            <div class="topic-name">OBJEÇÃO DE PREÇO</div>
+            <p class="topic-desc">Estratégias para defender a margem e ancoragem de valor — o cliente que diz "está caro" ainda não entendeu o valor, não o preço.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 03</span>
+            <div class="topic-name">GATILHOS MENTAIS ÉTICOS</div>
+            <p class="topic-desc">Autoridade, Prova Social e Urgência Real — como usar sem manipular. Gatilho que manipula perde o cliente. Gatilho que educa fecha.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 04</span>
+            <div class="topic-name">FECHAMENTO DIRETO E INDIRETO</div>
+            <p class="topic-desc">Como pedir a venda de forma natural — o vendedor que não pede não fecha. Técnicas de fechamento que não soam como pressão.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 5 -->
+    <div class="module-row">
+      <div class="module-side">
+        <span class="module-n">05</span>
+        <span class="module-time">15 min</span>
+      </div>
+      <div class="module-body">
+        <div class="module-header">
+          <div class="module-title">PÓS-VENDA E EXPANSÃO</div>
+          <span class="tag tag-fill">Retenção e Crescimento</span>
+        </div>
+        <p class="module-desc">O custo de adquirir um cliente novo é maior do que manter o atual. O vendedor de alto impacto não fecha uma venda — abre um relacionamento.</p>
+        <div class="module-topics">
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 01</span>
+            <div class="topic-name">UPSELL E CROSS-SELL</div>
+            <p class="topic-desc">Identificando momentos de expansão na conta — quando e como oferecer mais sem parecer oportunista. O cliente já confia, use isso bem.</p>
+          </div>
+          <div class="module-topic">
+            <span class="topic-tag">Tópico 02</span>
+            <div class="topic-name">PEDINDO INDICAÇÕES</div>
+            <p class="topic-desc">Transformando o fechamento atual no primeiro passo da próxima venda — como pedir indicação de forma natural e no momento certo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DELIVERABLES -->
+<div class="del-wrap">
+  <div class="wrap">
+    <div class="sec-label">Entregáveis do Treinamento</div>
+    <h2 class="sec-h sec-h-dark">O QUE O TIME<br>LEVA PARA CASA</h2>
+    <p class="sec-d sec-d-dark">4 materiais que transformam o treinamento em ferramenta de uso diário — não um evento que se esquece, mas um kit que o vendedor usa nas próximas reuniões.</p>
+    <div class="del-grid">
+      <div class="del-card">
+        <div class="del-n">01</div>
+        <span class="del-tag">Material Prático</span>
+        <div class="del-name">WORKSHEET DE PERGUNTAS SPIN</div>
+        <p class="del-desc">Roteiro prático para o vendedor preencher e usar na próxima reunião — aplicação imediata do que foi aprendido no módulo 3.</p>
+        <ul class="del-list">
+          <li>Perguntas de Situação — entender o contexto atual</li>
+          <li>Perguntas de Problema — identificar a dor real</li>
+          <li>Perguntas de Implicação — amplificar o custo da inércia</li>
+          <li>Perguntas de Necessidade — conduzir à solução</li>
+          <li>Espaço para personalizar por tipo de cliente</li>
+        </ul>
+      </div>
+      <div class="del-card">
+        <div class="del-n">02</div>
+        <span class="del-tag">Guia de Referência</span>
+        <div class="del-name">GUIA RÁPIDO DE OBJEÇÕES</div>
+        <p class="del-desc">PDF com as 5 principais objeções do setor da empresa e como respondê-las — personalizado para o contexto de cada cliente contratante.</p>
+        <ul class="del-list">
+          <li>As 5 objeções mais comuns mapeadas no diagnóstico</li>
+          <li>Resposta estratégica para cada uma com o método LACE</li>
+          <li>Tom e linguagem certos para cada tipo de objeção</li>
+          <li>O que não falar — armadilhas comuns de resposta</li>
+          <li>Formato de bolso — fácil de consultar antes da reunião</li>
+        </ul>
+      </div>
+      <div class="del-card">
+        <div class="del-n">03</div>
+        <span class="del-tag">Reconhecimento</span>
+        <div class="del-name">CERTIFICADO DE PARTICIPAÇÃO</div>
+        <p class="del-desc">Fundamental para o engajamento da equipe — o vendedor que recebe reconhecimento performa melhor e valoriza mais o treinamento.</p>
+        <ul class="del-list">
+          <li>Certificado nominal e personalizado por participante</li>
+          <li>Assinado pelos consultores Nexo</li>
+          <li>Formato digital — compartilhável no LinkedIn</li>
+          <li>Reforça a percepção de valor do treinamento</li>
+          <li>Gera engajamento e senso de conquista no time</li>
+        </ul>
+      </div>
+      <div class="del-card">
+        <div class="del-n">04</div>
+        <span class="del-tag">Padronização</span>
+        <div class="del-name">CHECKLIST DE DIAGNÓSTICO</div>
+        <p class="del-desc">Para padronizar a qualidade do atendimento inicial — todo vendedor faz o diagnóstico do mesmo jeito, com o mesmo nível de profundidade.</p>
+        <ul class="del-list">
+          <li>Roteiro de perguntas para o primeiro atendimento</li>
+          <li>Critérios de qualificação do lead — avançar ou não</li>
+          <li>Pontos obrigatórios de mapeamento antes da proposta</li>
+          <li>Espaço para registro e anotação durante a conversa</li>
+          <li>Critério de qualidade — o que define um bom diagnóstico</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FORMAT + TIP -->
+<div class="wrap">
+  <div class="sec-label">Formato e Metodologia</div>
+  <h2 class="sec-h">COMO O TREINAMENTO<br>É EXECUTADO</h2>
+  <p class="sec-d sec-d-light">Presencial ou online — cada formato tem sua dinâmica. O treinamento se adapta para garantir máximo engajamento e retenção em qualquer modalidade.</p>
+
+  <div class="format-strip">
+    <div class="format-cell">
+      <span class="format-icon">◉</span>
+      <div class="format-title">FORMATO PRESENCIAL</div>
+      <ul class="format-list">
+        <li>Dinâmicas de grupo entre vendedores</li>
+        <li>Os melhores vendedores compartilham seus segredos com os novatos</li>
+        <li>Roleplay ao vivo — simulação de vendas em duplas</li>
+        <li>Quadro branco para construção coletiva do funil</li>
+        <li>Exercícios práticos de objeção em tempo real</li>
+        <li>Encerramento com plano de ação individual</li>
+      </ul>
+    </div>
+    <div class="format-cell">
+      <span class="format-icon">◈</span>
+      <div class="format-title">FORMATO ONLINE SÍNCRONO</div>
+      <ul class="format-list">
+        <li>Ferramentas de interação em tempo real — Mentimeter</li>
+        <li>Salas simultâneas do Zoom para Roleplay em grupos</li>
+        <li>Polls e enquetes para engajamento contínuo</li>
+        <li>Chat ativo para dúvidas e casos reais do time</li>
+        <li>Breakout rooms para exercícios de objeção</li>
+        <li>Encerramento com comprometimento público de metas</li>
+      </ul>
+    </div>
+    <div class="format-cell">
+      <span class="format-icon">◆</span>
+      <div class="format-title">METODOLOGIA NEXO</div>
+      <ul class="format-list">
+        <li>70% prática, 30% teoria</li>
+        <li>Casos reais do setor da empresa contratante</li>
+        <li>Adaptação do conteúdo ao produto e cliente do time</li>
+        <li>Diagnóstico prévio do time antes do treinamento</li>
+        <li>Follow-up 30 dias após — verificação de aplicação</li>
+        <li>Relatório pós-treinamento com métricas de engajamento</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-block">
+    <div class="tip-eyebrow">Dica de Especialista — Maximizando o Resultado</div>
+    <div class="tip-grid">
+      <div>
+        <div class="tip-col-h">SE FOR PRESENCIAL</div>
+        <ul class="tip-list">
+          <li>Reserve 20 min no início para o time compartilhar cases reais</li>
+          <li>Foque nas dinâmicas de Roleplay entre os próprios vendedores</li>
+          <li>Os melhores vendedores ensinam mais do que qualquer slide</li>
+          <li>Encerre com cada vendedor escrevendo 1 ação que vai fazer hoje</li>
+          <li>Fotografe o momento — gera conteúdo e reforça a cultura</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tip-col-h">SE FOR ONLINE</div>
+        <ul class="tip-list">
+          <li>Use Mentimeter no início para aquecer o grupo</li>
+          <li>Breakout rooms para Roleplay — nunca deixe câmera fechada</li>
+          <li>Grave a sessão — quem perdeu pode assistir depois</li>
+          <li>Envie os materiais antes — o vendedor que lê antes absorve mais</li>
+          <li>Follow-up por WhatsApp no dia seguinte com 1 pergunta de aplicação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<style>
+.price-bg { background: var(--navy); padding: 4rem 0; border-top: 3px solid rgba(255,255,255,0.06); }
+.price-box { background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.25); border-radius: 3px; padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.price-left-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; display: block; }
+.price-big { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--orange); line-height: 1; letter-spacing: 0.03em; display: block; }
+.price-period { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 4px; display: block; margin-bottom: 1.5rem; }
+.price-sep { height: 2px; background: rgba(232,90,26,0.3); margin-bottom: 1.5rem; }
+.price-includes { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.price-includes li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+.price-includes li::before { content: '→'; color: var(--orange); flex-shrink: 0; }
+.price-right-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.75rem; }
+.price-right-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); line-height: 1.7; }
+.price-right-text strong { color: var(--orange); }
+@media(max-width:768px){ .price-box { grid-template-columns: 1fr; } }
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+
+<div class="price-bg">
+  <div class="wrap">
+    <div class="sec-label">Investimento</div>
+    <h2 class="sec-h sec-h-w">O QUE ESTÁ<br>INCLUÍDO</h2>
+    <p class="sec-d sec-d-w">Um programa completo de 30 dias — do diagnóstico ao segundo treinamento. O time sai capacitado e com materiais para usar no dia seguinte.</p>
+    <div class="price-box">
+      <div>
+        <span class="price-left-label">Checkmate Comercial · 30 dias</span>
+        <span class="price-big">R$1.200</span>
+        <span class="price-period">Presencial ou Online</span>
+        <div class="price-sep"></div>
+        <ul class="price-includes">
+          <li>Reunião de Diagnóstico Consolidado do time</li>
+          <li>Treinamento 1 — dias 1 a 15 · 2h30</li>
+          <li>Treinamento 2 — dias 16 a 30 · 2h30</li>
+          <li>Worksheet de Perguntas SPIN</li>
+          <li>Guia Rápido de Objeções personalizado</li>
+          <li>Checklist de Diagnóstico</li>
+          <li>Certificado de Participação para cada vendedor</li>
+        </ul>
+      </div>
+      <div>
+        <div class="price-right-title">POR QUE O DIAGNÓSTICO VEM PRIMEIRO</div>
+        <p class="price-right-text">Treinamento genérico não funciona. Antes de capacitar qualquer coisa, fazemos uma reunião com o gestor e o time para mapear o nível atual, os gaps e as dores reais do comercial. <strong>O conteúdo dos 2 treinamentos é customizado com base no que encontramos.</strong> O time recebe o que precisa — não o que funciona para outros times.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Checkmate Comercial · Treinamento de Vendas e Gestão<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>

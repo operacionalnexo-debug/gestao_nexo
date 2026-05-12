@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Customer Success — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;--off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--off);color:var(--navy);line-height:1.3;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-logo-bg{position:absolute;right:-8%;bottom:-10%;width:55%;opacity:.04;pointer-events:none;}
+.cover-slash{position:absolute;top:0;right:0;width:35%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.06;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-brand{display:flex;align-items:center;gap:.75rem;}
+.cover-brand-logo{width:36px;height:36px;object-fit:contain;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2.5rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+.cover-stats{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;max-width:620px;}
+.cover-stat{flex:1;min-width:100px;padding:1.25rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);}
+.cover-stat:last-child{border-right:none;}
+.cover-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;display:block;}
+.cover-stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px;display:block;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'→';font-size:6rem;color:rgba(255,255,255,.1);position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-navy{background:var(--navy);}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+
+/* PHASE BLOCKS */
+.phase-list{display:flex;flex-direction:column;gap:3px;}
+.phase-row{display:grid;grid-template-columns:90px 1fr;border-radius:3px;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.phase-side{background:rgba(232,90,26,.08);border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem .5rem;text-align:center;}
+.phase-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--orange);line-height:1;display:block;}
+.phase-period{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);display:block;margin-top:4px;}
+.phase-body{padding:2rem;background:rgba(255,255,255,.02);}
+.phase-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+.phase-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.05em;color:#fff;}
+.phase-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:1rem;}
+.phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.phase-col-h{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;color:var(--orange);margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid rgba(232,90,26,.2);display:block;}
+.phase-list-inner{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.phase-list-inner li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.phase-list-inner li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.7rem;margin-top:1px;}
+.phase-alert{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:2px;padding:.6rem 1rem;margin-top:.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);}
+
+/* HEALTH SCORE */
+.health-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.health-card{padding:2rem;}
+.health-card.green{background:#F0F7F0;}
+.health-card.yellow{background:#FFF9F0;}
+.health-card.red{background:#FFF0EE;}
+.health-status{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;margin-bottom:.5rem;}
+.health-card.green .health-status{color:#2A7A2A;}
+.health-card.yellow .health-status{color:#B07800;}
+.health-card.red .health-status{color:#C03000;}
+.health-signals{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;line-height:1.6;margin-bottom:.75rem;}
+.health-card.green .health-signals{color:#2A7A2A;}
+.health-card.yellow .health-signals{color:#B07800;}
+.health-card.red .health-signals{color:#C03000;}
+.health-action{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.5rem .75rem;border-radius:2px;display:inline-block;}
+.health-card.green .health-action{background:rgba(42,122,42,.1);color:#2A7A2A;}
+.health-card.yellow .health-action{background:rgba(176,120,0,.1);color:#B07800;}
+.health-card.red .health-action{background:rgba(192,48,0,.1);color:#C03000;}
+
+/* PROTOCOL */
+.protocol-steps{display:flex;flex-direction:column;gap:2px;}
+.protocol-step{display:grid;grid-template-columns:48px 1fr;border-radius:2px;overflow:hidden;border:1px solid rgba(255,255,255,.06);}
+.protocol-n{background:rgba(232,90,26,.1);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange);}
+.protocol-body{padding:1rem 1.5rem;background:rgba(255,255,255,.02);}
+.protocol-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.25rem;}
+.protocol-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.55;}
+
+/* SCRIPT BOX */
+.script-box{background:rgba(232,90,26,.07);border-left:3px solid var(--orange);padding:1.25rem 1.5rem;border-radius:0 3px 3px 0;margin-top:1rem;}
+.script-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.script-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic;}
+
+/* METRICS TABLE */
+.metrics-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.metrics-table thead{background:var(--navy);color:#fff;}
+.metrics-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.metrics-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.metrics-table tr:hover td{background:#fff;}
+.mn{color:var(--navy);font-weight:900;}.mt{color:var(--orange);font-weight:900;}
+
+/* GENERAL LISTS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.two-col-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.two-col-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.item-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.item-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.item-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.item-list-dark li{color:var(--gray-dark);}
+.item-list-dark li::before{color:var(--orange);}
+
+/* ONBOARD GRID */
+.onboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.onboard-card{background:var(--off);padding:1.5rem;transition:background .15s;}
+.onboard-card:hover{background:#fff;}
+.onboard-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(8,17,42,.06);line-height:1;}
+.onboard-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.5rem;line-height:1.1;}
+.onboard-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.5;}
+
+/* GROWTH */
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.growth-card{background:rgba(255,255,255,.025);padding:2rem;}
+.growth-phase{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.growth-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:#fff;margin-bottom:.75rem;}
+.growth-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:1rem;}
+.growth-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.growth-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.growth-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-brand{display:flex;align-items:center;gap:.75rem;}
+.footer-logo-img{width:28px;height:28px;object-fit:contain;opacity:.7;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+.wrap{padding:3rem 1.5rem;}.cover-inner{padding:1.5rem;}
+.phase-grid,.two-col,.health-grid,.growth-grid{grid-template-columns:1fr;}
+.onboard-grid{grid-template-columns:repeat(2,1fr);}
+.phase-row{grid-template-columns:1fr;}
+.band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-brand">
+        
+        <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      </div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Área 02 · Dono: Filipe</span></div>
+      <div class="cover-h1">CUSTOMER<br><span>SUCCESS</span></div>
+      <span class="cover-h1-sub">DO ONBOARDING AO PROMOTOR</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área de CS — jornada do cliente, saúde da carteira, renovação, expansão e como transformar cliente satisfeito em cliente promotor.</p>
+      <div class="cover-stats">
+        <div class="cover-stat"><span class="cover-stat-n">4</span><span class="cover-stat-l">Fases</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">3</span><span class="cover-stat-l">Status saúde</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">8</span><span class="cover-stat-l">Métricas</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">15</span><span class="cover-stat-l">Dias p/ renovação</span></div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div><span class="cover-quote">"CS não é entrega — é garantir que o cliente implementa, avança e chega onde queria chegar."</span>
+      <span class="tag tag-dark">Filipe · Responsável</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">ONBOARDING → CONSTRUÇÃO → APROFUNDAMENTO → CONSOLIDAÇÃO → RENOVAÇÃO — A JORNADA COMPLETA DO CLIENTE NEXO.</span></div>
+
+<!-- PURPOSE -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para que existe</div>
+    <h2 class="sec-h sec-h-w">PROPÓSITO<br>DA ÁREA</h2>
+    <p class="sec-d sec-d-w">CS não é sobre cumprir o contrato — é sobre garantir que o cliente tem resultado real e se torna promotor da Nexo.</p>
+    <div class="two-col">
+      <div class="two-col-cell">
+        <div class="two-col-h">O QUE ESSA ÁREA FAZ</div>
+        <ul class="item-list">
+          <li>Recebe o cliente do comercial e conduz o onboarding</li>
+          <li>Acompanha o cliente ao longo de todo o contrato</li>
+          <li>Garante que o cliente está implementando — não só recebendo</li>
+          <li>Identifica riscos de churn antes que virem problema</li>
+          <li>Conduz a conversa de renovação e expansão nos últimos 15 dias</li>
+          <li>Gera indicações de forma sistemática</li>
+          <li>Documenta o resultado do cliente para virar case de sucesso</li>
+        </ul>
+      </div>
+      <div class="two-col-cell">
+        <div class="two-col-h">FERRAMENTAS INDISPENSÁVEIS</div>
+        <ul class="item-list">
+          <li>Base Nexo por cliente — hub de entregáveis e progresso</li>
+          <li>WhatsApp — canal de suporte contínuo</li>
+          <li>Notion — gestão da carteira de clientes ativos</li>
+          <li>Formulário de NPS — onboarding, meio e encerramento</li>
+          <li>Documento de passagem — Pedro preenche ao fechar</li>
+          <li>Relatório Nexo Mensal — entregue até o 5º dia útil</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PHASES -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Jornada do cliente</div>
+    <h2 class="sec-h sec-h-d">AS 4 FASES<br>DO CONTRATO</h2>
+    <p class="sec-d sec-d-d">Cada fase tem objetivo claro, o que acontece e o risco específico que Filipe precisa monitorar.</p>
+    <div class="phase-list">
+
+      <div class="phase-row" style="border-color:var(--gray);">
+        <div class="phase-side" style="background:rgba(232,90,26,.08);">
+          <span class="phase-n" style="color:var(--orange);">01</span>
+          <span class="phase-period" style="color:var(--muted);">Semanas 1–2</span>
+        </div>
+        <div class="phase-body" style="background:var(--off);">
+          <div class="phase-header">
+            <div class="phase-title" style="color:var(--navy);">ONBOARDING</div>
+            <span class="tag tag-fill">Objetivo: alinhamento e confiança</span>
+          </div>
+          <p class="phase-desc" style="color:var(--muted);">Cliente entra alinhado, confiante e sabe exatamente o que vem a seguir. Risco: expectativa desalinhada no início gera decepção no mês 2.</p>
+          <div class="phase-grid">
+            <div>
+              <span class="phase-col-h">O QUE ACONTECE</span>
+              <ul class="phase-list-inner" style="--c:var(--gray-dark);">
+                <li style="color:var(--gray-dark);">Filipe recebe briefing completo do Pedro</li>
+                <li style="color:var(--gray-dark);">Cliente entra no grupo de WhatsApp</li>
+                <li style="color:var(--gray-dark);">Nexo Assessment enviado para preenchimento</li>
+                <li style="color:var(--gray-dark);">Reunião de diagnóstico — Filipe conduz, Pedro participa</li>
+                <li style="color:var(--gray-dark);">Análise interna — os dois sócios</li>
+                <li style="color:var(--gray-dark);">Relatório Raio-X entregue em até 10 dias</li>
+                <li style="color:var(--gray-dark);">Sessão Estratégica — co-construção do Mapa</li>
+              </ul>
+            </div>
+            <div>
+              <span class="phase-col-h">CRITÉRIO DE SAÍDA</span>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-dark);line-height:1.6;">Cliente assinou o Mapa de Crescimento e sabe o que acontece nos próximos 6 meses.</p>
+              <div class="phase-alert" style="background:rgba(232,90,26,.08);color:var(--orange);border-color:rgba(232,90,26,.2);">⚠ NPS de onboarding aplicado ao fim da semana 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-side"><span class="phase-n">02</span><span class="phase-period">Meses 2–3</span></div>
+        <div class="phase-body">
+          <div class="phase-header">
+            <div class="phase-title">CONSTRUÇÃO</div>
+            <span class="tag tag-fill">Objetivo: implementação real</span>
+          </div>
+          <p class="phase-desc">Começar a construir as frentes prioritárias com o cliente implementando. Risco: cliente que recebe mas não implementa — fica só na reunião sem avançar.</p>
+          <div class="phase-grid">
+            <div>
+              <span class="phase-col-h">O QUE ACONTECE</span>
+              <ul class="phase-list-inner">
+                <li>Reuniões semanais com o dono</li>
+                <li>Primeiro entregável da frente prioritária construído</li>
+                <li>Cliente começa a usar o que foi entregue na operação</li>
+                <li>Relatório Mensal do mês 2</li>
+              </ul>
+            </div>
+            <div>
+              <span class="phase-col-h">SINAL DE ALERTA</span>
+              <div class="phase-alert">⚠ Cliente faltou 2 reuniões seguidas OU não implementou nada em 30 dias → acionar protocolo de risco imediatamente</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-side"><span class="phase-n">03</span><span class="phase-period">Meses 4–5</span></div>
+        <div class="phase-body">
+          <div class="phase-header">
+            <div class="phase-title">APROFUNDAMENTO</div>
+            <span class="tag tag-fill">Objetivo: avançar nas frentes secundárias</span>
+          </div>
+          <p class="phase-desc">Avançar nas frentes secundárias e consolidar o que já foi construído. Risco: cliente sente que o ritmo caiu após o entusiasmo inicial.</p>
+          <div class="phase-grid">
+            <div>
+              <span class="phase-col-h">O QUE ACONTECE</span>
+              <ul class="phase-list-inner">
+                <li>Revisão de Rota no mês 4 — o que avançou, o que travou</li>
+                <li>Segunda e terceira frente em construção</li>
+                <li>Time do cliente mais autônomo nas frentes já implantadas</li>
+                <li>Relatórios mensais dos meses 3, 4 e 5</li>
+              </ul>
+            </div>
+            <div>
+              <span class="phase-col-h">MARCO DO MÊS 4</span>
+              <p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);line-height:1.6;">Revisão de Rota — reconectar o cliente com o plano e ajustar prioridades se necessário. Momento de plantar a semente da renovação.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-row" style="border-color:rgba(232,90,26,.3);">
+        <div class="phase-side" style="background:rgba(232,90,26,.15);"><span class="phase-n">04</span><span class="phase-period">Mês 6</span></div>
+        <div class="phase-body">
+          <div class="phase-header">
+            <div class="phase-title">CONSOLIDAÇÃO E ENCERRAMENTO</div>
+            <span class="tag tag-fill">Objetivo: autonomia + próximo passo</span>
+          </div>
+          <p class="phase-desc">Garantir autonomia, celebrar a transformação e abrir conversa de próximo passo. Risco: encerramento sem continuidade — cliente sai sem plano de como seguir sozinho.</p>
+          <div class="phase-grid">
+            <div>
+              <span class="phase-col-h">O QUE ACONTECE</span>
+              <ul class="phase-list-inner">
+                <li>Reaplicação do Nexo Assessment — Índice Nexo Final</li>
+                <li>Consolidação do Dossiê Nexo</li>
+                <li>Sessão de encerramento — presencial sempre que possível</li>
+                <li>Entrega formal do Dossiê</li>
+                <li>Conversa de próximo passo — renovação ou expansão</li>
+                <li>Pedido de indicação — no momento certo</li>
+                <li>Convite à Comunidade Nexo</li>
+              </ul>
+            </div>
+            <div>
+              <span class="phase-col-h">INDICAÇÃO — COMO PEDIR</span>
+              <div class="script-box">
+                <span class="script-label">Script de pedido de indicação</span>
+                <p class="script-text">"[Nome], você sabe melhor do que ninguém o quanto a empresa avançou nesses 6 meses. Você conhece algum outro empresário que está no momento que você estava quando a gente começou?"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- HEALTH SCORE -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Gestão da carteira</div>
+    <h2 class="sec-h sec-h-w">HEALTH SCORE —<br>SAÚDE DO CLIENTE</h2>
+    <p class="sec-d sec-d-w">Todo cliente ativo tem um status de saúde. Filipe avalia semanalmente — cliente vermelho não pode ser surpresa.</p>
+    <div class="health-grid">
+      <div class="health-card green">
+        <div class="health-status">🟢 VERDE</div>
+        <p class="health-signals">Implementando, engajado, reuniões acontecendo, entregáveis em uso na operação.</p>
+        <span class="health-action">Manter cadência normal</span>
+      </div>
+      <div class="health-card yellow">
+        <div class="health-status">🟡 AMARELO</div>
+        <p class="health-signals">Faltou 1 reunião, entregável parado há 2 semanas, dúvidas não respondidas.</p>
+        <span class="health-action">Check-in extra — WhatsApp ou ligação em 24h</span>
+      </div>
+      <div class="health-card red">
+        <div class="health-status">🔴 VERMELHO</div>
+        <p class="health-signals">2+ reuniões perdidas, nada implementado em 30 dias, sumiu do WhatsApp.</p>
+        <span class="health-action">Protocolo de risco — ação imediata</span>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <div class="sec-label" style="margin-bottom:1rem;">Protocolo de risco — cliente vermelho</div>
+      <div class="protocol-steps">
+        <div class="protocol-step">
+          <div class="protocol-n">1</div>
+          <div class="protocol-body"><div class="protocol-title">MENSAGEM DIRETA</div><p class="protocol-desc">Filipe manda mensagem direta — não formal, tom de parceria. "Percebi que a gente perdeu o ritmo — o que posso fazer para ajudar?"</p></div>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-n">2</div>
+          <div class="protocol-body"><div class="protocol-title">LIGAÇÃO EM 48H</div><p class="protocol-desc">Se não responder em 48h: liga. Não manda mais mensagem — ligação mostra seriedade e cuidado.</p></div>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-n">3</div>
+          <div class="protocol-body"><div class="protocol-title">REUNIÃO DE ALINHAMENTO</div><p class="protocol-desc">Reunião para entender o que travou — não para cobrar. O problema é quase sempre ritmo, não vontade.</p></div>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-n">4</div>
+          <div class="protocol-body"><div class="protocol-title">REDESENHO DO PLANO</div><p class="protocol-desc">Se necessário, ajustar o Mapa de Crescimento para o momento atual do cliente. Flexibilidade é parte do serviço.</p></div>
+        </div>
+        <div class="protocol-step">
+          <div class="protocol-n">5</div>
+          <div class="protocol-body"><div class="protocol-title">PEDRO CIENTE</div><p class="protocol-desc">Filipe avisa Pedro — pode entrar na conversa se a situação exigir reforço ou nova perspectiva.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- METRICS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Indicadores</div>
+    <h2 class="sec-h sec-h-d">MÉTRICAS DA<br>ÁREA DE CS</h2>
+    <p class="sec-d sec-d-d">O que Filipe acompanha para saber se o CS está funcionando de verdade.</p>
+    <table class="metrics-table">
+      <thead><tr><th>Indicador</th><th>O que mede</th><th>Meta</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">NPS de onboarding</td><td>Cliente se sentiu acolhido e orientado?</td><td class="mt">Acima de 8</td><td>Semana 2 — por cliente</td></tr>
+        <tr><td class="mn">NPS de encerramento</td><td>Cliente recomendaria a Nexo?</td><td class="mt">Acima de 9</td><td>Mês 6 — por cliente</td></tr>
+        <tr><td class="mn">Clientes verdes</td><td>% da carteira com saúde boa</td><td class="mt">Acima de 80%</td><td>Semanal</td></tr>
+        <tr><td class="mn">Reuniões realizadas vs planejadas</td><td>Consistência do acompanhamento</td><td class="mt">Acima de 90%</td><td>Semanal</td></tr>
+        <tr><td class="mn">Taxa de implementação</td><td>Cliente está usando o que foi entregue?</td><td class="mt">Acima de 70%</td><td>Mensal</td></tr>
+        <tr><td class="mn">Taxa de renovação</td><td>Clientes que continuam após o contrato</td><td class="mt">Definir meta</td><td>Por encerramento</td></tr>
+        <tr><td class="mn">Indicações geradas</td><td>Indicações por cliente encerrado</td><td class="mt">1 por cliente</td><td>Por encerramento</td></tr>
+        <tr><td class="mn">Churn</td><td>Clientes que saíram antes do prazo</td><td class="mt">Zero</td><td>Sempre</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Evolução da área</div>
+    <h2 class="sec-h sec-h-w">COMO O CS<br>CRESCE COM A NEXO</h2>
+    <p class="sec-d sec-d-w">A área evolui conforme a carteira cresce — cada fase tem um gatilho claro para a próxima contratação.</p>
+    <div class="growth-grid">
+      <div class="growth-card">
+        <span class="growth-phase">Hoje · Fase Atual</span>
+        <div class="growth-title">SÓ FILIPE</div>
+        <p class="growth-desc">Filipe faz tudo — onboarding, acompanhamento, entregáveis e relacionamento. Funciona para até 6 a 8 clientes simultâneos.</p>
+        <ul class="growth-list"><li>Filipe conduz toda a jornada do cliente</li><li>Base Nexo construída por cliente</li><li>Health Score acompanhado semanalmente</li><li>Rituais de acompanhamento rodando</li></ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Próximo passo · Carteira acima de 6 clientes</span>
+        <div class="growth-title">FILIPE + CS DEDICADO</div>
+        <p class="growth-desc">CS dedicado assume acompanhamento do dia a dia. Filipe assume papel estratégico — define o método e cuida dos clientes mais complexos.</p>
+        <ul class="growth-list"><li>CS faz reuniões semanais e quinzenais</li><li>CS produz Relatório Mensal</li><li>Filipe revisa e valida qualidade</li><li>Filipe conduz renovação e expansão</li></ul>
+      </div>
+      <div class="growth-card">
+        <span class="growth-phase">Fase seguinte · Múltiplos produtos</span>
+        <div class="growth-title">TIME DE CS</div>
+        <p class="growth-desc">Com múltiplos produtos e carteira grande, time de CS segmentado por produto. Filipe como head de CS — visão estratégica e qualidade.</p>
+        <ul class="growth-list"><li>CS por produto — Método Nexo e Farol</li><li>Head de CS define padrão e acompanha</li><li>NPS e health score como KPIs do time</li><li>Comunidade Nexo como canal de CS coletivo</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING NEW -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-d">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-d">Todo colaborador que entrar no CS precisa dominar esses pontos antes de operar sozinho com um cliente.</p>
+    <div class="onboard-grid">
+      <div class="onboard-card"><div class="onboard-n">01</div><div class="onboard-title">O MÉTODO NEXO COMPLETO</div><p class="onboard-desc">Fases, entregáveis e cadência — precisa entender o produto melhor do que o cliente.</p></div>
+      <div class="onboard-card"><div class="onboard-n">02</div><div class="onboard-title">A BASE NEXO</div><p class="onboard-desc">Como usar, como atualizar e o padrão de cada entregável publicado.</p></div>
+      <div class="onboard-card"><div class="onboard-n">03</div><div class="onboard-title">CADÊNCIA DE ACOMPANHAMENTO</div><p class="onboard-desc">Semanal, quinzenal, mensal — o que acontece em cada reunião e o que registrar.</p></div>
+      <div class="onboard-card"><div class="onboard-n">04</div><div class="onboard-title">PROTOCOLO DE SAÚDE</div><p class="onboard-desc">Como identificar verde, amarelo e vermelho — e como agir em cada situação.</p></div>
+      <div class="onboard-card"><div class="onboard-n">05</div><div class="onboard-title">RELATÓRIO MENSAL</div><p class="onboard-desc">Como produzir, o que incluir e como entregar até o 5º dia útil sem exceção.</p></div>
+      <div class="onboard-card"><div class="onboard-n">06</div><div class="onboard-title">CONVERSA DE RENOVAÇÃO</div><p class="onboard-desc">Quando plantar a semente, como conduzir e o que não fazer nos últimos 15 dias.</p></div>
+      <div class="onboard-card"><div class="onboard-n">07</div><div class="onboard-title">COMO PEDIR INDICAÇÃO</div><p class="onboard-desc">Quando pedir, o script correto e como fechar o loop com quem indicou.</p></div>
+      <div class="onboard-card"><div class="onboard-n">08</div><div class="onboard-title">GESTÃO DA CARTEIRA</div><p class="onboard-desc">Como manter o Notion atualizado com status, alertas e próximas ações de cada cliente.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand"><div class="footer-logo">NEXO <span>Estratégia</span></div></div>
+  <div class="footer-meta">Manual de Área · Customer Success · Dono: Filipe<br>nexoestrategia.com.br · 2026</div>
+</div>
+</body>
+</html>

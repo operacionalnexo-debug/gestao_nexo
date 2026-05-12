@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método Nexo de Crescimento</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #E85A1A;
+  --navy: #08112A;
+  --navy-mid: #0F1E40;
+  --navy-light: #162D5E;
+  --off: #F0EDE6;
+  --gray: #C8C4BB;
+  --gray-dark: #3A3530;
+  --muted: #7A7570;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 700; background: var(--off); color: var(--navy); line-height: 1.3; }
+
+.tag {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1.5px solid var(--orange);
+  color: var(--orange);
+  border-radius: 2px;
+}
+.tag-fill { background: var(--orange); color: #fff; }
+.tag-dark { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+
+/* COVER */
+.cover {
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.cover-grid {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px);
+}
+.cover-slash {
+  position: absolute; top: 0; right: 0;
+  width: 35%; height: 100%;
+  background: var(--orange);
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+  opacity: 0.06;
+}
+.cover-inner {
+  position: relative; z-index: 1;
+  flex: 1; display: flex; flex-direction: column;
+  padding: 2.5rem 3.5rem;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.cover-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem; letter-spacing: 0.1em; color: #fff;
+}
+.cover-logo span { color: var(--orange); }
+.cover-body {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; padding: 3.5rem 0 2.5rem;
+}
+.eyebrow {
+  display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem;
+}
+.eyebrow-line { width: 36px; height: 2px; background: var(--orange); }
+.eyebrow-text {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange);
+}
+.cover-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9rem);
+  line-height: 0.9; letter-spacing: 0.03em; color: #fff;
+  margin-bottom: 0.4rem;
+}
+.cover-h1 span { color: var(--orange); display: block; }
+.cover-h1-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 3.2rem);
+  letter-spacing: 0.1em; color: rgba(255,255,255,0.2); display: block; margin-bottom: 2.5rem;
+}
+.cover-bar { width: 56px; height: 3px; background: var(--orange); margin-bottom: 2rem; }
+.cover-desc {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); max-width: 540px; line-height: 1.65; margin-bottom: 3rem;
+}
+.cover-stats {
+  display: flex; flex-wrap: wrap;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden;
+  max-width: 580px;
+}
+.cover-stat {
+  flex: 1; min-width: 110px;
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; color: var(--orange); line-height: 1; display: block;
+}
+.cover-stat-l {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.28); margin-top: 3px; display: block;
+}
+.cover-foot {
+  border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.cover-quote {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic;
+  font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.18); max-width: 460px;
+}
+
+/* WRAP */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.sec-label {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange);
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem;
+}
+.sec-label::before { content:''; display:block; width:26px; height:2px; background:var(--orange); }
+.sec-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: 0.04em; color: var(--navy); line-height: 0.95;
+  margin-bottom: 1rem;
+}
+.sec-h-w { color: #fff; }
+.sec-d {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); max-width: 560px; line-height: 1.65; margin-bottom: 3rem;
+}
+.sec-d-w { color: rgba(255,255,255,0.32); }
+
+/* BAND */
+.band {
+  background: var(--orange); padding: 1.4rem 3.5rem;
+  position: relative; overflow: hidden;
+}
+.band-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2.2rem); letter-spacing: 0.06em; color: #fff;
+  position: relative; z-index: 1;
+}
+.band::after {
+  content: '→';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 6rem; color: rgba(255,255,255,0.1);
+  position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+}
+
+/* PILLARS */
+.pillars-bg { background: var(--navy); padding: 5rem 0; }
+.pillars-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: rgba(255,255,255,0.05);
+  border-radius: 3px; overflow: hidden;
+}
+.pillar {
+  background: var(--navy-mid); padding: 2rem 1.5rem;
+  transition: background 0.15s;
+}
+.pillar:hover { background: var(--navy-light); }
+.pillar-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; }
+.pillar-big { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: rgba(232,90,26,0.13); line-height:1; }
+.pillar-bar { width: 4px; height: 24px; background: var(--orange); border-radius: 2px; }
+.pillar-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.75rem;
+}
+.pillar-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.pillar-list li {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+  color: rgba(255,255,255,0.38); padding-left: 0.75rem; position: relative;
+}
+.pillar-list li::before { content:'—'; position:absolute; left:0; color:var(--orange); font-size:0.65rem; }
+
+/* DIMENSIONS */
+.dim-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2px; background: var(--gray);
+  border: 2px solid var(--navy); border-radius: 3px; overflow: hidden;
+}
+.dim-card {
+  background: var(--off); padding: 2rem 1.75rem;
+  position: relative; transition: background 0.15s;
+  border-top: 4px solid transparent;
+}
+.dim-card:hover { background: #fff; border-top-color: var(--orange); }
+.dim-bg-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 5rem;
+  color: rgba(8,17,42,0.05); line-height:1;
+  position: absolute; top: 0.75rem; right: 1rem;
+}
+.dim-tag-s {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.58rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 0.5rem; display: block;
+}
+.dim-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.65rem;
+}
+.dim-desc {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); line-height: 1.6; margin-bottom: 1rem;
+}
+.dim-items { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.dim-items li {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem;
+}
+.dim-items li::before { content:'+'; color:var(--orange); font-weight:900; flex-shrink:0; }
+
+/* PHASES */
+.phases-bg { background: var(--navy); padding: 5rem 0; }
+.phase-row {
+  display: grid; grid-template-columns: 96px 1fr;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 3px; overflow: hidden; margin-bottom: 3px;
+}
+.phase-side {
+  background: rgba(232,90,26,0.07);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 0.5rem; text-align: center;
+}
+.phase-big-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem; color: var(--orange); line-height:1; display:block;
+}
+.phase-period {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.22); margin-top: 4px; display: block;
+}
+.phase-body { padding: 2rem; background: rgba(255,255,255,0.02); }
+.phase-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.phase-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.9rem; letter-spacing: 0.05em; color: #fff;
+}
+.phase-text {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.83rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.38); line-height: 1.65; margin-bottom: 1.25rem;
+}
+.phase-del {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(232,90,26,0.1); border: 1px solid rgba(232,90,26,0.22);
+  border-radius: 3px; padding: 0.6rem 1rem;
+}
+.phase-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink:0; }
+.phase-del-t {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange);
+}
+
+/* CADENCE */
+.cadence-strip {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 2px; background: var(--navy);
+  border: 2px solid var(--navy); border-radius: 3px; overflow: hidden;
+}
+.cad-cell {
+  background: var(--off); padding: 2rem 1.5rem; text-align: center;
+  position: relative; transition: background 0.15s;
+}
+.cad-cell::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--orange); opacity:0; transition: opacity 0.15s;
+}
+.cad-cell:hover { background: #fff; }
+.cad-cell:hover::before { opacity:1; }
+.cad-freq {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.9rem; letter-spacing: 0.05em; color: var(--orange); display:block; line-height:1; margin-bottom:0.4rem;
+}
+.cad-name {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.5rem;
+}
+.cad-desc {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted); line-height: 1.55;
+}
+
+/* DELIVERABLES */
+.del-bg { background: var(--navy); padding: 5rem 0; }
+.del-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2px; background: rgba(255,255,255,0.05);
+  border-radius: 3px; overflow: hidden;
+}
+.del-group { background: rgba(255,255,255,0.025); padding: 1.75rem; }
+.del-group-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 0.1em; color: var(--orange);
+  margin-bottom: 1rem; padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(232,90,26,0.2);
+}
+.del-list { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.del-list li {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); display:flex; align-items:flex-start; gap:0.5rem; line-height:1.4;
+}
+.del-list li::before { content:'→'; color:var(--orange); flex-shrink:0; font-size:0.7rem; margin-top:1px; }
+
+/* ASSESSMENT */
+.assess-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2px; background: var(--gray);
+  border: 2px solid var(--navy); border-radius: 3px; overflow: hidden;
+}
+.assess-card { background: var(--off); padding: 1.75rem; transition: background 0.15s; }
+.assess-card:hover { background: #fff; }
+.assess-dim {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem; letter-spacing: 0.08em; color: var(--navy);
+  margin-bottom: 1rem; padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--orange);
+}
+.assess-qs { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.assess-qs li {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--gray-dark); line-height: 1.5;
+  padding-left: 0.75rem; border-left: 2px solid rgba(232,90,26,0.25);
+}
+
+/* INDEX */
+.index-wrap { display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center; }
+.index-radar svg { width:100%; height:auto; }
+.index-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.75rem;
+}
+.index-d {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.83rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem;
+}
+.level-rows { display:flex; flex-direction:column; gap:10px; }
+.level-row { display:grid; grid-template-columns: 28px 1fr 1fr; gap:0.75rem; align-items:center; }
+.level-n { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--orange); line-height:1; }
+.level-bar { height:5px; background:var(--gray); border-radius:2px; overflow:hidden; }
+.level-fill { height:100%; background:var(--orange); border-radius:2px; }
+.level-l {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+}
+
+/* INVESTMENT */
+.invest-grid {
+  display:grid; grid-template-columns: 1fr 1fr;
+  gap:2px; background:var(--navy);
+  border:2px solid var(--navy); border-radius:3px; overflow:hidden;
+}
+.invest-card { padding:3rem; }
+.invest-card.now { background:var(--off); }
+.invest-card.future { background:var(--navy-mid); }
+.invest-ey {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:1rem;
+}
+.invest-card.now .invest-ey { color:var(--orange); }
+.invest-card.future .invest-ey { color:rgba(255,255,255,0.28); }
+.invest-price {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:5rem; letter-spacing:0.03em; line-height:1; margin-bottom:0.3rem;
+}
+.invest-card.now .invest-price { color:var(--navy); }
+.invest-card.future .invest-price { color:#fff; }
+.invest-per {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.5rem;
+}
+.invest-card.now .invest-per { color:var(--muted); }
+.invest-card.future .invest-per { color:rgba(255,255,255,0.28); }
+.invest-sep { height:2px; margin-bottom:1.5rem; }
+.invest-card.now .invest-sep { background:var(--orange); }
+.invest-card.future .invest-sep { background:rgba(255,255,255,0.08); }
+.invest-why {
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; line-height:1.7;
+}
+.invest-card.now .invest-why { color:var(--gray-dark); }
+.invest-card.future .invest-why { color:rgba(255,255,255,0.38); }
+
+/* FOOTER */
+.footer {
+  background:var(--navy); padding:2rem 3.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1rem; border-top:3px solid var(--orange);
+}
+.footer-logo { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:0.1em; color:#fff; }
+.footer-logo span { color:var(--orange); }
+.footer-meta {
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.18); text-align:right;
+}
+
+/* SEP */
+.sep { height:3px; background:linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%); }
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem;}
+  .cover-inner{padding:1.5rem;}
+  .pillars-grid{grid-template-columns:repeat(2,1fr);}
+  .dim-grid,.del-grid,.assess-grid,.invest-grid{grid-template-columns:1fr;}
+  .cadence-strip{grid-template-columns:repeat(2,1fr);}
+  .index-wrap{grid-template-columns:1fr;}
+  .phase-row{grid-template-columns:80px 1fr;}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Produto Principal · Consultoria 360°</span>
+      </div>
+      <div class="cover-h1">
+        MÉTODO<br>
+        <span>NEXO</span>
+      </div>
+      <span class="cover-h1-sub">DE CRESCIMENTO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Do comercial à cultura. Da jornada do cliente aos processos internos. Do micro ao macro. Tudo se conecta.</p>
+      <div class="cover-stats">
+        <div class="cover-stat">
+          <span class="cover-stat-n">6</span>
+          <span class="cover-stat-l">Meses</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">360°</span>
+          <span class="cover-stat-l">Visão</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">6</span>
+          <span class="cover-stat-l">Dimensões</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">R$12K</span>
+          <span class="cover-stat-l">Entrada</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot"><div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div>
+      <span class="cover-quote">"Não entregamos orientação. Entregamos empresa funcionando diferente."</span>
+      <span class="tag tag-dark">nexoestrategia.com.br</span>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">SAÍMOS DO OPERACIONAL PARA IMPACTAR O ESTRATÉGICO — DO CAOS À ESTRUTURA. TUDO SE CONECTA.</span>
+</div>
+
+<!-- PILLARS -->
+<div class="pillars-bg">
+  <div class="wrap">
+    <div class="sec-label">Por que funciona</div>
+    <h2 class="sec-h sec-h-w">O QUE NOS<br>DIFERENCIA</h2>
+    <p class="sec-d sec-d-w">Não somos assessoria. Ficamos do lado durante toda a implantação.</p>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">01</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">DIAGNÓSTICO PROFUNDO</div>
+        <ul class="pillar-list">
+          <li>Instrumento proprietário</li>
+          <li>6 dimensões mapeadas</li>
+          <li>Índice Nexo quantificado</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">02</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">PERSONALIZADO</div>
+        <ul class="pillar-list">
+          <li>Não é modelo genérico</li>
+          <li>Plano construído junto</li>
+          <li>Adaptado à realidade</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">03</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">IMPLANTAÇÃO REAL</div>
+        <ul class="pillar-list">
+          <li>Ficamos do lado</li>
+          <li>Não só orientamos</li>
+          <li>Time treinado na prática</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">04</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">ATIVO PERMANENTE</div>
+        <ul class="pillar-list">
+          <li>Dossiê Nexo completo</li>
+          <li>Base de gestão digital</li>
+          <li>Funciona sem nós</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DIMENSIONS -->
+<div class="wrap">
+  <div class="sec-label">Metodologia</div>
+  <h2 class="sec-h">AS 6 DIMENSÕES<br>NEXO</h2>
+  <p class="sec-d">Toda empresa é diagnosticada nas 6 frentes. O Índice Nexo mede cada dimensão no dia zero e no encerramento.</p>
+  <div class="dim-grid">
+    <div class="dim-card">
+      <div class="dim-bg-num">01</div>
+      <span class="dim-tag-s">Dimensão 01</span>
+      <div class="dim-name">NEGÓCIO</div>
+      <p class="dim-desc">O que a empresa vende, para quem, como se posiciona e se o modelo faz sentido.</p>
+      <ul class="dim-items">
+        <li>Modelo e posicionamento</li>
+        <li>Proposta de valor clara</li>
+        <li>Precificação estratégica</li>
+        <li>Diferenciação de mercado</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-bg-num">02</div>
+      <span class="dim-tag-s">Dimensão 02</span>
+      <div class="dim-name">COMERCIAL</div>
+      <p class="dim-desc">Como a empresa vende — processo, time, rotina e consistência de resultado.</p>
+      <ul class="dim-items">
+        <li>Processo de vendas documentado</li>
+        <li>Qualificação e funil</li>
+        <li>Rotina e scripts do time</li>
+        <li>Previsibilidade de receita</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-bg-num">03</div>
+      <span class="dim-tag-s">Dimensão 03</span>
+      <div class="dim-name">ENTREGA</div>
+      <p class="dim-desc">Como o cliente vive a experiência dentro da empresa — do fechamento ao pós-venda.</p>
+      <ul class="dim-items">
+        <li>Jornada do cliente mapeada</li>
+        <li>Processos com padrão definido</li>
+        <li>Momentos de encantamento</li>
+        <li>Pós-venda e recompra</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-bg-num">04</div>
+      <span class="dim-tag-s">Dimensão 04</span>
+      <div class="dim-name">OPERAÇÃO</div>
+      <p class="dim-desc">Como a empresa funciona por dentro — rotinas, setores e fluidez operacional.</p>
+      <ul class="dim-items">
+        <li>Processos internos documentados</li>
+        <li>Comunicação entre setores</li>
+        <li>Redução de retrabalho</li>
+        <li>Autonomia operacional</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-bg-num">05</div>
+      <span class="dim-tag-s">Dimensão 05</span>
+      <div class="dim-name">PESSOAS</div>
+      <p class="dim-desc">Quem está dentro da empresa, como se comporta e o que acredita.</p>
+      <ul class="dim-items">
+        <li>Cultura real documentada</li>
+        <li>Alinhamento do time</li>
+        <li>Contratação e onboarding</li>
+        <li>Performance e desenvolvimento</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-bg-num">06</div>
+      <span class="dim-tag-s">Dimensão 06</span>
+      <div class="dim-name">GESTÃO</div>
+      <p class="dim-desc">Como o dono e líderes tomam decisões, acompanham resultados e conduzem o negócio.</p>
+      <ul class="dim-items">
+        <li>Ritos de gestão e reuniões</li>
+        <li>Dashboard de indicadores</li>
+        <li>Tomada de decisão estruturada</li>
+        <li>Visão e metas documentadas</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PHASES -->
+<div class="phases-bg">
+  <div class="wrap">
+    <div class="sec-label">Jornada</div>
+    <h2 class="sec-h sec-h-w">AS 4 FASES<br>DO MÉTODO</h2>
+    <p class="sec-d sec-d-w">Cada fase tem objetivo claro, cadência de trabalho e entregável concreto.</p>
+
+    <div class="phase-row">
+      <div class="phase-side">
+        <span class="phase-big-n">01</span>
+        <span class="phase-period">Sem. 1–2</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-name">RAIO-X</div>
+          <span class="tag tag-fill">Onboarding + Diagnóstico</span>
+        </div>
+        <p class="phase-text">Logo após o fechamento o cliente entra no grupo e agenda a reunião de diagnóstico. Aplicamos o Nexo Assessment — entrevistas profundas, análise de processos e números — mapeando as 6 dimensões com nível de 1 a 5. Relatório entregue em até 10 dias.</p>
+        <div class="phase-del">
+          <div class="phase-dot"></div>
+          <span class="phase-del-t">Relatório Raio-X Nexo + Índice Nexo Inicial · 3 gargalos prioritários · oportunidades imediatas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-side">
+        <span class="phase-big-n">02</span>
+        <span class="phase-period">Sem. 3–4</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-name">ESTRATÉGIA</div>
+          <span class="tag tag-fill">Sessão Estratégica Nexo</span>
+        </div>
+        <p class="phase-text">Imersão com dono e líderes para co-construir o plano. O cliente não recebe um plano pronto — ele participa da construção. Ao final valida, ajusta e se compromete com o Mapa de Crescimento.</p>
+        <div class="phase-del">
+          <div class="phase-dot"></div>
+          <span class="phase-del-t">Mapa de Crescimento Nexo · plano por frente · responsáveis · cronograma dos 6 meses</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-side">
+        <span class="phase-big-n">03</span>
+        <span class="phase-period">Meses 2–5</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-name">CONSTRUÇÃO E IMPLANTAÇÃO</div>
+          <span class="tag tag-fill">Fase Principal · 4 meses</span>
+        </div>
+        <p class="phase-text">A fase mais densa. Trabalhamos frente por frente conforme as prioridades do diagnóstico — construindo processos, capacitando o time, implantando a jornada do cliente, documentando a cultura e estruturando a gestão. Ficamos do lado durante cada implantação. Suporte contínuo via WhatsApp e Base Nexo atualizada ao longo de todo o processo.</p>
+        <div class="phase-del">
+          <div class="phase-dot"></div>
+          <span class="phase-del-t">Todos os entregáveis por frente + 5 Relatórios Nexo Mensais + Base Nexo completa</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-side">
+        <span class="phase-big-n">04</span>
+        <span class="phase-period">Mês 6</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-name">CONSOLIDAÇÃO E LEGADO</div>
+          <span class="tag tag-fill">Encerramento</span>
+        </div>
+        <p class="phase-text">Garantir que tudo funciona sem nós. Reaplicação do Nexo Assessment para gerar o Índice Final — a prova visual da transformação. Sessão de encerramento com dono e líderes: celebração, plano de continuidade e convite à Comunidade Nexo.</p>
+        <div class="phase-del">
+          <div class="phase-dot"></div>
+          <span class="phase-del-t">Dossiê Nexo completo + Índice Nexo Final · comparativo antes/depois · plano de continuidade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CADENCE -->
+<div class="wrap">
+  <div class="sec-label">Acompanhamento</div>
+  <h2 class="sec-h">CADÊNCIA<br>DE CONTATO</h2>
+  <p class="sec-d">Formato híbrido — presencial para clientes da região, remoto para demais. O cliente nunca fica sem suporte.</p>
+  <div class="cadence-strip">
+    <div class="cad-cell">
+      <span class="cad-freq">SEMANAL</span>
+      <div class="cad-name">Reunião de acompanhamento</div>
+      <div class="cad-desc">Com o dono. Destravamento, prioridades e próximos passos da semana.</div>
+    </div>
+    <div class="cad-cell">
+      <span class="cad-freq">QUINZENAL</span>
+      <div class="cad-name">Reunião com líderes</div>
+      <div class="cad-desc">Resultado com a liderança. Ajuste de rota e capacitação em tempo real.</div>
+    </div>
+    <div class="cad-cell">
+      <span class="cad-freq">MENSAL</span>
+      <div class="cad-name">Reunião de visão</div>
+      <div class="cad-desc">Dono + líderes. Onde está o negócio, onde vai e o que vem no próximo mês.</div>
+    </div>
+    <div class="cad-cell">
+      <span class="cad-freq">CONTÍNUO</span>
+      <div class="cad-name">Suporte WhatsApp + Base</div>
+      <div class="cad-desc">Canal direto aberto. Dúvidas, decisões e situações do dia a dia.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DELIVERABLES -->
+<div class="del-bg">
+  <div class="wrap">
+    <div class="sec-label">O que o cliente recebe</div>
+    <h2 class="sec-h sec-h-w">TODOS OS<br>ENTREGÁVEIS</h2>
+    <p class="sec-d sec-d-w">Cada entregável em PDF + página espelhada na Base Nexo. Organizado, acessível, permanente.</p>
+    <div class="del-grid">
+      <div class="del-group">
+        <div class="del-group-h">Entrada e Estratégia</div>
+        <ul class="del-list">
+          <li>Nexo Assessment aplicado</li>
+          <li>Relatório Raio-X Nexo</li>
+          <li>Índice Nexo inicial — radar das 6 dimensões</li>
+          <li>Sessão Estratégica Nexo</li>
+          <li>Mapa de Crescimento Nexo</li>
+        </ul>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">Comercial</div>
+        <ul class="del-list">
+          <li>Processo de vendas documentado e implantado</li>
+          <li>Mapa do funil com critérios de avanço</li>
+          <li>Playbook de rotina comercial</li>
+          <li>Sistema de qualificação de leads</li>
+          <li>Processo de follow-up estruturado</li>
+          <li>Indicadores e metas do time</li>
+          <li>Capacitação prática do time comercial</li>
+        </ul>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">Entrega e Experiência</div>
+        <ul class="del-list">
+          <li>Mapa da jornada atual</li>
+          <li>Diagnóstico de experiência</li>
+          <li>Jornada do cliente redesenhada</li>
+          <li>Momentos de encantamento definidos</li>
+          <li>Padrões de comunicação por etapa</li>
+          <li>Processo de pós-venda estruturado</li>
+          <li>Indicadores de experiência</li>
+        </ul>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">Operação e Processos</div>
+        <ul class="del-list">
+          <li>Processos internos documentados por área</li>
+          <li>Rotinas definidas por setor</li>
+          <li>Fluxo de comunicação entre setores</li>
+          <li>Processos de contratação e onboarding</li>
+          <li>Processos financeiros básicos</li>
+        </ul>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">Pessoas e Cultura</div>
+        <ul class="del-list">
+          <li>Playbook de cultura completo</li>
+          <li>Propósito, valores e comportamentos</li>
+          <li>Critérios culturais de contratação</li>
+          <li>Onboarding cultural documentado</li>
+          <li>Processo de avaliação de desempenho</li>
+          <li>Como celebrar e resolver conflitos</li>
+        </ul>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">Gestão e Encerramento</div>
+        <ul class="del-list">
+          <li>Ritos de gestão implantados</li>
+          <li>Dashboard de indicadores — Base Nexo</li>
+          <li>5 Relatórios Nexo Mensais</li>
+          <li>Índice Nexo final — comparativo</li>
+          <li>Dossiê Nexo — manual da empresa</li>
+          <li>Plano de continuidade pós-contrato</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSESSMENT -->
+<div class="wrap">
+  <div class="sec-label">Instrumento Proprietário</div>
+  <h2 class="sec-h">NEXO<br>ASSESSMENT</h2>
+  <p class="sec-d">Enviado antes da reunião de diagnóstico. O cliente responde por escrito — gera reflexão antes de entrarmos. Na reunião, aprofundamos cada resposta.</p>
+  <div class="assess-grid">
+    <div class="assess-card">
+      <div class="assess-dim">NEGÓCIO</div>
+      <ul class="assess-qs">
+        <li>Como você descreveria o que sua empresa vende em uma frase?</li>
+        <li>Por que um cliente escolhe você e não o concorrente?</li>
+        <li>Sua precificação foi calculada ou definida pelo feeling do mercado?</li>
+      </ul>
+    </div>
+    <div class="assess-card">
+      <div class="assess-dim">COMERCIAL</div>
+      <ul class="assess-qs">
+        <li>Como um lead chega até você e o que acontece do primeiro contato ao fechamento?</li>
+        <li>Você tem previsibilidade de quantas vendas vai fazer no mês?</li>
+        <li>Quanto do comercial depende diretamente de você hoje?</li>
+      </ul>
+    </div>
+    <div class="assess-card">
+      <div class="assess-dim">ENTREGA</div>
+      <ul class="assess-qs">
+        <li>O que acontece exatamente depois que um cliente fecha com você?</li>
+        <li>Como você garante qualidade consistente independente de quem executa?</li>
+        <li>Você perde clientes por problemas na entrega ou na experiência?</li>
+      </ul>
+    </div>
+    <div class="assess-card">
+      <div class="assess-dim">OPERAÇÃO</div>
+      <ul class="assess-qs">
+        <li>Se você saísse de férias por 30 dias, o que travaria na empresa?</li>
+        <li>Como os setores se comunicam — existe fluxo claro ou cada um no seu mundo?</li>
+        <li>Onde está o maior gargalo operacional hoje?</li>
+      </ul>
+    </div>
+    <div class="assess-card">
+      <div class="assess-dim">PESSOAS</div>
+      <ul class="assess-qs">
+        <li>Você consegue descrever a cultura da sua empresa em uma frase?</li>
+        <li>Quando contrata alguém, como avalia o fit cultural além da técnica?</li>
+        <li>Seu time sabe qual é o objetivo da empresa e como contribui para isso?</li>
+      </ul>
+    </div>
+    <div class="assess-card">
+      <div class="assess-dim">GESTÃO</div>
+      <ul class="assess-qs">
+        <li>Quais números você olha toda semana para saber se a empresa está bem?</li>
+        <li>Quanto do seu tempo você passa resolvendo operacional vs pensando estrategicamente?</li>
+        <li>O que está travando o crescimento da empresa hoje?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- INDEX -->
+<div class="wrap">
+  <div class="sec-label">Ferramenta de Medição</div>
+  <h2 class="sec-h">ÍNDICE<br>NEXO</h2>
+  <p class="sec-d">Fotografia quantitativa da empresa. Aplicado no dia zero e no encerramento — gera a prova visual da transformação.</p>
+  <div class="index-wrap">
+    <div class="index-radar">
+      <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+        <style>.rl{font-family:'Barlow Condensed',sans-serif;font-size:11px;fill:#3A3530;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+        <polygon points="160,55 244,105 244,215 160,265 76,215 76,105" fill="none" stroke="#C8C4BB" stroke-width="1"/>
+        <polygon points="160,88 218,120 218,200 160,232 102,200 102,120" fill="none" stroke="#C8C4BB" stroke-width="1"/>
+        <polygon points="160,120 190,138 190,182 160,200 130,182 130,138" fill="none" stroke="#C8C4BB" stroke-width="1"/>
+        <line x1="160" y1="55" x2="160" y2="265" stroke="#C8C4BB" stroke-width=".5"/>
+        <line x1="76" y1="105" x2="244" y2="215" stroke="#C8C4BB" stroke-width=".5"/>
+        <line x1="244" y1="105" x2="76" y2="215" stroke="#C8C4BB" stroke-width=".5"/>
+        <polygon points="160,72 232,112 228,205 160,248 90,208 96,115" fill="rgba(232,90,26,0.12)" stroke="#E85A1A" stroke-width="2"/>
+        <circle cx="160" cy="72" r="5" fill="#E85A1A"/>
+        <circle cx="232" cy="112" r="5" fill="#E85A1A"/>
+        <circle cx="228" cy="205" r="5" fill="#E85A1A"/>
+        <circle cx="160" cy="248" r="5" fill="#E85A1A"/>
+        <circle cx="90" cy="208" r="5" fill="#E85A1A"/>
+        <circle cx="96" cy="115" r="5" fill="#E85A1A"/>
+        <text x="160" y="42" class="rl" text-anchor="middle">Negócio</text>
+        <text x="258" y="102" class="rl" text-anchor="start">Comercial</text>
+        <text x="258" y="220" class="rl" text-anchor="start">Entrega</text>
+        <text x="160" y="285" class="rl" text-anchor="middle">Operação</text>
+        <text x="62" y="220" class="rl" text-anchor="end">Pessoas</text>
+        <text x="62" y="102" class="rl" text-anchor="end">Gestão</text>
+      </svg>
+    </div>
+    <div>
+      <div class="index-h">COMO FUNCIONA O ÍNDICE</div>
+      <p class="index-d">Após o diagnóstico, cada dimensão recebe nível de 1 a 5. O radar mostra onde a empresa está forte e onde está travada. No encerramento o Assessment é reaplicado — o cliente vê em números o que mudou.</p>
+      <div class="level-rows">
+        <div class="level-row">
+          <span class="level-n">1</span>
+          <div class="level-bar"><div class="level-fill" style="width:20%"></div></div>
+          <span class="level-l">Não existe — caos total</span>
+        </div>
+        <div class="level-row">
+          <span class="level-n">2</span>
+          <div class="level-bar"><div class="level-fill" style="width:40%"></div></div>
+          <span class="level-l">Na cabeça, não estruturado</span>
+        </div>
+        <div class="level-row">
+          <span class="level-n">3</span>
+          <div class="level-bar"><div class="level-fill" style="width:60%"></div></div>
+          <span class="level-l">Estruturado mas com falhas</span>
+        </div>
+        <div class="level-row">
+          <span class="level-n">4</span>
+          <div class="level-bar"><div class="level-fill" style="width:80%"></div></div>
+          <span class="level-l">Funciona — depende de pessoas</span>
+        </div>
+        <div class="level-row">
+          <span class="level-n">5</span>
+          <div class="level-bar"><div class="level-fill" style="width:100%"></div></div>
+          <span class="level-l">Autônomo e documentado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- INVESTMENT -->
+<div class="wrap">
+  <div class="sec-label">Precificação</div>
+  <h2 class="sec-h">INVESTIMENTO</h2>
+  <p class="sec-d">Lançamento para validar o método com os primeiros clientes. Com casos documentados o valor escala.</p>
+  <div class="invest-grid">
+    <div class="invest-card now">
+      <div class="invest-ey">Agora · Fase de Lançamento</div>
+      <div class="invest-price">R$12K</div>
+      <div class="invest-per">6 meses de consultoria completa</div>
+      <div class="invest-sep"></div>
+      <p class="invest-why">Posicionado acima do mercado de consultoria pequena e abaixo das consultorias enterprise. O território certo para crescer, acumular casos e construir autoridade. Com 5 a 10 casos documentados o preço sobe naturalmente.</p>
+    </div>
+    <div class="invest-card future">
+      <div class="invest-ey">Potencial · Método Validado</div>
+      <div class="invest-price">R$30K</div>
+      <div class="invest-per">6 meses de consultoria completa</div>
+      <div class="invest-sep"></div>
+      <p class="invest-why">Consultoria de alto nível com método proprietário, casos documentados e marca com autoridade. Dois consultores seniores por 6 meses, Dossiê Nexo como ativo permanente e prova visual de transformação.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILED DELIVERABLES -->
+<div class="sep"></div>
+
+<style>
+.detail-bg { background: var(--off); padding: 5rem 0; }
+.detail-bg-dark { background: var(--navy); padding: 5rem 0; }
+
+.entregavel-block {
+  margin-bottom: 4rem;
+  border: 2px solid var(--navy);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.entregavel-block:last-child { margin-bottom: 0; }
+
+.ent-header {
+  background: var(--navy);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ent-header-dark {
+  background: rgba(232,90,26,0.1);
+  border-bottom: 1px solid rgba(232,90,26,0.2);
+}
+
+.ent-num {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--orange);
+}
+
+.ent-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 0.06em; color: #fff;
+}
+
+.ent-title-dark { color: var(--navy); }
+
+.ent-body {
+  background: var(--off);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.ent-body-dark { background: var(--navy-mid); }
+
+.ent-col {
+  padding: 2rem;
+  border-right: 1px solid var(--gray);
+}
+
+.ent-col:last-child { border-right: none; }
+
+.ent-col-dark {
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.ent-col-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem; letter-spacing: 0.1em; color: var(--orange);
+  margin-bottom: 1.25rem; padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--orange);
+  display: block;
+}
+
+.ent-steps { list-style: none; display: flex; flex-direction: column; gap: 0; }
+
+.ent-step {
+  display: flex; gap: 1rem; padding: 0.9rem 0;
+  border-bottom: 1px solid var(--gray);
+}
+
+.ent-step:last-child { border-bottom: none; }
+
+.ent-step-dark { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+.ent-step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; color: rgba(232,90,26,0.35); line-height: 1;
+  flex-shrink: 0; width: 24px; margin-top: 1px;
+}
+
+.ent-step-content {}
+
+.ent-step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 0.06em; color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+
+.ent-step-title-w { color: #fff; }
+
+.ent-step-desc {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted); line-height: 1.55;
+}
+
+.ent-step-desc-w { color: rgba(255,255,255,0.38); }
+
+.ent-step-sub {
+  list-style: none; display: flex; flex-direction: column; gap: 3px; margin-top: 0.4rem;
+}
+
+.ent-step-sub li {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4;
+}
+
+.ent-step-sub li::before { content: '—'; color: var(--orange); flex-shrink: 0; }
+.ent-step-sub-w li { color: rgba(255,255,255,0.5); }
+
+.ent-receive { list-style: none; display: flex; flex-direction: column; gap: 0; }
+
+.ent-rec-item {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--gray);
+}
+
+.ent-rec-item:last-child { border-bottom: none; }
+.ent-rec-dark { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+.ent-rec-arrow {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  color: var(--orange); flex-shrink: 0; margin-top: 2px;
+}
+
+.ent-rec-text {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--navy); line-height: 1.5;
+}
+
+.ent-rec-text-w { color: rgba(255,255,255,0.75); }
+
+.ent-rec-sub {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted); margin-top: 2px; display: block;
+}
+
+.ent-rec-sub-w { color: rgba(255,255,255,0.32); }
+
+.ent-format-bar {
+  background: rgba(232,90,26,0.08);
+  border-top: 1px solid rgba(232,90,26,0.2);
+  padding: 0.75rem 2rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+.ent-format-label {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange);
+}
+
+.ent-format-val {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gray-dark);
+}
+
+.ent-format-val-w { color: rgba(255,255,255,0.5); }
+
+@media(max-width:768px){
+  .ent-body,.ent-body-dark { grid-template-columns: 1fr; }
+  .ent-col { border-right: none; border-bottom: 1px solid var(--gray); }
+  .ent-col-dark { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+
+<div class="detail-bg">
+  <div class="wrap">
+    <div class="sec-label">Detalhamento Completo</div>
+    <h2 class="sec-h">COMO CADA<br>ENTREGÁVEL É<br>CONSTRUÍDO</h2>
+    <p class="sec-d">Para cada entregável: como é construído passo a passo + o que o cliente recebe nas mãos. Documento interno para alinhamento entre sócios.</p>
+
+    <!-- RAIO-X -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 01 · Fase de Entrada</div>
+          <div class="ent-title">RELATÓRIO RAIO-X NEXO</div>
+        </div>
+        <span class="tag tag-fill">Entregue em até 10 dias</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">FORMULÁRIO PRÉVIO</div>
+                <p class="ent-step-desc">Antes da reunião, enviamos o Nexo Assessment para o dono responder por escrito. Chegamos na reunião já com leitura inicial da empresa.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">REUNIÃO DE DIAGNÓSTICO</div>
+                <p class="ent-step-desc">Sessão de 2 a 3 horas com o dono — presencial para clientes da região, remoto para demais. Filipe conduz, Pedro observa e anota. Aprofundamos cada dimensão usando as respostas como ponto de partida.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">ANÁLISE INTERNA</div>
+                <p class="ent-step-desc">Após a reunião, nos reunimos internamente e atribuímos nível de 1 a 5 para cada dimensão. Definimos os 3 gargalos prioritários e as oportunidades imediatas.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSTRUÇÃO DO RELATÓRIO</div>
+                <p class="ent-step-desc">Produzimos o documento em até 7 dias após a reunião. Entrega via PDF + espelhado na Base Nexo.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Capa com Índice Nexo Geral</span><span class="ent-rec-sub">Nome da empresa, data, número de 0 a 100</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Gráfico Radar das 6 Dimensões</span><span class="ent-rec-sub">Visual com nível de 1 a 5 em cada dimensão</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Resumo Executivo</span><span class="ent-rec-sub">Parágrafo de 5 linhas sobre o momento da empresa</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Análise por Dimensão</span><span class="ent-rec-sub">Para cada uma das 6: o que foi encontrado, o que funciona, o que trava</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Os 3 Gargalos Prioritários</span><span class="ent-rec-sub">Os pontos que mais impactam o crescimento agora</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Oportunidades Imediatas</span><span class="ent-rec-sub">O que pode ser feito nos primeiros 30 dias com impacto rápido</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Próximos Passos</span><span class="ent-rec-sub">Transição para o Mapa de Crescimento</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">PDF visual + página espelhada na Base Nexo</span>
+      </div>
+    </div>
+
+    <!-- MAPA DE CRESCIMENTO -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 02 · Fase de Planejamento</div>
+          <div class="ent-title">MAPA DE CRESCIMENTO NEXO</div>
+        </div>
+        <span class="tag tag-fill">Semanas 3 e 4</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">ANÁLISE DO RAIO-X</div>
+                <p class="ent-step-desc">Partimos do diagnóstico já feito. Os 3 gargalos e as oportunidades identificadas viram a base do plano.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">SESSÃO ESTRATÉGICA NEXO</div>
+                <p class="ent-step-desc">Imersão de meio período com dono e líderes — presencial sempre que possível. Apresentamos o Raio-X, validamos as prioridades e co-construímos o plano junto com o cliente. Ele precisa sentir que o plano é dele.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSTRUÇÃO INTERNA</div>
+                <p class="ent-step-desc">Após a sessão, organizamos tudo que foi discutido, definimos as fases, os responsáveis e os indicadores de sucesso de cada frente.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">APRESENTAÇÃO E VALIDAÇÃO</div>
+                <p class="ent-step-desc">Apresentamos o mapa ao cliente em reunião específica. Ele aprova, ajusta se necessário e assina — literalmente — o compromisso com o plano.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Visão Geral do Plano</span><span class="ent-rec-sub">Onde está hoje e onde vai estar em 6 meses</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Frentes Priorizadas</span><span class="ent-rec-sub">Quais das 6 dimensões entram em qual fase e por quê</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Plano por Fase</span><span class="ent-rec-sub">3 blocos de 2 meses — o que é trabalhado em cada um</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Entregáveis por Frente</span><span class="ent-rec-sub">O que será construído em cada dimensão no escopo</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Responsáveis Definidos</span><span class="ent-rec-sub">O que é nosso, o que é do cliente, o que é compartilhado</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores de Sucesso</span><span class="ent-rec-sub">Como medir o progresso de cada frente</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Cronograma Visual</span><span class="ent-rec-sub">Linha do tempo dos 6 meses com marcos e entregas</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">PDF visual + página na Base Nexo com plano vivo e atualizado ao longo dos 6 meses</span>
+      </div>
+    </div>
+
+    <!-- PROCESSO DE VENDAS -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 03 · Frente Comercial</div>
+          <div class="ent-title">PROCESSO DE VENDAS<br>DOCUMENTADO E IMPLANTADO</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">IMERSÃO COMERCIAL</div>
+                <p class="ent-step-desc">Antes de construir qualquer coisa, entendemos como a empresa vende hoje.</p>
+                <ul class="ent-step-sub">
+                  <li>Acompanhar uma reunião de vendas real — presencial ou por gravação</li>
+                  <li>Entrevistar vendedores individualmente — o que fazem, onde travam</li>
+                  <li>Analisar histórico de vendas — conversão, ciclo, motivos de perda</li>
+                  <li>Mapear o funil atual — do lead até o fechamento</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">DIAGNÓSTICO COMERCIAL</div>
+                <p class="ent-step-desc">Com tudo mapeado, identificamos:</p>
+                <ul class="ent-step-sub">
+                  <li>Onde o processo quebra — em qual etapa os leads somem</li>
+                  <li>O que depende do dono e precisa ser descentralizado</li>
+                  <li>O que está faltando — qualificação, follow-up, objeções</li>
+                  <li>Perfil real do time — potencial, gaps, posição errada</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSTRUÇÃO DO PROCESSO</div>
+                <p class="ent-step-desc">Desenhamos o processo ideal para aquele negócio específico — não um modelo genérico. Cada etapa tem nome, objetivo, ação do vendedor, critério para avançar e prazo.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">VALIDAÇÃO COM O DONO</div>
+                <p class="ent-step-desc">Apresentamos o processo construído, ajustamos conforme o contexto e validamos antes de implantar.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">5</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">IMPLANTAÇÃO — ONDE A MAIORIA PARA E NÓS NÃO</div>
+                <p class="ent-step-desc">Ficamos do lado durante toda a implantação:</p>
+                <ul class="ent-step-sub">
+                  <li>Treinamento prático com o time — simulação real, não slides</li>
+                  <li>Acompanhamento das primeiras semanas — ajustando na prática</li>
+                  <li>Suporte via WhatsApp durante toda a fase de adaptação</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Mapa do Funil</span><span class="ent-rec-sub">Visual com todas as etapas do lead ao fechamento e pós-venda</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Descrição de Cada Etapa</span><span class="ent-rec-sub">O que é, objetivo, o que o vendedor faz, o que o cliente sente</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Critérios de Avanço</span><span class="ent-rec-sub">O que precisa ser verdade para o lead passar de etapa</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Scripts por Etapa</span><span class="ent-rec-sub">Abordagem, qualificação, apresentação, objeções, fechamento, follow-up — tudo personalizado</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Sistema de Qualificação</span><span class="ent-rec-sub">Perguntas e critérios para identificar se um lead vale o tempo do time</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Processo de Follow-up</span><span class="ent-rec-sub">Quantos contatos, em qual intervalo, por qual canal e o que falar</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Rotina Comercial</span><span class="ent-rec-sub">Como é a semana do vendedor, daily, pipeline review, meta individual</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores do Comercial</span><span class="ent-rec-sub">O que medir, com qual frequência e qual o número saudável para aquele negócio</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">PDF + página estruturada na Base Nexo acessível para o time</span>
+      </div>
+    </div>
+
+    <!-- PLAYBOOK ROTINA -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 04 · Frente Comercial</div>
+          <div class="ent-title">PLAYBOOK DE ROTINA COMERCIAL</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">ENTENDER COMO O TIME OPERA HOJE</div>
+                <ul class="ent-step-sub">
+                  <li>Como é o dia a dia de um vendedor nessa empresa hoje</li>
+                  <li>Quais reuniões existem — se existem</li>
+                  <li>Como as metas são acompanhadas</li>
+                  <li>Onde o tempo do vendedor está sendo desperdiçado</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">IDENTIFICAR O QUE FALTA</div>
+                <p class="ent-step-desc">Definimos quais ritos precisam existir, como equilibrar autonomia e acompanhamento, e qual o nível de maturidade do time — isso define o quão estruturada precisa ser a rotina.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSTRUÇÃO DA ROTINA IDEAL</div>
+                <p class="ent-step-desc">Desenhamos a rotina completa do time — da abertura do dia ao encerramento da semana. Personalizada para o tamanho e maturidade daquele time.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">IMPLANTAÇÃO GRADUAL</div>
+                <p class="ent-step-desc">Rotina nova não se implanta de uma vez — vira resistência. Introduzimos em camadas:</p>
+                <ul class="ent-step-sub">
+                  <li>Semana 1: daily e acompanhamento de pipeline</li>
+                  <li>Semanas 2–3: pipeline review semanal e metas individuais</li>
+                  <li>Semana 4+: rotina completa rodando</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Rotina Diária do Vendedor</span><span class="ent-rec-sub">O que faz pela manhã, como organiza a carteira, tentativas de contato, como registra no CRM</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Daily Comercial</span><span class="ent-rec-sub">Formato, duração, pauta padrão, quem conduz e o que não pode faltar</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Pipeline Review Semanal</span><span class="ent-rec-sub">Como revisar o funil, quais deals avançar, quais descartar, onde o time trava</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Reunião Mensal de Resultado</span><span class="ent-rec-sub">Como avaliar o mês, o que olhar nos números, como definir foco do próximo</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Sistema de Metas</span><span class="ent-rec-sub">Como a meta mensal é quebrada em semanal e diária, como cada vendedor acompanha</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Gestão de Carteira</span><span class="ent-rec-sub">Como dividir o tempo entre leads novos, negociações ativas e clientes em follow-up</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Processo de CRM</span><span class="ent-rec-sub">Como registrar interações, quais campos são obrigatórios, como manter o funil limpo</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores do Gestor</span><span class="ent-rec-sub">O que o dono olha todo dia, toda semana e todo mês para saber se o time está no caminho</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">PDF + página na Base Nexo usada pelo time no dia a dia</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ENTREGÁVEIS DARK -->
+<div class="detail-bg-dark">
+  <div class="wrap">
+
+    <!-- JORNADA DO CLIENTE -->
+    <div class="entregavel-block" style="border-color: rgba(255,255,255,0.08);">
+      <div class="ent-header ent-header-dark">
+        <div>
+          <div class="ent-num">Entregável 05 · Frente de Entrega</div>
+          <div class="ent-title">JORNADA DO CLIENTE REDESENHADA</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body ent-body-dark">
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">MAPEAMENTO DA JORNADA ATUAL</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>Entrevistas com dono e com quem executa a entrega</li>
+                  <li>Se possível, entrevistas com clientes — o que sentiram em cada etapa</li>
+                  <li>Análise dos pontos de atrito — onde reclamam, onde somem, onde elogiam</li>
+                  <li>Mapeamento de todos os pontos de contato: WhatsApp, reuniões, e-mail, entrega, cobrança</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">IDENTIFICAÇÃO DOS GAPS</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>Onde o cliente se sente perdido ou sem informação</li>
+                  <li>Onde a experiência cai — etapas mal executadas ou inexistentes</li>
+                  <li>Onde existe oportunidade de encantamento mas não gera</li>
+                  <li>O que depende de pessoa específica e precisa ser sistematizado</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">DESENHO DA JORNADA IDEAL</div>
+                <p class="ent-step-desc ent-step-desc-w">Redesenhamos a jornada do zero — etapa por etapa — pensando no que o cliente precisa sentir em cada momento. Não é só processo — é experiência.</p>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">IMPLANTAÇÃO</div>
+                <p class="ent-step-desc ent-step-desc-w">Ficamos do lado durante a mudança — treinando o time, ajustando o que não funciona na prática e garantindo que a nova jornada vire rotina.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Mapa da Jornada Atual</span><span class="ent-rec-sub ent-rec-sub-w">Visual com etapas, pontos de contato e como o cliente se sente em cada uma</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Diagnóstico de Experiência</span><span class="ent-rec-sub ent-rec-sub-w">Onde estão os atritos, as lacunas e as oportunidades</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Mapa da Jornada Ideal</span><span class="ent-rec-sub ent-rec-sub-w">Como a experiência deveria ser do primeiro contato ao pós-venda</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Descrição de Cada Etapa</span><span class="ent-rec-sub ent-rec-sub-w">O que acontece, quem é responsável, o que o cliente sente e precisa receber</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Momentos de Encantamento</span><span class="ent-rec-sub ent-rec-sub-w">Pontos específicos onde a empresa vai surpreender — algo que o cliente não espera</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Padrões de Comunicação</span><span class="ent-rec-sub ent-rec-sub-w">O que falar em cada etapa, em qual canal e com qual tom</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Processo de Pós-Venda</span><span class="ent-rec-sub ent-rec-sub-w">Como manter o cliente ativo, gerar recompra e transformar em promotor</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Indicadores de Experiência</span><span class="ent-rec-sub ent-rec-sub-w">NPS, taxa de recompra, tempo de resposta — o que medir para saber se a jornada funciona</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val ent-format-val-w">PDF visual + página na Base Nexo</span>
+      </div>
+    </div>
+
+    <!-- PLAYBOOK CULTURA -->
+    <div class="entregavel-block" style="border-color: rgba(255,255,255,0.08);">
+      <div class="ent-header ent-header-dark">
+        <div>
+          <div class="ent-num">Entregável 06 · Frente de Pessoas</div>
+          <div class="ent-title">PLAYBOOK DE CULTURA</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body ent-body-dark">
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">IMERSÃO CULTURAL</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>Conversa profunda com dono — o que acredita, como quer que se comportem, o que não tolera</li>
+                  <li>Entrevistas com o time — como descrevem a empresa, o que gostam, o que mudariam</li>
+                  <li>Observação do dia a dia — comunicação, conflitos, celebrações</li>
+                  <li>Análise do histórico — quem ficou, quem saiu e por quê</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">EXTRAÇÃO DA CULTURA REAL</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>O que já existe de cultura — mesmo que não documentado</li>
+                  <li>O que o dono quer que exista mas ainda não existe</li>
+                  <li>O gap entre a cultura declarada e a vivida</li>
+                  <li>Os comportamentos que precisam ser reforçados e os que precisam mudar</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">CONSTRUÇÃO DO PLAYBOOK</div>
+                <p class="ent-step-desc ent-step-desc-w">Transformamos tudo em linguagem prática — não um documento bonito que ninguém lê, mas um guia que o time usa no dia a dia.</p>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">ATIVAÇÃO COM O TIME</div>
+                <p class="ent-step-desc ent-step-desc-w">O playbook não é entregue — é apresentado. Fazemos sessão com o time para apresentar, discutir e gerar pertencimento. A cultura precisa ser sentida, não lida.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Propósito da Empresa</span><span class="ent-rec-sub ent-rec-sub-w">Por que ela existe além de gerar lucro — em linguagem real, não corporativa</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Valores Reais</span><span class="ent-rec-sub ent-rec-sub-w">Não palavras bonitas — cada valor com nome, descrição e exemplos concretos do dia a dia</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Comportamentos Esperados</span><span class="ent-rec-sub ent-rec-sub-w">O que significa ser parte dessa empresa — o que fazemos, como tratamos clientes, como nos comunicamos</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">O Que Não Toleramos</span><span class="ent-rec-sub ent-rec-sub-w">Os comportamentos que quebram a cultura — dito claramente</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Como Contratamos</span><span class="ent-rec-sub ent-rec-sub-w">Critérios culturais que entram em todo processo seletivo</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Como Desenvolvemos Pessoas</span><span class="ent-rec-sub ent-rec-sub-w">Como a empresa investe no crescimento do time</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Como Celebramos e Resolvemos Conflitos</span><span class="ent-rec-sub ent-rec-sub-w">Como reconhecemos resultado e esforço, e o processo quando algo não funciona entre pessoas</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Onboarding Cultural</span><span class="ent-rec-sub ent-rec-sub-w">O que todo novo colaborador precisa saber, sentir e viver nos primeiros 30 dias</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val ent-format-val-w">PDF visual + página na Base Nexo</span>
+      </div>
+    </div>
+
+    <!-- PROCESSOS INTERNOS -->
+    <div class="entregavel-block" style="border-color: rgba(255,255,255,0.08);">
+      <div class="ent-header ent-header-dark">
+        <div>
+          <div class="ent-num">Entregável 07 · Frente de Operação</div>
+          <div class="ent-title">PROCESSOS INTERNOS DOCUMENTADOS</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body ent-body-dark">
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">MAPEAMENTO DO QUE EXISTE</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>Quais processos existem — mesmo que só na cabeça das pessoas</li>
+                  <li>Quais processos deveriam existir mas não existem</li>
+                  <li>O que é feito de forma diferente por pessoas diferentes — sem padrão</li>
+                  <li>Onde está o maior retrabalho e os maiores erros operacionais</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">PRIORIZAÇÃO</div>
+                <ul class="ent-step-sub ent-step-sub-w">
+                  <li>Processos que mais impactam o cliente</li>
+                  <li>Processos que mais dependem de uma pessoa específica</li>
+                  <li>Processos que mais geram retrabalho ou erro</li>
+                  <li>Processos que precisam existir antes de contratar alguém novo</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">CONSTRUÇÃO COM QUEM EXECUTA</div>
+                <p class="ent-step-desc ent-step-desc-w">Cada processo é documentado junto com a pessoa que executa — não só com o dono. Quem faz sabe detalhes que o dono desconhece. Isso garante que o documento reflete a realidade.</p>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">REVISÃO E SIMPLIFICAÇÃO</div>
+                <p class="ent-step-desc ent-step-desc-w">Critério claro: uma pessoa nova consegue executar isso sozinha lendo esse documento? Se não — simplifica até conseguir.</p>
+              </div>
+            </li>
+            <li class="ent-step ent-step-dark">
+              <span class="ent-step-n">5</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title ent-step-title-w">IMPLANTAÇÃO NA BASE NEXO</div>
+                <p class="ent-step-desc ent-step-desc-w">Os processos entram na Base Nexo organizados por área — acessível para o time inteiro, fácil de encontrar e fácil de atualizar.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col ent-col-dark">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE POR PROCESSO</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Nome e Objetivo</span><span class="ent-rec-sub ent-rec-sub-w">O que é esse processo e por que ele existe</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Gatilho</span><span class="ent-rec-sub ent-rec-sub-w">O que dispara esse processo — o que precisa acontecer para ele começar</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Responsável</span><span class="ent-rec-sub ent-rec-sub-w">Quem é o dono e quem participa</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Passo a Passo</span><span class="ent-rec-sub ent-rec-sub-w">Cada etapa em linguagem simples e direta — sem ambiguidade</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Ferramentas Utilizadas</span><span class="ent-rec-sub ent-rec-sub-w">Quais sistemas, plataformas ou materiais são usados em cada etapa</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Prazo</span><span class="ent-rec-sub ent-rec-sub-w">Quanto tempo cada etapa leva e qual o prazo total</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Critério de Qualidade</span><span class="ent-rec-sub ent-rec-sub-w">Como saber se o processo foi executado bem</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">O Que Fazer Quando Dá Errado</span><span class="ent-rec-sub ent-rec-sub-w">Os principais erros e como resolver cada um</span></div></li>
+            <li class="ent-rec-item ent-rec-dark"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text ent-rec-text-w">Indicador</span><span class="ent-rec-sub ent-rec-sub-w">Como medir se esse processo está funcionando ao longo do tempo</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val ent-format-val-w">Base Nexo em HTML ou Notion + PDF consolidado por área</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DASHBOARD + DOSSIE -->
+<div class="detail-bg">
+  <div class="wrap">
+
+    <!-- DASHBOARD -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 08 · Frente de Gestão</div>
+          <div class="ent-title">DASHBOARD DE INDICADORES</div>
+        </div>
+        <span class="tag tag-fill">Meses 2–5</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">ENTENDER O QUE O DONO OLHA HOJE</div>
+                <ul class="ent-step-sub">
+                  <li>Quais números o dono acompanha hoje e com qual frequência</li>
+                  <li>Onde esses números estão — planilha, sistema, na cabeça</li>
+                  <li>O que ele não mede mas deveria</li>
+                  <li>Quais decisões ele toma sem dado — no feeling</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">DEFINIÇÃO DOS INDICADORES CERTOS</div>
+                <ul class="ent-step-sub">
+                  <li>Quais números realmente dizem se o negócio está saudável</li>
+                  <li>Quais indicadores de cada frente precisam ser monitorados</li>
+                  <li>Qual a frequência ideal — diário, semanal ou mensal</li>
+                  <li>Qual o número saudável para aquele negócio especificamente</li>
+                </ul>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSTRUÇÃO DO DASHBOARD</div>
+                <p class="ent-step-desc">Construímos o painel na Base Nexo — simples, visual e atualizado pelo próprio time do cliente. Critério: o dono consegue ler o negócio em menos de 10 minutos.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">TREINAMENTO DE USO</div>
+                <p class="ent-step-desc">Dashboard que ninguém usa não existe. Treinamos o dono e os líderes a alimentar, ler e tomar decisão com base nos números — e criamos o rito de acompanhamento semanal.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Visão Geral do Negócio — 5 números diários</span><span class="ent-rec-sub">Faturamento vs meta · vendas realizadas · clientes ativos · inadimplência · resultado líquido</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores Comerciais — semanais</span><span class="ent-rec-sub">Leads gerados · conversão por etapa · ticket médio · ciclo de vendas · meta individual · motivos de perda</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores de Entrega e Experiência</span><span class="ent-rec-sub">NPS · taxa de recompra · churn · tempo médio de entrega vs prometido · reclamações por período</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores Operacionais</span><span class="ent-rec-sub">Retrabalho · prazo de execução dos processos principais · indicadores específicos do diagnóstico</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Indicadores de Pessoas</span><span class="ent-rec-sub">Taxa de turnover · absenteísmo · performance individual do time</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Rito de Uso Implantado</span><span class="ent-rec-sub">Todo dia — dono olha os 5 números · toda semana — gestor revisa com o time · todo mês — reunião de resultado</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">Dashboard na Base Nexo em HTML ou Notion — atualizado pelo time do cliente</span>
+      </div>
+    </div>
+
+    <!-- DOSSIE NEXO -->
+    <div class="entregavel-block">
+      <div class="ent-header">
+        <div>
+          <div class="ent-num">Entregável 09 · Encerramento · Mês 6</div>
+          <div class="ent-title">DOSSIÊ NEXO</div>
+        </div>
+        <span class="tag tag-fill">O ativo permanente</span>
+      </div>
+      <div class="ent-body">
+        <div class="ent-col">
+          <span class="ent-col-h">COMO É CONSTRUÍDO</span>
+          <ul class="ent-steps">
+            <li class="ent-step">
+              <span class="ent-step-n">1</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">CONSOLIDAÇÃO AO LONGO DOS 6 MESES</div>
+                <p class="ent-step-desc">O Dossiê não é construído no mês 6 — é montado ao longo de todo o contrato. Cada entregável construído já entra na estrutura. No encerramento, consolidamos e finalizamos.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">2</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">REVISÃO DO ÍNDICE NEXO FINAL</div>
+                <p class="ent-step-desc">Reaplicamos o Assessment — as mesmas 6 dimensões do dia zero. Isso gera o Índice Nexo Final e a comparação visual com o início. É a prova concreta da transformação.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">3</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">SESSÃO DE ENCERRAMENTO</div>
+                <p class="ent-step-desc">Imersão com dono e líderes — presencial sempre que possível. Apresentamos o Dossiê completo, celebramos a jornada e olhamos para o futuro. Não é uma reunião — é um marco.</p>
+              </div>
+            </li>
+            <li class="ent-step">
+              <span class="ent-step-n">4</span>
+              <div class="ent-step-content">
+                <div class="ent-step-title">ENTREGA FORMAL</div>
+                <p class="ent-step-desc">O Dossiê é entregue em dois formatos — digital na Base Nexo e PDF consolidado. O cliente recebe algo que parece e sente como um ativo de valor — não um arquivo qualquer.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="ent-col">
+          <span class="ent-col-h">O QUE O CLIENTE RECEBE — 8 PARTES</span>
+          <ul class="ent-receive">
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 1 — A Jornada</span><span class="ent-rec-sub">Índice Nexo inicial e final · comparativo visual · linha do tempo dos 6 meses com marcos e viradas</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 2 — O Negócio</span><span class="ent-rec-sub">Posicionamento definido · modelo de negócio documentado · produtos com precificação e proposta de valor</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 3 — O Comercial</span><span class="ent-rec-sub">Processo de vendas completo · playbook de rotina · sistema de qualificação · indicadores e metas</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 4 — A Entrega</span><span class="ent-rec-sub">Jornada redesenhada · processos de entrega documentados · padrões de qualidade · pós-venda</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 5 — A Operação</span><span class="ent-rec-sub">Processos internos por área · rotinas definidas · como os setores se comunicam · ferramentas</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 6 — As Pessoas</span><span class="ent-rec-sub">Playbook de cultura · processo de contratação · onboarding · avaliação de desempenho</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 7 — A Gestão</span><span class="ent-rec-sub">Ritos de gestão · dashboard de indicadores · processo de decisão · metas documentadas</span></div></li>
+            <li class="ent-rec-item"><span class="ent-rec-arrow">→</span><div><span class="ent-rec-text">Parte 8 — O Futuro</span><span class="ent-rec-sub">Plano de continuidade · próximos passos recomendados pós-contrato · convite à Comunidade Nexo</span></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ent-format-bar" style="background: rgba(232,90,26,0.12); border-top: 2px solid var(--orange);">
+        <span class="ent-format-label">Formato</span>
+        <span class="ent-format-val">PDF consolidado premium + Base Nexo organizada e completa · O manual de como aquela empresa funciona — para sempre</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Método Nexo de Crescimento · Documento Interno<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico 360° — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --orange: #E85A1A;
+  --orange-dim: #C44A10;
+  --navy: #08112A;
+  --navy-mid: #0F1E40;
+  --navy-light: #162D5E;
+  --off: #F0EDE6;
+  --gray: #C8C4BB;
+  --gray-dark: #3A3530;
+  --muted: #7A7570;
+  --white: #ffffff;
+  --green: #27AE60;
+  --yellow: #F39C12;
+  --red: #C0392B;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 600; background: var(--navy); color: var(--white); line-height: 1.4; }
+
+/* HEADER */
+.doc-header { background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,.06); position: sticky; top: 0; z-index: 100; }
+.doc-header-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.doc-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+.doc-brand-name span { color: var(--orange); }
+.sep-line { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, transparent 100%); }
+.tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; border: 1.5px solid var(--orange); color: var(--orange); }
+.tag-dim { border-color: rgba(255,255,255,.15); color: rgba(255,255,255,.35); }
+
+/* DIMENSION NAV */
+.dim-nav { background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,.06); padding: 8px 0; }
+.dim-nav-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; display: flex; gap: 6px; flex-wrap: wrap; }
+.dim-nav a { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; padding: 6px 12px; border: 1px solid rgba(255,255,255,.08); border-radius: 2px; transition: all .15s; }
+.dim-nav a:hover { color: var(--orange); border-color: var(--orange); background: rgba(232,90,26,.05); }
+
+/* COVER */
+.cover { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding: 70px 32px; max-width: 960px; margin: 0 auto; position: relative; }
+.cover::before { content: ''; position: fixed; top: 0; right: 0; width: 40%; height: 100vh; background: var(--orange); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.05; pointer-events: none; z-index: 0; }
+.cover-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.cover-eyebrow-line { width: 40px; height: 2px; background: var(--orange); }
+.cover-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+.cover-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 9vw, 7rem); line-height: 0.88; letter-spacing: 0.03em; color: var(--white); margin-bottom: 8px; position: relative; z-index: 1; }
+.cover-h1 em { color: var(--orange); font-style: normal; display: block; }
+.cover-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 0.1em; color: rgba(255,255,255,.2); margin-bottom: 32px; display: block; }
+.cover-bar { width: 60px; height: 3px; background: var(--orange); margin-bottom: 24px; }
+.cover-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.4); max-width: 660px; line-height: 1.65; margin-bottom: 40px; position: relative; z-index: 1; }
+.cover-stats { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; position: relative; z-index: 1; }
+.cover-stat { flex: 1; min-width: 100px; padding: 16px 20px; border-right: 1px solid rgba(255,255,255,.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-top: 3px; display: block; }
+
+/* INSTRUCTIONS BOX */
+.instructions { background: rgba(232,90,26,.07); border: 1px solid rgba(232,90,26,.25); border-radius: 3px; padding: 20px 24px; margin-top: 24px; position: relative; z-index: 1; }
+.instructions-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 10px; }
+.instructions-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 12px; }
+.instructions-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.instructions-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.5); display: flex; align-items: flex-start; gap: 8px; line-height: 1.55; }
+.instructions-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.74rem; margin-top: 1px; }
+
+/* SECTIONS */
+.section { padding: 64px 0 0; }
+.section-inner { max-width: 960px; margin: 0 auto; padding: 0 32px 64px; }
+.section-dark { background: var(--navy); }
+.section-mid { background: var(--navy-mid); }
+.section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.section-label::before { content: ''; display: block; width: 26px; height: 2px; background: var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 10px; color: var(--white); }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; max-width: 660px; line-height: 1.65; margin-bottom: 32px; color: rgba(255,255,255,.32); }
+.h-sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, transparent 100%); }
+
+/* DIMENSION HEADER */
+.dim-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.dim-header-left { flex: 1; }
+.dim-num-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 10vw, 8rem); color: rgba(232,90,26,.12); line-height: 0.85; }
+.dim-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4.5vw, 3rem); letter-spacing: 0.04em; color: var(--white); line-height: 1; margin-bottom: 8px; }
+.dim-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; display: block; }
+.dim-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,.42); line-height: 1.6; max-width: 540px; }
+.dim-pillars { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+.dim-pillar { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 12px; border: 1.5px solid rgba(232,90,26,.35); color: var(--orange); border-radius: 2px; background: rgba(232,90,26,.06); }
+
+/* FORM MOCKUP */
+.form-mockup { background: var(--off); border-radius: 4px; padding: 32px; color: var(--gray-dark); }
+.form-mockup-header { border-bottom: 2px solid var(--orange); padding-bottom: 16px; margin-bottom: 24px; }
+.form-mockup-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--navy); line-height: 1.05; margin-bottom: 6px; }
+.form-mockup-sub { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.form-intro { background: rgba(232,90,26,.06); border-left: 3px solid var(--orange); padding: 14px 16px; margin-bottom: 24px; border-radius: 0 3px 3px 0; }
+.form-intro-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 6px; }
+.form-intro-text { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--gray-dark); line-height: 1.55; margin-bottom: 6px; }
+.form-intro-bullets { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.form-intro-bullets li { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.78rem; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 6px; }
+.form-intro-bullets li::before { content: '•'; color: var(--orange); font-weight: 900; }
+
+.form-block { margin-bottom: 22px; }
+.form-block-label { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--navy); margin-bottom: 8px; display: block; line-height: 1.4; }
+.form-block-label .req { color: var(--orange); }
+.form-block-hint { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.74rem; color: var(--muted); margin-bottom: 8px; display: block; font-style: italic; }
+.form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--gray); background: var(--white); border-radius: 3px; font-family: 'Barlow', sans-serif; font-size: 0.88rem; color: var(--gray-dark); }
+.form-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--gray); background: var(--white); border-radius: 3px; font-family: 'Barlow', sans-serif; font-size: 0.85rem; color: var(--muted); min-height: 80px; font-style: italic; }
+.form-options { display: flex; flex-direction: column; gap: 6px; }
+.form-option { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: var(--white); border: 1px solid var(--gray); border-radius: 3px; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.84rem; color: var(--gray-dark); line-height: 1.4; }
+.form-radio { width: 14px; height: 14px; border: 2px solid var(--gray); border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+.form-checkbox { width: 14px; height: 14px; border: 2px solid var(--gray); border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+
+/* SCALE 1-5 */
+.scale-wrapper { background: var(--white); border: 1px solid var(--gray); border-radius: 3px; padding: 14px 16px; }
+.scale-labels { display: flex; justify-content: space-between; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.scale-labels span:first-child { color: var(--red); }
+.scale-labels span:last-child { color: var(--green); }
+.scale-items { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+.scale-item { background: var(--off); border: 1px solid var(--gray); border-radius: 3px; padding: 10px 6px; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--gray-dark); }
+
+/* FORM SECTION HEADER */
+.form-section-header { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--gray); }
+.form-section-n { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--orange); line-height: 1; }
+.form-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.04em; color: var(--navy); }
+.form-section-sub { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.72rem; color: var(--muted); margin-left: auto; font-style: italic; }
+
+/* MATURITY LEGEND */
+.maturity-legend { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.08); border-radius: 3px; padding: 22px 24px; margin-top: 16px; }
+.maturity-legend-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 12px; }
+.maturity-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.maturity-card { background: rgba(255,255,255,.04); border-top: 3px solid var(--red); padding: 14px 12px; }
+.maturity-card:nth-child(2) { border-top-color: #e67e22; }
+.maturity-card:nth-child(3) { border-top-color: var(--yellow); }
+.maturity-card:nth-child(4) { border-top-color: #6cb84a; }
+.maturity-card:nth-child(5) { border-top-color: var(--green); }
+.maturity-n { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; margin-bottom: 4px; }
+.maturity-card:nth-child(1) .maturity-n { color: var(--red); }
+.maturity-card:nth-child(2) .maturity-n { color: #e67e22; }
+.maturity-card:nth-child(3) .maturity-n { color: var(--yellow); }
+.maturity-card:nth-child(4) .maturity-n { color: #6cb84a; }
+.maturity-card:nth-child(5) .maturity-n { color: var(--green); }
+.maturity-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 4px; }
+.maturity-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.4); line-height: 1.45; }
+
+/* NOTE BOX */
+.note-box { background: rgba(232,90,26,.07); border: 1px solid rgba(232,90,26,.22); border-radius: 3px; padding: 18px 20px; margin-top: 20px; }
+.note-box.success { background: rgba(39,174,96,.06); border-color: rgba(39,174,96,.25); }
+.note-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 6px; }
+.note-box.success .note-label { color: var(--green); }
+.note-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,.5); line-height: 1.65; }
+
+/* FOOTER */
+.doc-footer { background: var(--navy-mid); border-top: 3px solid var(--orange); padding: 24px 32px; }
+.doc-footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; color: var(--white); }
+.footer-brand span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.2); text-align: right; }
+.footer-lema { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.15); }
+
+@media(max-width:768px){
+  .cover, .section-inner { padding: 48px 20px; }
+  .doc-header-inner, .dim-nav-inner { padding: 0 20px; }
+  .doc-footer { padding: 20px; }
+  .form-mockup { padding: 20px; }
+  .maturity-grid { grid-template-columns: 1fr 1fr; }
+  .dim-header { flex-direction: column; gap: 8px; }
+  .dim-num-big { font-size: 4rem; }
+  .scale-items { grid-template-columns: repeat(5, 1fr); }
+  .scale-item { font-size: 1rem; padding: 8px 4px; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .doc-header, .dim-nav, .doc-footer { display: none; }
+  .section { page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <div class="doc-brand-name">NEXO <span>Estratégia</span></div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <span class="tag tag-dim">Diagnóstico 360° · Cliente Ativo</span>
+    </div>
+  </div>
+</div>
+<div class="sep-line"></div>
+
+<!-- DIMENSION NAV -->
+<div class="dim-nav">
+  <div class="dim-nav-inner">
+    <a href="#dim01">01 · Negócio</a>
+    <a href="#dim02">02 · Comercial</a>
+    <a href="#dim03">03 · Entrega</a>
+    <a href="#dim04">04 · Operação</a>
+    <a href="#dim05">05 · Pessoas</a>
+    <a href="#dim06">06 · Gestão</a>
+  </div>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">
+    <div class="cover-eyebrow-line"></div>
+    <span class="cover-eyebrow-text">Diagnóstico Estratégico · Início de Projeto · 2026</span>
+  </div>
+
+  <h1 class="cover-h1">
+    DIAGNÓSTICO
+    <em>360° NEXO</em>
+  </h1>
+  <span class="cover-sub">AS 6 DIMENSÕES DA SUA EMPRESA</span>
+  <div class="cover-bar"></div>
+  <p class="cover-desc">Diagnóstico inicial aplicado no kickoff do projeto. Mapeia profundamente cada uma das 6 dimensões do método Nexo para identificar gargalos · prioridades e construir o plano de ação dos próximos 90 dias. Quanto mais honesto for · mais preciso será o plano.</p>
+
+  <div class="cover-stats">
+    <div class="cover-stat"><span class="cover-stat-n">6</span><span class="cover-stat-l">Dimensões</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">66+</span><span class="cover-stat-l">Perguntas</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">1–5</span><span class="cover-stat-l">Escala Maturidade</span></div>
+    <div class="cover-stat"><span class="cover-stat-n">~45</span><span class="cover-stat-l">Min. de Resposta</span></div>
+  </div>
+
+  <div class="instructions">
+    <span class="instructions-label">⚠ Como Responder</span>
+    <p class="instructions-text">Esse não é um form de venda. É a base do seu projeto com a Nexo · então responda com honestidade total.</p>
+    <ul class="instructions-list">
+      <li>Reserve 45 minutos sem interrupção · não responda apressado entre uma reunião e outra</li>
+      <li>Se tiver sócio · respondam juntos ou comparem respostas depois</li>
+      <li>Em escala 1 a 5 · seja realista · não dê 4 ou 5 só porque parece bonito</li>
+      <li>Nos campos abertos · escreva como falaria com um amigo · sem polir</li>
+      <li>Se uma pergunta não fizer sentido para o seu negócio · marque "não se aplica" e siga</li>
+    </ul>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- LEGENDA DA ESCALA -->
+<div class="section section-mid">
+  <div class="section-inner">
+    <div class="section-label">Como Funciona a Escala</div>
+    <h2 class="sec-h">ESCALA DE MATURIDADE<br>1 A 5 · POR PRÁTICA</h2>
+    <p class="sec-d">Em todas as perguntas com escala · use a referência abaixo. Não existe nota certa · existe nota honesta. É essa honestidade que vai determinar a qualidade do diagnóstico e do plano de ação.</p>
+
+    <div class="maturity-legend">
+      <span class="maturity-legend-label">Significado de Cada Nota</span>
+      <div class="maturity-grid">
+        <div class="maturity-card">
+          <div class="maturity-n">1</div>
+          <div class="maturity-title">INEXISTENTE</div>
+          <div class="maturity-desc">Não temos nada nesse ponto · nunca pensamos a respeito</div>
+        </div>
+        <div class="maturity-card">
+          <div class="maturity-n">2</div>
+          <div class="maturity-title">INICIAL</div>
+          <div class="maturity-desc">Existe na cabeça do dono · não está estruturado · inconsistente</div>
+        </div>
+        <div class="maturity-card">
+          <div class="maturity-n">3</div>
+          <div class="maturity-title">EM CONSTRUÇÃO</div>
+          <div class="maturity-desc">Começamos a estruturar · ainda não está completo nem documentado</div>
+        </div>
+        <div class="maturity-card">
+          <div class="maturity-n">4</div>
+          <div class="maturity-title">ESTRUTURADO</div>
+          <div class="maturity-desc">Funciona bem · está documentado · todos sabem como executar</div>
+        </div>
+        <div class="maturity-card">
+          <div class="maturity-n">5</div>
+          <div class="maturity-title">OTIMIZADO</div>
+          <div class="maturity-desc">Funciona sem o dono · gera dado · evolui constantemente · referência</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- DADOS INICIAIS -->
+<div id="inicio" class="section section-dark">
+  <div class="section-inner">
+    <div class="section-label">Antes de Começar</div>
+    <h2 class="sec-h">DADOS DE<br>CONTEXTO INICIAL</h2>
+    <p class="sec-d">Informações básicas sobre a empresa para o consultor ter o contexto correto antes de entrar nas dimensões. 10 perguntas rápidas.</p>
+
+    <div class="form-mockup">
+      <div class="form-mockup-header">
+        <h3 class="form-mockup-title">DIAGNÓSTICO 360° — DADOS DE CONTEXTO</h3>
+        <p class="form-mockup-sub">Para entendermos quem está respondendo e qual o ponto de partida</p>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Nome completo do respondente <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="Quem está preenchendo">
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Cargo / função na empresa <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Dono único</div>
+          <div class="form-option"><div class="form-radio"></div>Sócio</div>
+          <div class="form-option"><div class="form-radio"></div>CEO contratado</div>
+          <div class="form-option"><div class="form-radio"></div>Diretor de área</div>
+          <div class="form-option"><div class="form-radio"></div>Outro · especificar abaixo</div>
+        </div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Nome da empresa e segmento de atuação <span class="req">*</span></label>
+        <input class="form-input" disabled placeholder="Nome · setor · subsetor">
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Há quanto tempo a empresa existe? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Menos de 1 ano</div>
+          <div class="form-option"><div class="form-radio"></div>De 1 a 3 anos</div>
+          <div class="form-option"><div class="form-radio"></div>De 3 a 7 anos</div>
+          <div class="form-option"><div class="form-radio"></div>De 7 a 15 anos</div>
+          <div class="form-option"><div class="form-radio"></div>Mais de 15 anos</div>
+        </div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Faturamento médio mensal atual <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Até R$30 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$30 mil a R$100 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$100 mil a R$500 mil/mês</div>
+          <div class="form-option"><div class="form-radio"></div>De R$500 mil a R$1 milhão/mês</div>
+          <div class="form-option"><div class="form-radio"></div>Acima de R$1 milhão/mês</div>
+        </div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Faturamento médio mensal há 12 meses · para comparação <span class="req">*</span></label>
+        <span class="form-block-hint">Para entendermos se a empresa cresceu · estagnou ou caiu no último ano</span>
+        <input class="form-input" disabled placeholder="Valor aproximado em R$/mês">
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Quantas pessoas trabalham na empresa hoje · incluindo você? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Só o dono</div>
+          <div class="form-option"><div class="form-radio"></div>De 2 a 5</div>
+          <div class="form-option"><div class="form-radio"></div>De 6 a 15</div>
+          <div class="form-option"><div class="form-radio"></div>De 16 a 50</div>
+          <div class="form-option"><div class="form-radio"></div>Mais de 50</div>
+        </div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Em uma frase · o que sua empresa entrega de valor para o cliente? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · escreva como explicaria para alguém que nunca ouviu falar da empresa</div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">Qual é o sonho ou meta principal que você quer atingir nos próximos 12 meses? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · pode ser financeiro · operacional · pessoal · do jeito que faz sentido para você</div>
+      </div>
+      <div class="form-block">
+        <label class="form-block-label">O que mais te tira o sono hoje quando você pensa na empresa? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · sem filtro · sem precisar ser estratégico</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 01 — NEGÓCIO -->
+<!-- ═══════════════════════════════ -->
+<div id="dim01" class="section section-mid">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 01 · Fundação Estratégica</span>
+        <h2 class="dim-name">NEGÓCIO</h2>
+        <p class="dim-desc">O que a empresa vende · para quem · como se posiciona e se o modelo faz sentido.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Modelo</span>
+          <span class="dim-pillar">Posicionamento</span>
+          <span class="dim-pillar">Proposta de Valor</span>
+          <span class="dim-pillar">Precificação</span>
+          <span class="dim-pillar">Diferenciação</span>
+        </div>
+      </div>
+      <div class="dim-num-big">01</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Aqui não importa o quanto a empresa vende · importa se ela vende a coisa certa para a pessoa certa pelo preço certo. Muita empresa cresce vendendo o que não deveria · com a margem errada · para o público errado · e descobre tarde demais.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como você descreveria o modelo de negócio da empresa hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Tenho clareza total · sei o que vendo e por quê funciona</div>
+          <div class="form-option"><div class="form-radio"></div>Funciona mas eu mesmo não sei explicar direito</div>
+          <div class="form-option"><div class="form-radio"></div>Está confuso · vendo várias coisas sem foco</div>
+          <div class="form-option"><div class="form-radio"></div>Mudou nos últimos 12 meses e ainda não está consolidado</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quem é seu cliente ideal hoje? <span class="req">*</span></label>
+        <span class="form-block-hint">Cliente ideal (ICP) é o perfil que mais valoriza · paga melhor · dá menos trabalho e indica outros</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Tenho perfil de cliente ideal definido · sei exatamente quem é e onde encontrar</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho ideia mas não está documentado</div>
+          <div class="form-option"><div class="form-radio"></div>Vendo para qualquer um que apareça interessado</div>
+          <div class="form-option"><div class="form-radio"></div>Estou em transição de público e ainda não fechei novo perfil</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como você define seus preços? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Baseado em custo + margem desejada · planilha clara</div>
+          <div class="form-option"><div class="form-radio"></div>Baseado no concorrente · cobro o que o mercado cobra</div>
+          <div class="form-option"><div class="form-radio"></div>Baseado em valor percebido pelo cliente</div>
+          <div class="form-option"><div class="form-radio"></div>No feeling · sem critério definido</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quando o cliente compara você com o concorrente · qual é seu maior diferencial real? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Preço mais baixo</div>
+          <div class="form-option"><div class="form-radio"></div>Qualidade superior do produto ou serviço</div>
+          <div class="form-option"><div class="form-radio"></div>Atendimento e relacionamento</div>
+          <div class="form-option"><div class="form-radio"></div>Marca / autoridade / reputação</div>
+          <div class="form-option"><div class="form-radio"></div>Não tenho diferencial claro · ganho mais por sorte ou esforço</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Sua proposta de valor está documentada e alinhada com o time? <span class="req">*</span></label>
+        <span class="form-block-hint">Proposta de valor = a frase que resume o que sua empresa entrega · para quem · e por que é melhor que a concorrência</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · todos sabem repetir e usar nas vendas</div>
+          <div class="form-option"><div class="form-radio"></div>Está documentada mas o time não usa</div>
+          <div class="form-option"><div class="form-radio"></div>Está só na minha cabeça</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca trabalhei isso de forma estruturada</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Clareza do modelo de negócio <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto você consegue explicar em uma frase o que sua empresa faz e para quem</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Precificação estratégica <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto seus preços refletem valor entregue · margem desejada e posicionamento de mercado</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Diferenciação de mercado <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto sua empresa é facilmente identificada como diferente da concorrência</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Cliente ideal definido e usado para filtrar oportunidades <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto você sabe quem é seu melhor cliente e usa isso para escolher para quem vender</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Se você tivesse que mudar uma coisa no seu modelo de negócio hoje · o que seria? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · escreva o que primeiro vier à mente · sem polir</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">O que você sente que o mercado não enxerga na sua empresa? <span class="req">*</span></label>
+        <span class="form-block-hint">Algo que você acha que é valor real mas o cliente não percebe ou não valoriza ainda</span>
+        <div class="form-textarea">Resposta aberta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 02 — COMERCIAL -->
+<!-- ═══════════════════════════════ -->
+<div id="dim02" class="section section-dark">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 02 · Motor de Receita</span>
+        <h2 class="dim-name">COMERCIAL</h2>
+        <p class="dim-desc">Como a empresa vende · processo · time · rotina e consistência de resultado.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Processo de Vendas</span>
+          <span class="dim-pillar">Qualificação e Funil</span>
+          <span class="dim-pillar">Rotina e Scripts</span>
+          <span class="dim-pillar">Previsibilidade</span>
+        </div>
+      </div>
+      <div class="dim-num-big">02</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Empresa que vende quando o dono quer e para quando o dono cansa não é negócio · é freelancer com CNPJ. Aqui vamos olhar se existe processo · se o time vende sem você e se você consegue prever quanto vai entrar mês que vem.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">De onde vem a maior parte das suas vendas hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Indicação · boca a boca · cliente trazendo cliente</div>
+          <div class="form-option"><div class="form-radio"></div>Tráfego pago · marketing digital</div>
+          <div class="form-option"><div class="form-radio"></div>Prospecção ativa do time comercial</div>
+          <div class="form-option"><div class="form-radio"></div>Conteúdo orgânico · redes sociais</div>
+          <div class="form-option"><div class="form-radio"></div>Eventos · networking presencial</div>
+          <div class="form-option"><div class="form-radio"></div>Misto · sem fonte principal clara</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quem fecha as vendas hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Só eu · todas as vendas passam por mim</div>
+          <div class="form-option"><div class="form-radio"></div>Eu e um vendedor · sou backup do time</div>
+          <div class="form-option"><div class="form-radio"></div>Time vende sozinho · só fecho casos especiais</div>
+          <div class="form-option"><div class="form-radio"></div>Time vende sozinho · estou completamente fora</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe um processo comercial documentado? <span class="req">*</span></label>
+        <span class="form-block-hint">Etapas claras da venda · scripts de abordagem · sistema para registrar negociações (CRM)</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com etapas · scripts · gatilhos e sistema (CRM) para registrar tudo</div>
+          <div class="form-option"><div class="form-radio"></div>Existe na cabeça mas não está escrito</div>
+          <div class="form-option"><div class="form-radio"></div>Existe em pedaços · alguns vendedores seguem · outros não</div>
+          <div class="form-option"><div class="form-radio"></div>Cada vendedor faz do seu jeito</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você sabe sua taxa de conversão de lead para cliente? <span class="req">*</span></label>
+        <span class="form-block-hint">Lead = pessoa interessada que entrou em contato · de cada 10 leads · quantos viram cliente?</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com número exato e por canal de origem</div>
+          <div class="form-option"><div class="form-radio"></div>Sei uma média aproximada</div>
+          <div class="form-option"><div class="form-radio"></div>Não meço · não sei</div>
+          <div class="form-option"><div class="form-radio"></div>Já tentei medir mas não consegui manter</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como é a qualificação de leads na empresa? <span class="req">*</span></label>
+        <span class="form-block-hint">Qualificar = filtrar quem tem perfil real para comprar antes de gastar tempo apresentando</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Tem alguém só para qualificar (SDR / pré-vendedor) antes de passar para quem fecha</div>
+          <div class="form-option"><div class="form-radio"></div>Mesmo vendedor qualifica e fecha</div>
+          <div class="form-option"><div class="form-radio"></div>Não qualificamos · atendemos todo lead que chega</div>
+          <div class="form-option"><div class="form-radio"></div>Qualificação é informal · sem critério claro</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você consegue prever o faturamento dos próximos 3 meses? <span class="req">*</span></label>
+        <span class="form-block-hint">Previsibilidade vem de saber quantas negociações estão em andamento e em que fase estão (pipeline)</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · acompanho as negociações em andamento e a chance de cada uma fechar</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho ideia mas é mais feeling que dado</div>
+          <div class="form-option"><div class="form-radio"></div>Não · cada mês é uma surpresa</div>
+          <div class="form-option"><div class="form-radio"></div>Só prevejo o mês corrente</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Processo de vendas documentado e seguido pelo time <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto existe um caminho claro · escrito e seguido por todos os vendedores · da abordagem ao fechamento</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qualificação de leads antes de apresentar a proposta <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa filtra leads sem perfil antes do vendedor gastar tempo apresentando a solução</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Previsibilidade de receita <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto você consegue saber em quanto vai fechar o mês com 2 semanas de antecedência</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Rotina e scripts do time comercial <span class="req">*</span></label>
+        <span class="form-block-hint">Reuniões para revisar negociações em andamento · scripts de abordagem · objeções mapeadas · materiais de apoio</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Por que você acha que perde vendas? <span class="req">*</span></label>
+        <span class="form-block-hint">Pense nos últimos 3 leads que disseram "não" ou simplesmente sumiram</span>
+        <div class="form-textarea">Resposta aberta</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Se você tivesse que dobrar o faturamento em 6 meses · o que precisaria mudar no comercial? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · sem se preocupar se é viável agora</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 03 — ENTREGA -->
+<!-- ═══════════════════════════════ -->
+<div id="dim03" class="section section-mid">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 03 · Experiência do Cliente</span>
+        <h2 class="dim-name">ENTREGA</h2>
+        <p class="dim-desc">Como o cliente vive a experiência dentro da empresa · do fechamento ao pós-venda.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Jornada do Cliente</span>
+          <span class="dim-pillar">Padrão de Processo</span>
+          <span class="dim-pillar">Encantamento</span>
+          <span class="dim-pillar">Pós-venda e Recompra</span>
+        </div>
+      </div>
+      <div class="dim-num-big">03</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Vender é fácil · entregar com consistência é difícil. Aqui vamos olhar o que o cliente realmente vive depois que assina o contrato e por que ele volta — ou não volta.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe uma jornada do cliente mapeada na empresa? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · do primeiro contato ao pós-venda · documentada</div>
+          <div class="form-option"><div class="form-radio"></div>Sei de cabeça mas nada está escrito</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca pensei nisso de forma estruturada</div>
+          <div class="form-option"><div class="form-radio"></div>Cada cliente vive uma experiência diferente</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como é o início do relacionamento com um novo cliente? <span class="req">*</span></label>
+        <span class="form-block-hint">Onboarding do cliente = a primeira experiência depois que ele compra · boas-vindas · alinhamento · primeiros passos</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Tem processo definido · etapas · materiais · responsáveis</div>
+          <div class="form-option"><div class="form-radio"></div>Tem etapas mas cada um faz do seu jeito</div>
+          <div class="form-option"><div class="form-radio"></div>É improvisado · depende de quem está na frente</div>
+          <div class="form-option"><div class="form-radio"></div>Cliente entra já no processo normal sem acolhimento</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você mede satisfação do cliente? <span class="req">*</span></label>
+        <span class="form-block-hint">Medir satisfação = pesquisa estruturada com nota · não só perguntar "tá tudo bem?" no fim do projeto</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com pesquisa periódica que mede recomendação ou nota de satisfação</div>
+          <div class="form-option"><div class="form-radio"></div>Pergunto informalmente · não tenho número</div>
+          <div class="form-option"><div class="form-radio"></div>Só fico sabendo quando o cliente reclama</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca medi</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual percentual dos seus clientes volta a comprar ou contrata de novo? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Mais de 60% — recorrência forte</div>
+          <div class="form-option"><div class="form-radio"></div>Entre 30% e 60%</div>
+          <div class="form-option"><div class="form-radio"></div>Menos de 30%</div>
+          <div class="form-option"><div class="form-radio"></div>Não sei medir · venda única ou ciclo longo demais</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe alguma estratégia de pós-venda na empresa? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com gatilhos automáticos · contato programado · oferta de recompra</div>
+          <div class="form-option"><div class="form-radio"></div>Existe alguém responsável mas não tem processo</div>
+          <div class="form-option"><div class="form-radio"></div>Acontece quando alguém lembra</div>
+          <div class="form-option"><div class="form-radio"></div>Não temos pós-venda</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quem é responsável pela entrega e sucesso do cliente hoje? <span class="req">*</span></label>
+        <span class="form-block-hint">Quem garante que o cliente está usando o produto · tendo resultado e quer renovar / recomprar</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Área dedicada (atendimento · sucesso do cliente ou operações) com processo estruturado</div>
+          <div class="form-option"><div class="form-radio"></div>O próprio vendedor que fechou continua na conta</div>
+          <div class="form-option"><div class="form-radio"></div>O dono ou sócio segue acompanhando direto</div>
+          <div class="form-option"><div class="form-radio"></div>Ninguém · cliente "se vira" depois que entra</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Padrão de entrega entre clientes <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto dois clientes diferentes vivem a mesma experiência de qualidade</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Momentos de encantamento programados <span class="req">*</span></label>
+        <span class="form-block-hint">Surpresas positivas planejadas na jornada · não só "entregar o combinado"</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Pós-venda ativo e estruturado <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa mantém contato planejado com o cliente depois da venda · gerando relacionamento e novas oportunidades</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Recompra e fidelização <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa intencionalmente gera segunda · terceira venda no mesmo cliente</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual a reclamação mais frequente que você recebe dos clientes? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · sem maquiar</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">O que seu cliente mais elogia quando dá retorno positivo? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · isso pode virar diferencial estruturado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 04 — OPERAÇÃO -->
+<!-- ═══════════════════════════════ -->
+<div id="dim04" class="section section-dark">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 04 · Engrenagem Interna</span>
+        <h2 class="dim-name">OPERAÇÃO</h2>
+        <p class="dim-desc">Como a empresa funciona por dentro · rotinas · setores e fluidez operacional.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Processos Internos</span>
+          <span class="dim-pillar">Comunicação</span>
+          <span class="dim-pillar">Retrabalho</span>
+          <span class="dim-pillar">Autonomia</span>
+        </div>
+      </div>
+      <div class="dim-num-big">04</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Aqui é o motor que faz tudo funcionar. Operação travada faz comercial perder venda · entrega derrubar cliente e gestão virar bombeiro. Quanto mais o dono apaga incêndio interno · menos a empresa cresce.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Os processos internos críticos estão documentados? <span class="req">*</span></label>
+        <span class="form-block-hint">Documentado = escrito num lugar acessível mostrando o passo a passo · não só explicado verbalmente</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com manual de processos (playbook) acessível para todo o time</div>
+          <div class="form-option"><div class="form-radio"></div>Alguns estão · maioria está na cabeça das pessoas</div>
+          <div class="form-option"><div class="form-radio"></div>Quase nada está documentado</div>
+          <div class="form-option"><div class="form-radio"></div>Tentei documentar mas o time não usa</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quantas horas por semana você gasta apagando incêndio operacional? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Menos de 5 horas — a empresa anda sozinha</div>
+          <div class="form-option"><div class="form-radio"></div>De 5 a 15 horas</div>
+          <div class="form-option"><div class="form-radio"></div>De 15 a 30 horas</div>
+          <div class="form-option"><div class="form-radio"></div>Mais de 30 horas — é o que mais consome meu tempo</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como o time se comunica internamente? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Canais definidos · ritos de comunicação · tudo registrado</div>
+          <div class="form-option"><div class="form-radio"></div>WhatsApp pra tudo · sem organização clara</div>
+          <div class="form-option"><div class="form-radio"></div>Cada setor faz como quer</div>
+          <div class="form-option"><div class="form-radio"></div>Comunicação travada · informação se perde</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual nível de retrabalho a empresa tem hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Baixo · raros casos · processos previnem erro</div>
+          <div class="form-option"><div class="form-radio"></div>Médio · acontece com frequência mas não trava o negócio</div>
+          <div class="form-option"><div class="form-radio"></div>Alto · time gasta tempo demais corrigindo erro</div>
+          <div class="form-option"><div class="form-radio"></div>Não meço · não sei dizer</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quando você sai de férias por 2 semanas · o que acontece? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Empresa roda igual · ninguém me chama</div>
+          <div class="form-option"><div class="form-radio"></div>Roda mas recebo perguntas pontuais</div>
+          <div class="form-option"><div class="form-radio"></div>Recebo várias ligações urgentes</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca tirei férias dessa duração — empresa não suporta</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe alguma ferramenta de gestão de processos sendo usada? <span class="req">*</span></label>
+        <span class="form-block-hint">Sistema que centraliza vendas · estoque · financeiro e operação · evitando planilhas soltas</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · sistema integrado de gestão (ERP) e todos usam</div>
+          <div class="form-option"><div class="form-radio"></div>Sim · mas só algumas pessoas usam de verdade</div>
+          <div class="form-option"><div class="form-radio"></div>Usamos planilhas e ferramentas soltas</div>
+          <div class="form-option"><div class="form-radio"></div>Não usamos · tudo é informal</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Documentação de processos críticos <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto os processos essenciais estão escritos · acessíveis e usados pelo time no dia a dia</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Comunicação entre setores e áreas <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a informação flui bem entre as áreas · sem ruído · perda ou retrabalho por desencontro</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Autonomia operacional · empresa rodar sem o dono <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa continua funcionando bem mesmo quando você está fora · de férias ou doente</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Redução de retrabalho e desperdício <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto o time evita refazer tarefas por erro · falha de comunicação ou processo mal feito</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual gargalo operacional mais te incomoda hoje? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · pode ser pessoa · processo · ferramenta · fluxo</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Se você pudesse delegar uma coisa amanhã · o que seria? <span class="req">*</span></label>
+        <span class="form-block-hint">A resposta aqui costuma indicar o primeiro processo a estruturar</span>
+        <div class="form-textarea">Resposta aberta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 05 — PESSOAS -->
+<!-- ═══════════════════════════════ -->
+<div id="dim05" class="section section-mid">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 05 · Time e Cultura</span>
+        <h2 class="dim-name">PESSOAS</h2>
+        <p class="dim-desc">Quem está dentro da empresa · como se comporta e o que acredita.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Cultura</span>
+          <span class="dim-pillar">Alinhamento do Time</span>
+          <span class="dim-pillar">Contratação e Onboarding</span>
+          <span class="dim-pillar">Performance</span>
+        </div>
+      </div>
+      <div class="dim-num-big">05</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Estratégia boa com time errado quebra. Aqui vamos olhar quem é o time · se está alinhado · se você sabe contratar bem · e se a cultura vivida é a mesma da cultura declarada.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Sua cultura está declarada e documentada? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com valores · comportamentos esperados · exemplos vivos</div>
+          <div class="form-option"><div class="form-radio"></div>Tem valores no site mas ninguém repete</div>
+          <div class="form-option"><div class="form-radio"></div>A cultura é o que o dono é · sem documentação</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca trabalhamos isso</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como funciona contratação na empresa hoje? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Processo estruturado · briefing · testes · entrevistas múltiplas</div>
+          <div class="form-option"><div class="form-radio"></div>Indicação + entrevista informal</div>
+          <div class="form-option"><div class="form-radio"></div>Contrato sempre na pressa porque já está faltando alguém</div>
+          <div class="form-option"><div class="form-radio"></div>Não contratamos com frequência</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe acolhimento estruturado para novos contratados? <span class="req">*</span></label>
+        <span class="form-block-hint">Onboarding = os primeiros dias do novo colaborador · apresentação · treinamento · acompanhamento</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com material · cronograma · padrinho · avaliação por etapa</div>
+          <div class="form-option"><div class="form-radio"></div>Tem algumas coisas mas é incompleto</div>
+          <div class="form-option"><div class="form-radio"></div>É no improviso · "vai aprendendo no dia a dia"</div>
+          <div class="form-option"><div class="form-radio"></div>Não temos esse processo</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Como você avalia performance do time? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Avaliação periódica formal · feedback estruturado · plano de desenvolvimento</div>
+          <div class="form-option"><div class="form-radio"></div>Faço feedback informal quando preciso</div>
+          <div class="form-option"><div class="form-radio"></div>Só comento quando algo dá errado</div>
+          <div class="form-option"><div class="form-radio"></div>Não tenho processo de avaliação</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual a rotatividade do time da empresa? <span class="req">*</span></label>
+        <span class="form-block-hint">Rotatividade (turnover) = com que frequência pessoas saem da empresa · seja por pedido próprio ou demissão</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Baixo · pessoas ficam anos · raras saídas</div>
+          <div class="form-option"><div class="form-radio"></div>Médio · saídas pontuais e esperadas</div>
+          <div class="form-option"><div class="form-radio"></div>Alto · perco gente com frequência</div>
+          <div class="form-option"><div class="form-radio"></div>Não meço</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Cada pessoa do time sabe claramente o que se espera dela? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · com descrição de cargo · KPIs e metas individuais</div>
+          <div class="form-option"><div class="form-radio"></div>Sabem o básico mas as metas são vagas</div>
+          <div class="form-option"><div class="form-radio"></div>Cada um "se vira" para entender seu papel</div>
+          <div class="form-option"><div class="form-radio"></div>Existe muita sobreposição e confusão de função</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Cultura declarada e vivida no dia a dia <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto os valores no papel se traduzem em comportamento real do time · todos os dias</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Processo de contratação e acolhimento de novos contratados <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa contrata com critério · treina bem e integra o novo contratado para gerar resultado rápido</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Alinhamento e clareza de papéis no time <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto cada pessoa sabe exatamente o que se espera dela · sem sobreposição ou função vaga</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Performance · feedback e desenvolvimento <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa avalia entregas · dá retorno estruturado e ajuda cada um a evoluir profissionalmente</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quem é seu funcionário-chave hoje · e o que acontece se ele sair amanhã? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · cargo · função · impacto da saída</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Qual é a maior dor que você tem com o time hoje? <span class="req">*</span></label>
+        <span class="form-block-hint">Falta de iniciativa · falta de skill · cultura · postura · qualquer coisa</span>
+        <div class="form-textarea">Resposta aberta · seja específico</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- DIMENSÃO 06 — GESTÃO -->
+<!-- ═══════════════════════════════ -->
+<div id="dim06" class="section section-dark">
+  <div class="section-inner">
+    <div class="dim-header">
+      <div class="dim-header-left">
+        <span class="dim-tag">Dimensão 06 · Pilotagem do Negócio</span>
+        <h2 class="dim-name">GESTÃO</h2>
+        <p class="dim-desc">Como o dono e líderes tomam decisões · acompanham resultados e conduzem o negócio.</p>
+        <div class="dim-pillars">
+          <span class="dim-pillar">Ritos de Gestão</span>
+          <span class="dim-pillar">Dashboard de KPIs</span>
+          <span class="dim-pillar">Decisão Estruturada</span>
+          <span class="dim-pillar">Visão e Metas</span>
+        </div>
+      </div>
+      <div class="dim-num-big">06</div>
+    </div>
+
+    <div class="form-mockup">
+      <div class="form-intro">
+        <span class="form-intro-label">O que vamos investigar nessa dimensão</span>
+        <p class="form-intro-text">Sem gestão · as outras 5 dimensões não se sustentam. Aqui vamos olhar como você pilota o avião · com que instrumento de bordo · com que rito · e se a equipe sabe para onde está indo.</p>
+      </div>
+
+      <!-- MÚLTIPLA ESCOLHA -->
+      <div class="form-section-header">
+        <span class="form-section-n">01</span>
+        <span class="form-section-title">SITUAÇÃO ATUAL</span>
+        <span class="form-section-sub">Múltipla escolha</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você tem reunião regular com o time/sócios para acompanhar resultado? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · semanal · pauta clara · ata · próximos passos</div>
+          <div class="form-option"><div class="form-radio"></div>Sim · mas é mais conversa que reunião estruturada</div>
+          <div class="form-option"><div class="form-radio"></div>Faço quando dá tempo</div>
+          <div class="form-option"><div class="form-radio"></div>Não tenho rito de gestão</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você tem painel de indicadores que olha com frequência? <span class="req">*</span></label>
+        <span class="form-block-hint">Indicadores (KPIs) são os números-chave que mostram a saúde do negócio · ex: faturamento · margem · número de clientes</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · painel automatizado com os indicadores principais</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho planilhas que olho às vezes</div>
+          <div class="form-option"><div class="form-radio"></div>Só olho relatório financeiro do contador</div>
+          <div class="form-option"><div class="form-radio"></div>Não acompanho indicador estruturado</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Quando precisa tomar uma decisão importante · como você decide? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Tenho dado · analiso cenários · decido com critério</div>
+          <div class="form-option"><div class="form-radio"></div>Converso com sócio ou conselheiro e decido</div>
+          <div class="form-option"><div class="form-radio"></div>Decido sozinho na intuição</div>
+          <div class="form-option"><div class="form-radio"></div>Empurro a decisão até não dar mais para adiar</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Existe visão de longo prazo documentada para a empresa? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · visão 3-5 anos · metas anuais · plano trimestral</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho na cabeça mas nada está escrito</div>
+          <div class="form-option"><div class="form-radio"></div>Pensamos no curto prazo · mês a mês</div>
+          <div class="form-option"><div class="form-radio"></div>Nunca paramos para fazer esse exercício</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">O time conhece as metas da empresa? <span class="req">*</span></label>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · todos sabem · acompanham · cada um sabe sua parte</div>
+          <div class="form-option"><div class="form-radio"></div>Sabem alguma coisa mas não com clareza</div>
+          <div class="form-option"><div class="form-radio"></div>Só sócios e gerentes sabem</div>
+          <div class="form-option"><div class="form-radio"></div>Time não sabe da meta</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Você consegue ver com clareza quanto sua empresa lucra todo mês? <span class="req">*</span></label>
+        <span class="form-block-hint">Lucro = quanto sobra depois de pagar TUDO · custos · impostos · salários · contas. Não é o que está na conta.</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-radio"></div>Sim · tenho relatório mensal claro (DRE) e sei o lucro líquido com precisão</div>
+          <div class="form-option"><div class="form-radio"></div>Tenho ideia mas vejo pela conta bancária</div>
+          <div class="form-option"><div class="form-radio"></div>Confundo faturamento (o que entra) com lucro (o que sobra)</div>
+          <div class="form-option"><div class="form-radio"></div>Não tenho controle financeiro estruturado</div>
+        </div>
+      </div>
+
+      <!-- ESCALAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">02</span>
+        <span class="form-section-title">MATURIDADE</span>
+        <span class="form-section-sub">Escala 1–5</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Ritos de gestão e reuniões periódicas <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto existem reuniões fixas e produtivas para acompanhar resultados · decidir e alinhar o time</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Painel de indicadores acompanhado periodicamente <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto você tem números-chave do negócio em um lugar só · olha com frequência e usa para decidir</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Tomada de decisão estruturada baseada em dado <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto suas decisões importantes são feitas com análise · número e critério · não só intuição</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Visão de longo prazo · metas documentadas <span class="req">*</span></label>
+        <span class="form-block-hint">O quanto a empresa tem direção clara para 1 · 3 ou 5 anos · escrita e desdobrada em metas para o time</span>
+        <div class="scale-wrapper">
+          <div class="scale-labels"><span>Inexistente</span><span>Otimizado</span></div>
+          <div class="scale-items">
+            <div class="scale-item">1</div><div class="scale-item">2</div><div class="scale-item">3</div><div class="scale-item">4</div><div class="scale-item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABERTAS -->
+      <div class="form-section-header">
+        <span class="form-section-n">03</span>
+        <span class="form-section-title">CONTEXTO</span>
+        <span class="form-section-sub">Campos abertos</span>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Onde a empresa precisa estar daqui a 12 meses? <span class="req">*</span></label>
+        <span class="form-block-hint">Faturamento · estrutura · time · operação · qualquer dimensão que importa para você</span>
+        <div class="form-textarea">Resposta aberta · pode ser específico ou amplo</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">O que mais te dá insegurança quando você pensa em conduzir a empresa nos próximos meses? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · pode ser interno · externo · financeiro · pessoal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="h-sep"></div>
+
+<!-- ENCERRAMENTO -->
+<div class="section section-mid">
+  <div class="section-inner">
+    <div class="section-label">Encerramento</div>
+    <h2 class="sec-h">PARA FECHAR<br>O DIAGNÓSTICO</h2>
+    <p class="sec-d">Três perguntas finais que ajudam o consultor a priorizar e calibrar o plano de ação.</p>
+
+    <div class="form-mockup">
+      <div class="form-block">
+        <label class="form-block-label">Entre as 6 dimensões · quais 2 você sente que precisam ser atacadas PRIMEIRO? <span class="req">*</span></label>
+        <span class="form-block-hint">Selecione no máximo 2 — as mais urgentes para o momento atual</span>
+        <div class="form-options">
+          <div class="form-option"><div class="form-checkbox"></div>Negócio</div>
+          <div class="form-option"><div class="form-checkbox"></div>Comercial</div>
+          <div class="form-option"><div class="form-checkbox"></div>Entrega</div>
+          <div class="form-option"><div class="form-checkbox"></div>Operação</div>
+          <div class="form-option"><div class="form-checkbox"></div>Pessoas</div>
+          <div class="form-option"><div class="form-checkbox"></div>Gestão</div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">O que seria um "vitória rápida" nos próximos 30 dias para você? <span class="req">*</span></label>
+        <span class="form-block-hint">Algo que · se acontecer · vai te dar fôlego e confiança para o resto do projeto</span>
+        <div class="form-textarea">Resposta aberta</div>
+      </div>
+
+      <div class="form-block">
+        <label class="form-block-label">Tem algo importante que ainda não perguntei e que você precisa que a Nexo saiba? <span class="req">*</span></label>
+        <div class="form-textarea">Resposta aberta · pode ser pessoal · do negócio · do contexto</div>
+      </div>
+    </div>
+
+    <div class="note-box success">
+      <span class="note-label">Próximos Passos</span>
+      <p class="note-text">Ao enviar este diagnóstico · o consultor da Nexo recebe um relatório consolidado com gráfico-radar das 6 dimensões · pontuação de maturidade e priorização sugerida. Em até 5 dias úteis você recebe uma devolutiva com o plano de ação dos próximos 90 dias.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="h-sep"></div>
+<div class="doc-footer">
+  <div class="doc-footer-inner">
+    <div>
+      <div class="footer-brand">NEXO <span>Estratégia</span></div>
+      <div class="footer-lema">Plano · Foco · Execução · Conectamos pontos. Geramos direção. Criamos impacto.</div>
+    </div>
+    <div class="footer-meta">
+      Diagnóstico 360° · Aplicado a Clientes Ativos<br>
+      Filipe + Pedro · nexoestrategia.com.br · 2026
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

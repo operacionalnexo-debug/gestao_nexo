@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Marketing — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;--off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--navy);color:#fff;line-height:1.3;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-slash{position:absolute;top:0;right:0;width:35%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.06;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2.5rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+.cover-stats{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;max-width:620px;}
+.cover-stat{flex:1;min-width:100px;padding:1.25rem 1.5rem;border-right:1px solid rgba(255,255,255,.08);}
+.cover-stat:last-child{border-right:none;}
+.cover-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;display:block;}
+.cover-stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px;display:block;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}
+.cover-lema-line{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}
+.cover-lema-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.cover-lema-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cover-lema-tag em{color:var(--orange);font-style:normal;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'→';font-size:6rem;color:rgba(255,255,255,.1);position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.pillar{background:var(--navy-mid);padding:2rem 1.25rem;transition:background .15s;}
+.pillar:hover{background:var(--navy-light);}
+.pillar-pct{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--orange);line-height:1;display:block;margin-bottom:.25rem;}
+.pillar-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;}
+.pillar-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.55;margin-bottom:.75rem;}
+.pillar-formats{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.pillar-formats li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);padding-left:.75rem;position:relative;}
+.pillar-formats li::before{content:'—';position:absolute;left:0;color:var(--orange);font-size:.65rem;}
+
+.formats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.format-card{background:var(--off);padding:2rem;}
+.format-channel{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--navy);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--orange);}
+.format-table{width:100%;border-collapse:collapse;}
+.format-table th{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:.5rem .75rem;text-align:left;border-bottom:1px solid var(--gray);}
+.format-table td{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);padding:.6rem .75rem;border-bottom:1px solid rgba(200,196,187,.4);}
+.format-table .ft{color:var(--orange);font-weight:900;}
+
+.stories-box{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:3px;padding:2rem;margin-top:2rem;}
+.stories-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--orange);margin-bottom:.75rem;}
+.stories-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.7;}
+.stories-text strong{color:var(--orange);}
+.stories-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:1rem;}
+.stories-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.stories-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+.cycle-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.cycle-cell{background:rgba(255,255,255,.025);padding:1.5rem 1rem;text-align:center;}
+.cycle-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.cycle-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.4rem;}
+.cycle-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.35);line-height:1.5;}
+
+.terceirizado-block{margin-bottom:3px;border:1px solid rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+.terc-header{background:rgba(232,90,26,.08);border-bottom:1px solid rgba(232,90,26,.18);padding:1.25rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.terc-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(232,90,26,.3);line-height:1;}
+.terc-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#fff;}
+.terc-body{display:grid;grid-template-columns:1fr 1fr;gap:0;background:rgba(255,255,255,.015);}
+.terc-col{padding:1.5rem 2rem;border-right:1px solid rgba(255,255,255,.06);}
+.terc-col:last-child{border-right:none;}
+.terc-col-h{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;color:var(--orange);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid rgba(232,90,26,.18);display:block;}
+.terc-info{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:.75rem;}
+.terc-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.terc-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.45);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.terc-list li::before{content:'→';color:var(--orange);flex-shrink:0;font-size:.7rem;}
+
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.cases-cell{background:rgba(255,255,255,.025);padding:2rem;}
+.cases-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.cases-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cases-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.cases-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+.metrics-table{width:100%;border-collapse:collapse;background:var(--off);border:2px solid var(--navy);border-radius:3px;overflow:hidden;}
+.metrics-table thead{background:var(--navy);color:#fff;}
+.metrics-table th{padding:1rem 1.25rem;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;}
+.metrics-table td{padding:.9rem 1.25rem;border-top:1px solid var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gray-dark);}
+.metrics-table tr:hover td{background:#fff;}
+.mn{color:var(--navy);font-weight:900;}.mt{color:var(--orange);font-weight:900;}
+
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.growth-card{background:rgba(255,255,255,.025);padding:2rem;}
+.growth-phase{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.growth-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:#fff;margin-bottom:.75rem;}
+.growth-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:1rem;}
+.growth-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.growth-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+.growth-list li::before{content:'+';color:var(--orange);flex-shrink:0;}
+
+.onboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.onboard-card{background:rgba(255,255,255,.025);padding:1.5rem;transition:background .15s;}
+.onboard-card:hover{background:rgba(255,255,255,.05);}
+.onboard-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(232,90,26,.12);line-height:1;}
+.onboard-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;line-height:1.1;}
+.onboard-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.5;}
+
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+.wrap{padding:3rem 1.5rem;}.cover-inner{padding:1.5rem;}
+.pillars-grid,.cycle-grid{grid-template-columns:repeat(2,1fr);}
+.formats-grid,.terc-body,.cases-grid{grid-template-columns:1fr;}
+.growth-grid,.onboard-grid{grid-template-columns:repeat(2,1fr);}
+.band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Manual de Área · Documento Interno · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Área 04 · Dono: Filipe</span></div>
+      <div class="cover-h1">ÁREA DE<br><span>MARKETING</span></div>
+      <span class="cover-h1-sub">AUTORIDADE + LEADS + POSICIONAMENTO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Manual completo da área de marketing — os 4 pilares de conteúdo, ciclo mensal, gestão dos terceirizados, estratégia de cases e métricas de conteúdo e tráfego.</p>
+      <div class="cover-stats">
+        <div class="cover-stat"><span class="cover-stat-n">4</span><span class="cover-stat-l">Pilares</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">2</span><span class="cover-stat-l">Canais</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">5/sem</span><span class="cover-stat-l">Meta stories</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">2</span><span class="cover-stat-l">Terceirizados</span></div>
+        <div class="cover-stat"><span class="cover-stat-n">8</span><span class="cover-stat-l">Métricas</span></div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <div class="cover-lema">
+        <span class="cover-lema-line">Plano · Foco · Execução</span>
+        <span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span>
+        <span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span>
+      </div>
+      <span class="cover-quote">"Conteúdo que posiciona bem gera lead qualificado — quem chega depois do conteúdo já chegou convencido."</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">PLANEJAMENTO → GRAVAÇÃO → APROVAÇÃO → AGENDAMENTO → PUBLICAÇÃO → ANÁLISE — O CICLO MENSAL DE MARKETING.</span></div>
+
+<!-- PILLARS -->
+<div class="wrap">
+  <div class="sec-label">Posicionamento de conteúdo</div>
+  <h2 class="sec-h sec-h-w">OS 4 PILARES<br>DE CONTEÚDO</h2>
+  <p class="sec-d sec-d-w">O reposicionamento da Nexo — saindo do comercial para o estratégico — precisa aparecer no conteúdo. Quem acompanha a Nexo precisa sentir que vocês entendem de empresa como um todo, não só de vendas.</p>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <span class="pillar-pct">40%</span>
+      <div class="pillar-name">GESTÃO E ESTRUTURA</div>
+      <p class="pillar-desc">Como organizar, processar e fazer a empresa funcionar sem depender do dono. Cases de estruturação, processos e cultura.</p>
+      <ul class="pillar-formats"><li>Carrossel</li><li>Vídeo</li></ul>
+    </div>
+    <div class="pillar">
+      <span class="pillar-pct">30%</span>
+      <div class="pillar-name">COMERCIAL ESTRATÉGICO</div>
+      <p class="pillar-desc">Processo de vendas, time, rotina e mentalidade — o comercial que gera resultado consistente. Não técnicas isoladas, processo completo.</p>
+      <ul class="pillar-formats"><li>Carrossel</li><li>Reels</li></ul>
+    </div>
+    <div class="pillar">
+      <span class="pillar-pct">20%</span>
+      <div class="pillar-name">CURIOSIDADES E CASES</div>
+      <p class="pillar-desc">Histórias de empresas, dados de mercado, o que grandes empresas fazem diferente — e o que os clientes da Nexo conquistaram.</p>
+      <ul class="pillar-formats"><li>Carrossel</li><li>Stories</li></ul>
+    </div>
+    <div class="pillar">
+      <span class="pillar-pct">10%</span>
+      <div class="pillar-name">BASTIDORES E PROVA SOCIAL</div>
+      <p class="pillar-desc">O trabalho da Nexo em ação, resultados de clientes, o método funcionando na prática. Humaniza a marca e gera confiança.</p>
+      <ul class="pillar-formats"><li>Stories</li><li>Vídeo</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FORMATS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Canais e formatos</div>
+    <h2 class="sec-h sec-h-d">INSTAGRAM + LINKEDIN —<br>COMO CADA UM FUNCIONA</h2>
+    <p class="sec-d sec-d-d">Instagram é o canal principal — LinkedIn é secundário com conteúdo adaptado. Cada formato tem objetivo, frequência e padrão definidos.</p>
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="format-channel">INSTAGRAM — CANAL PRINCIPAL</div>
+        <table class="format-table">
+          <thead><tr><th>Formato</th><th>Frequência</th><th>Objetivo</th></tr></thead>
+          <tbody>
+            <tr><td class="ft">Carrossel</td><td>8 a 10/mês</td><td>Autoridade, salvamentos e compartilhamentos</td></tr>
+            <tr><td class="ft">Reels</td><td>4 a 6/mês</td><td>Alcance e novos seguidores</td></tr>
+            <tr><td class="ft">Stories</td><td>Todo dia</td><td>Relacionamento direto e conversão</td></tr>
+            <tr><td class="ft">Lives</td><td>1/mês</td><td>Autoridade e engajamento profundo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="format-card">
+        <div class="format-channel">LINKEDIN — CANAL SECUNDÁRIO</div>
+        <table class="format-table">
+          <thead><tr><th>Formato</th><th>Frequência</th><th>Objetivo</th></tr></thead>
+          <tbody>
+            <tr><td class="ft">Artigo ou post longo</td><td>4/mês</td><td>Autoridade B2B e alcance empresarial</td></tr>
+            <tr><td class="ft">Carrossel adaptado</td><td>4/mês</td><td>Reaproveitamento do conteúdo do Instagram</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stories-box">
+      <div class="stories-title">⚠ STORIES — O GAP ATUAL A RESOLVER</div>
+      <p class="stories-text">Stories é o formato que mais gera conversão direta — é onde o lead manda mensagem. A falta de consistência nos stories é o maior gap do marketing hoje. <strong>Não precisa de filmagem profissional — pode ser gravado no celular, bastidores do trabalho, perguntas e respostas, enquetes.</strong></p>
+      <p class="stories-text" style="margin-top:.75rem;"><strong>Meta: 5 stories por semana, sendo:</strong></p>
+      <ul class="stories-list">
+        <li>2 de conteúdo — dica rápida, curiosidade ou dado de mercado</li>
+        <li>2 de bastidores — o trabalho da Nexo acontecendo</li>
+        <li>1 de conversão — CTA direto para falar com a Nexo</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- CYCLE -->
+<div class="wrap">
+  <div class="sec-label">Fluxo mensal</div>
+  <h2 class="sec-h sec-h-w">O CICLO MENSAL<br>DE MARKETING</h2>
+  <p class="sec-d sec-d-w">Marketing da Nexo funciona em ciclo mensal. Tudo começa no planejamento e termina na análise — o que a análise mostra alimenta o planejamento do mês seguinte.</p>
+  <div class="cycle-grid">
+    <div class="cycle-cell">
+      <span class="cycle-label">Semana 0 · Dia 25</span>
+      <div class="cycle-title">PLANEJAMENTO</div>
+      <p class="cycle-desc">Filipe define os temas do mês alinhados ao posicionamento. Pauta fechada com título, formato e pilar de cada post. Briefing enviado para filmagem e alinhamento com tráfego.</p>
+    </div>
+    <div class="cycle-cell">
+      <span class="cycle-label">Semana 1 · Dias 1–3</span>
+      <div class="cycle-title">GRAVAÇÃO</div>
+      <p class="cycle-desc">Dia de gravação com o terceirizado — todos os vídeos e reels do mês gravados de uma vez. Filipe grava stories simples no celular ao longo da semana.</p>
+    </div>
+    <div class="cycle-cell">
+      <span class="cycle-label">Semana 2 · Até dia 12</span>
+      <div class="cycle-title">APROVAÇÃO</div>
+      <p class="cycle-desc">Filipe revisa e aprova os vídeos em até 48h. Artes de carrossel produzidas e aprovadas. Posts agendados para o mês inteiro. Tráfego configurado com os criativos aprovados.</p>
+    </div>
+    <div class="cycle-cell">
+      <span class="cycle-label">Semanas 3–4</span>
+      <div class="cycle-title">PUBLICAÇÃO</div>
+      <p class="cycle-desc">Posts publicados conforme calendário. Stories publicados diariamente por Filipe. Pedro acompanha os números do tráfego semanalmente. Filipe monitora comentários — responde no mesmo dia.</p>
+    </div>
+    <div class="cycle-cell">
+      <span class="cycle-label">Último dia útil</span>
+      <div class="cycle-title">ANÁLISE</div>
+      <p class="cycle-desc">Filipe e Pedro revisam os indicadores. O que performou melhor vira referência para o mês seguinte. Motivos de perda de leads alimentam os temas de conteúdo.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- TERCEIRIZADOS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Gestão de terceirizados</div>
+    <h2 class="sec-h sec-h-d">FILMAGEM E<br>TRÁFEGO PAGO</h2>
+    <p class="sec-d sec-d-d">Cada terceirizado tem um responsável, uma frequência de contato e um processo claro. Sem processo, vira improviso a cada mês.</p>
+
+    <div class="terceirizado-block">
+      <div class="terc-header">
+        <span class="terc-num">01</span>
+        <div class="terc-title">TERCEIRIZADO DE FILMAGEM</div>
+        <span class="tag tag-fill">Gestor: Filipe</span>
+      </div>
+      <div class="terc-body">
+        <div class="terc-col">
+          <span class="terc-col-h">COMO FUNCIONA</span>
+          <p class="terc-info">Filipe envia briefing até o dia 25 do mês anterior com temas, roteiros básicos, referências visuais e o que precisa ser gravado. Dia de gravação no início do mês com roteiros já aprovados. Terceirizado entrega material editado em até 7 dias.</p>
+          <ul class="terc-list">
+            <li>Filipe aprova em até 48h — feedback claro e objetivo</li>
+            <li>Máximo 2 rodadas de ajuste por vídeo</li>
+            <li>Conteúdo que não foi aprovado volta com descrição do problema</li>
+          </ul>
+        </div>
+        <div class="terc-col">
+          <span class="terc-col-h">CRITÉRIO DE QUALIDADE</span>
+          <p class="terc-info">Conteúdo reflete o posicionamento estratégico da Nexo — tom de autoridade, não de entretenimento vazio. O empresário que assiste precisa sentir que a Nexo entende do negócio dele.</p>
+          <ul class="terc-list">
+            <li>Linguagem alinhada ao posicionamento — não pode soar genérico</li>
+            <li>Qualidade técnica de áudio e vídeo — sem amador</li>
+            <li>Duração adequada por formato — reels curtos, vídeos mais longos</li>
+            <li>CTA claro em todo conteúdo de conversão</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="terceirizado-block">
+      <div class="terc-header">
+        <span class="terc-num">02</span>
+        <div class="terc-title">TERCEIRIZADO DE TRÁFEGO</div>
+        <span class="tag tag-fill">Pedro acompanha resultado · Filipe alinha estratégia</span>
+      </div>
+      <div class="terc-body">
+        <div class="terc-col">
+          <span class="terc-col-h">COMO FUNCIONA</span>
+          <p class="terc-info">Reunião no início do mês para alinhar objetivo, budget e criativos aprovados. Terceirizado configura e sobe as campanhas. Pedro acompanha os números semanalmente. Se número cair abaixo do esperado: reunião de ajuste em até 48h.</p>
+          <ul class="terc-list">
+            <li>Relatório mensal do terceirizado até o dia 5 do mês seguinte</li>
+            <li>Budget definido pelos dois sócios — Pedro controla</li>
+            <li>Criativos aprovados por Filipe antes de subir</li>
+          </ul>
+        </div>
+        <div class="terc-col">
+          <span class="terc-col-h">NÚMEROS QUE PEDRO ACOMPANHA</span>
+          <ul class="terc-list">
+            <li>Custo por lead — quanto está custando cada lead gerado</li>
+            <li>Volume de leads — quantos leads vieram do tráfego no mês</li>
+            <li>Taxa de conversão — lead do tráfego que virou reunião agendada</li>
+            <li>ROAS — retorno sobre o investimento em anúncio</li>
+            <li>Qualidade dos leads — perfil alinhado com o ICP ou não</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- CASES -->
+<div class="wrap">
+  <div class="sec-label">Estratégia de cases</div>
+  <h2 class="sec-h sec-h-w">CASES — A MAIOR<br>PROVA DE QUE FUNCIONA</h2>
+  <p class="sec-d sec-d-w">Cases são o conteúdo de maior conversão de uma consultoria. O empresário que vê um resultado real de alguém parecido com ele já chegou 80% convencido. Precisam ser documentados sistematicamente.</p>
+  <div class="cases-grid">
+    <div class="cases-cell">
+      <div class="cases-h">COMO DOCUMENTAR UM CASE</div>
+      <ul class="cases-list">
+        <li>No encerramento do contrato: Filipe registra os dados do cliente — antes e depois, Índice Nexo inicial e final, principais transformações</li>
+        <li>Com autorização do cliente: dados podem virar conteúdo público com nome e empresa</li>
+        <li>Sem autorização: dados usados de forma anônima — "uma empresa do setor X com faturamento Y"</li>
+        <li>Registrar sempre: o problema no início, o que foi feito, o resultado gerado</li>
+        <li>Meta: pelo menos 1 case documentado por trimestre</li>
+      </ul>
+    </div>
+    <div class="cases-cell">
+      <div class="cases-h">FORMATOS DE CASE PARA CONTEÚDO</div>
+      <ul class="cases-list">
+        <li>Carrossel — antes e depois em números: Índice Nexo inicial vs final, métricas que melhoraram</li>
+        <li>Vídeo de depoimento — cliente conta a transformação com suas palavras</li>
+        <li>Post longo no LinkedIn — narrativa completa da jornada de 6 meses</li>
+        <li>Stories — bastidores do encerramento, celebração com o cliente</li>
+        <li>Frase de impacto do cliente — print tratado com identidade visual da Nexo</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- METRICS -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Indicadores</div>
+    <h2 class="sec-h sec-h-d">MÉTRICAS DE<br>CONTEÚDO E TRÁFEGO</h2>
+    <p class="sec-d sec-d-d">Filipe acompanha conteúdo semanalmente. Pedro acompanha tráfego semanalmente. Análise completa na reunião mensal.</p>
+    <table class="metrics-table">
+      <thead><tr><th>Indicador</th><th>O que mede</th><th>Meta</th><th>Responsável</th><th>Freq.</th></tr></thead>
+      <tbody>
+        <tr><td class="mn">Posts publicados vs planejados</td><td>Consistência de publicação</td><td class="mt">100%</td><td>Filipe</td><td>Semanal</td></tr>
+        <tr><td class="mn">Stories publicados</td><td>Consistência de stories</td><td class="mt">5 por semana</td><td>Filipe</td><td>Semanal</td></tr>
+        <tr><td class="mn">Alcance total</td><td>Quantas pessoas o conteúdo atinge</td><td class="mt">Crescimento mês a mês</td><td>Filipe</td><td>Mensal</td></tr>
+        <tr><td class="mn">Taxa de salvamento</td><td>Conteúdo que gera valor real</td><td class="mt">Acima de 3%</td><td>Filipe</td><td>Mensal</td></tr>
+        <tr><td class="mn">Custo por lead — tráfego</td><td>Quanto custa cada lead gerado</td><td class="mt">Definir referência</td><td>Pedro</td><td>Semanal</td></tr>
+        <tr><td class="mn">Volume de leads — tráfego</td><td>Leads gerados pelo tráfego no mês</td><td class="mt">Meta mensal definida</td><td>Pedro</td><td>Semanal</td></tr>
+        <tr><td class="mn">Taxa de conversão lead→reunião</td><td>Lead do tráfego que vira reunião</td><td class="mt">Acima de 20%</td><td>Pedro</td><td>Mensal</td></tr>
+        <tr><td class="mn">Cases publicados</td><td>Prova social no conteúdo</td><td class="mt">1 por trimestre</td><td>Filipe</td><td>Trimestral</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- GROWTH -->
+<div class="wrap">
+  <div class="sec-label">Evolução da área</div>
+  <h2 class="sec-h sec-h-w">COMO O MARKETING<br>CRESCE COM A NEXO</h2>
+  <p class="sec-d sec-d-w">A área evolui conforme o volume de conteúdo e a necessidade de escala crescem.</p>
+  <div class="growth-grid">
+    <div class="growth-card">
+      <span class="growth-phase">Hoje · Fase atual</span>
+      <div class="growth-title">FILIPE + TERCEIRIZADOS</div>
+      <p class="growth-desc">Filipe define a estratégia, aprova conteúdo e publica stories. Terceirizados executam filmagem e tráfego. Funciona para o volume atual.</p>
+      <ul class="growth-list"><li>Filipe define pauta e aprova tudo</li><li>Terceirizado de filmagem executa vídeos</li><li>Terceirizado de tráfego gerencia anúncios</li><li>Pedro acompanha resultado do tráfego</li></ul>
+    </div>
+    <div class="growth-card">
+      <span class="growth-phase">Próximo passo · Volume crescendo</span>
+      <div class="growth-title">+ SOCIAL MEDIA</div>
+      <p class="growth-desc">Quando o volume de conteúdo crescer, entra um social media para gestão do dia a dia. Filipe mantém a curadoria estratégica e a aprovação.</p>
+      <ul class="growth-list"><li>Social media: agendamento e monitoramento diário</li><li>Social media: produção de conteúdo leve — stories, reels simples</li><li>Filipe: curadoria estratégica e aprovação</li><li>Filipe: direção criativa e posicionamento</li></ul>
+    </div>
+    <div class="growth-card">
+      <span class="growth-phase">Nível seguinte · Autoridade construída</span>
+      <div class="growth-title">PRODUTOR DE CONTEÚDO</div>
+      <p class="growth-desc">Com autoridade construída, a Nexo tem um produtor próprio que transforma o conhecimento dos sócios em conteúdo sistematicamente.</p>
+      <ul class="growth-list"><li>Sócios gravam — produtor edita e distribui</li><li>Produtor analisa performance e sugere temas</li><li>Social media gerencia canais e engajamento</li><li>Filipe como diretor de conteúdo e marca</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ONBOARDING -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Para novos colaboradores</div>
+    <h2 class="sec-h sec-h-d">O QUE PRECISA SER<br>APRENDIDO AO ENTRAR</h2>
+    <p class="sec-d sec-d-d">Todo colaborador que entrar no marketing precisa dominar esses pontos antes de produzir ou publicar qualquer conteúdo.</p>
+    <div class="onboard-grid" style="background:var(--gray);border:2px solid var(--navy);">
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">01</div>
+        <div class="onboard-title" style="color:var(--navy);">O POSICIONAMENTO DA NEXO</div>
+        <p class="onboard-desc" style="color:var(--muted);">O que a marca representa, o que não representa e como isso aparece em cada conteúdo.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">02</div>
+        <div class="onboard-title" style="color:var(--navy);">OS 4 PILARES E OS PESOS</div>
+        <p class="onboard-desc" style="color:var(--muted);">Gestão 40%, Comercial 30%, Cases 20%, Bastidores 10% — e por que essa distribuição.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">03</div>
+        <div class="onboard-title" style="color:var(--navy);">O FLUXO MENSAL</div>
+        <p class="onboard-desc" style="color:var(--muted);">Da pauta à publicação — cada etapa, quem é responsável e qual o prazo.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">04</div>
+        <div class="onboard-title" style="color:var(--navy);">COMO FAZER O BRIEFING</div>
+        <p class="onboard-desc" style="color:var(--muted);">O que o terceirizado de filmagem precisa receber e como enviar o briefing com clareza.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">05</div>
+        <div class="onboard-title" style="color:var(--navy);">CRITÉRIO DE APROVAÇÃO</div>
+        <p class="onboard-desc" style="color:var(--muted);">O que aprova, o que volta e como dar feedback claro ao terceirizado.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">06</div>
+        <div class="onboard-title" style="color:var(--navy);">COMO DOCUMENTAR CASES</div>
+        <p class="onboard-desc" style="color:var(--muted);">O que registrar ao encerrar um contrato e como transformar em conteúdo.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">07</div>
+        <div class="onboard-title" style="color:var(--navy);">OS INDICADORES</div>
+        <p class="onboard-desc" style="color:var(--muted);">Quais números acompanhar, com qual frequência e o que fazer quando algo está fora da meta.</p>
+      </div>
+      <div class="onboard-card" style="background:var(--off);">
+        <div class="onboard-n" style="color:rgba(8,17,42,.06);">08</div>
+        <div class="onboard-title" style="color:var(--navy);">TOM DE VOZ DA NEXO</div>
+        <p class="onboard-desc" style="color:var(--muted);">Como a Nexo fala — direto, estratégico, sem clichê. O que nunca publicar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Manual de Área · Marketing · Dono: Filipe<br>nexoestrategia.com.br · 2026</div>
+</div>
+</body>
+</html>

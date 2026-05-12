@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farol do Empreendedor — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #E85A1A;
+  --navy: #08112A;
+  --navy-mid: #0F1E40;
+  --navy-light: #162D5E;
+  --off: #F0EDE6;
+  --gray: #C8C4BB;
+  --gray-dark: #3A3530;
+  --muted: #7A7570;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; font-weight: 700; background: var(--off); color: var(--navy); line-height: 1.3; }
+
+/* UTILS */
+.tag {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+  padding: 5px 12px; border: 1.5px solid var(--orange); color: var(--orange); border-radius: 2px;
+}
+.tag-fill { background: var(--orange); color: #fff; border-color: var(--orange); }
+.tag-dark { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); }
+
+/* COVER */
+.cover {
+  background: var(--navy); min-height: 100vh;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.cover-grid {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px);
+}
+.cover-slash {
+  position: absolute; top: 0; right: 0;
+  width: 35%; height: 100%;
+  background: var(--orange);
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+  opacity: 0.06;
+}
+.cover-inner {
+  position: relative; z-index: 1; flex: 1;
+  display: flex; flex-direction: column;
+  padding: 2.5rem 3.5rem;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.cover-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-wrap: wrap; gap: 1rem;
+}
+.cover-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: #fff; }
+.cover-logo span { color: var(--orange); }
+.cover-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 0 2.5rem; }
+.eyebrow { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem; }
+.eyebrow-line { width: 36px; height: 2px; background: var(--orange); }
+.eyebrow-text {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange);
+}
+.cover-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; letter-spacing: 0.03em; color: #fff; margin-bottom: 0.4rem;
+}
+.cover-h1 span { color: var(--orange); display: block; }
+.cover-h1-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.8rem); letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2); display: block; margin-bottom: 2.5rem;
+}
+.cover-bar { width: 56px; height: 3px; background: var(--orange); margin-bottom: 2rem; }
+.cover-desc {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); max-width: 580px; line-height: 1.65; margin-bottom: 3rem;
+}
+.cover-stats {
+  display: flex; flex-wrap: wrap;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; max-width: 620px;
+}
+.cover-stat { flex: 1; min-width: 110px; padding: 1.25rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+.cover-stat:last-child { border-right: none; }
+.cover-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--orange); line-height: 1; display: block; }
+.cover-stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 3px; display: block; }
+.cover-foot {
+  border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.cover-quote { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-style: italic; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.18); max-width: 500px; }
+
+/* BAND */
+.band { background: var(--orange); padding: 1.4rem 3.5rem; position: relative; overflow: hidden; }
+.band-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.2rem, 3vw, 2.2rem); letter-spacing: 0.06em; color: #fff; position: relative; z-index: 1; }
+.band::after { content: '→'; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: rgba(255,255,255,0.1); position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); }
+
+/* WRAP */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.sec-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+.sec-label::before { content:''; display:block; width:26px; height:2px; background:var(--orange); }
+.sec-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: 0.04em; color: var(--navy); line-height: 0.95; margin-bottom: 1rem; }
+.sec-h-w { color: #fff; }
+.sec-d { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); max-width: 580px; line-height: 1.65; margin-bottom: 3rem; }
+.sec-d-w { color: rgba(255,255,255,0.32); }
+
+/* SEP */
+.sep { height: 3px; background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%); }
+
+/* PILLARS OVERVIEW */
+.pillars-bg { background: var(--navy); padding: 5rem 0; }
+.pillars-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.pillar { background: var(--navy-mid); padding: 2rem 1.25rem; transition: background 0.15s; }
+.pillar:hover { background: var(--navy-light); }
+.pillar-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; }
+.pillar-big { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: rgba(232,90,26,0.13); line-height: 1; }
+.pillar-bar { width: 4px; height: 24px; background: var(--orange); border-radius: 2px; }
+.pillar-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.75rem; line-height: 1.1; }
+.pillar-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.pillar-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.38); padding-left: 0.75rem; position: relative; }
+.pillar-list li::before { content: '—'; position: absolute; left: 0; color: var(--orange); font-size: 0.65rem; }
+
+/* PILLAR DETAIL BLOCKS */
+.pilar-block {
+  margin-bottom: 2px;
+  border: 2px solid var(--navy);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pilar-block:last-child { margin-bottom: 0; }
+
+.pilar-header {
+  background: var(--navy);
+  padding: 1.5rem 2rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.pilar-header-light {
+  background: rgba(232,90,26,0.07);
+  border-bottom: 1px solid rgba(232,90,26,0.18);
+}
+.pilar-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); }
+.pilar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: #fff; }
+.pilar-title-dark { color: var(--navy); }
+
+.pilar-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.pilar-item { padding: 1.75rem; border-right: 1px solid var(--gray); background: var(--off); transition: background 0.15s; }
+.pilar-item:hover { background: #fff; }
+.pilar-item:last-child { border-right: none; }
+.pilar-item-dark { background: var(--navy-mid); border-right: 1px solid rgba(255,255,255,0.06); }
+.pilar-item-dark:hover { background: var(--navy-light); }
+.pilar-item-dark:last-child { border-right: none; }
+
+.item-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+.item-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.65rem; }
+.item-name-w { color: #fff; }
+.item-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.6; margin-bottom: 0.85rem; }
+.item-desc-w { color: rgba(255,255,255,0.38); }
+.item-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.item-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.45; }
+.item-list li::before { content: '+'; color: var(--orange); font-weight: 900; flex-shrink: 0; }
+.item-list-w li { color: rgba(255,255,255,0.5); }
+
+/* DELIVERABLES */
+.del-bg { background: var(--navy); padding: 5rem 0; }
+.del-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.del-group { background: rgba(255,255,255,0.025); padding: 1.75rem; }
+.del-group-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.6rem; }
+.del-group-sub { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(232,90,26,0.2); display: block; }
+.del-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.del-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+.del-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.7rem; margin-top: 1px; }
+.del-highlight { background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.2); border-radius: 3px; padding: 0.6rem 0.85rem; margin-top: 0.75rem; }
+.del-highlight-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); }
+
+/* DOSSIE */
+.dossie-bg { background: var(--off); padding: 5rem 0; }
+.dossie-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; background: var(--gray); border: 2px solid var(--navy); border-radius: 3px; overflow: hidden; }
+.dossie-card { background: var(--off); padding: 1.75rem 1.5rem; transition: background 0.15s; border-top: 4px solid transparent; }
+.dossie-card:hover { background: #fff; border-top-color: var(--orange); }
+.dossie-n { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(8,17,42,0.05); line-height: 1; position: relative; }
+.dossie-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); display: block; margin-bottom: 0.4rem; }
+.dossie-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.1; }
+.dossie-desc { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); line-height: 1.55; margin-bottom: 0.85rem; }
+.dossie-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.dossie-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-dark); display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.4; }
+.dossie-list li::before { content: '—'; color: var(--orange); flex-shrink: 0; }
+
+/* FOOTER */
+.footer { background: var(--navy); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 3px solid var(--orange); }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #fff; }
+.footer-logo span { color: var(--orange); }
+.footer-meta { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.18); text-align: right; }
+
+@media(max-width:900px){
+  .wrap{padding:3rem 1.5rem;}
+  .cover-inner{padding:1.5rem;}
+  .pillars-grid{grid-template-columns:repeat(2,1fr);}
+  .pilar-body{grid-template-columns:1fr;}
+  .pilar-item{border-right:none;border-bottom:1px solid var(--gray);}
+  .pilar-item-dark{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .del-grid{grid-template-columns:1fr;}
+  .dossie-grid{grid-template-columns:repeat(2,1fr);}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Produto 02 · Consultoria Individual</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Consultoria Individual · 5 Pilares Universais</span>
+      </div>
+      <div class="cover-h1">
+        FAROL DO
+        <span>EMPREENDEDOR</span>
+      </div>
+      <span class="cover-h1-sub">DA VISÃO À OPERAÇÃO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Transformamos uma visão em uma estrutura comercial pronta para operar — do diagnóstico de mercado ao roadmap de implantação. Dois pacotes: só o plano ou com implementação completa.</p>
+      <div class="cover-stats">
+        <div class="cover-stat">
+          <span class="cover-stat-n">5</span>
+          <span class="cover-stat-l">Pilares</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">2</span>
+          <span class="cover-stat-l">Pacotes</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">R$4.500</span>
+          <span class="cover-stat-l">Estrutura</span>
+        </div>
+        <div class="cover-stat">
+          <span class="cover-stat-n">R$7.000</span>
+          <span class="cover-stat-l">Implementação</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot"><div class="cover-lema"><span class="cover-lema-line">Plano · Foco · Execução</span><span class="cover-lema-sub">Estratégia + Conecta + Propósito + Transforma</span><span class="cover-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span></div>
+      <span class="cover-quote">"Sua visão de negócio, estruturada e pronta para operar."</span>
+      <span class="tag tag-dark">nexoestrategia.com.br</span>
+    </div>
+  </div>
+</div>
+
+<!-- BAND -->
+<div class="band">
+  <span class="band-text">DA IDEIA AO NEGÓCIO ESTRUTURADO — DIAGNÓSTICO, CONCEITO, OPERAÇÃO, FINANCEIRO E LANÇAMENTO. TUDO SE CONECTA.</span>
+</div>
+
+<!-- PILLARS OVERVIEW -->
+<div class="pillars-bg">
+  <div class="wrap">
+    <div class="sec-label">Os 5 Pilares Universais</div>
+    <h2 class="sec-h sec-h-w">A METODOLOGIA<br>FAROL</h2>
+    <p class="sec-d sec-d-w">Cada pilar é uma camada essencial do negócio. Juntos, formam a estrutura completa para operar com consistência desde o primeiro dia.</p>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">01</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">DIAGNÓSTICO E INTELIGÊNCIA</div>
+        <ul class="pillar-list">
+          <li>Oceanos azuis e lacunas</li>
+          <li>Benchmarking nacional e global</li>
+          <li>Segmentação de público</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">02</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">CONCEITO E PRODUTO</div>
+        <ul class="pillar-list">
+          <li>Proposta de valor</li>
+          <li>Mix de ofertas e pricing</li>
+          <li>Estratégia de experiência</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">03</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">ENGENHARIA OPERACIONAL</div>
+        <ul class="pillar-list">
+          <li>Cadeia de valor</li>
+          <li>Layout e fluxo</li>
+          <li>Rotinas e equipe</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">04</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">PLANEJAMENTO FINANCEIRO</div>
+        <ul class="pillar-list">
+          <li>CAPEX e investimento</li>
+          <li>Metas e projeções</li>
+          <li>KPIs de saúde</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top"><span class="pillar-big">05</span><div class="pillar-bar"></div></div>
+        <div class="pillar-name">LANÇAMENTO E ROADMAP</div>
+        <ul class="pillar-list">
+          <li>Estratégia de tração</li>
+          <li>Cronograma 60–90 dias</li>
+          <li>Matriz de riscos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PILAR 1 -->
+<div class="wrap">
+  <div class="sec-label">Pilar 01</div>
+  <h2 class="sec-h">DIAGNÓSTICO E<br>INTELIGÊNCIA DE MERCADO</h2>
+  <p class="sec-d">Antes de construir qualquer coisa, entendemos o terreno. Onde existem oportunidades reais, quem já faz bem e quem é o cliente que vai comprar.</p>
+  <div class="pilar-block">
+    <div class="pilar-header">
+      <div>
+        <div class="pilar-num">Pilar 01 · 3 Frentes de Análise</div>
+        <div class="pilar-title">INTELIGÊNCIA ANTES DA AÇÃO</div>
+      </div>
+      <span class="tag tag-fill">Fase de Entrada</span>
+    </div>
+    <div class="pilar-body">
+      <div class="pilar-item">
+        <span class="item-tag">Frente 01</span>
+        <div class="item-name">IDENTIFICAÇÃO DE OPORTUNIDADES</div>
+        <p class="item-desc">Análise de Oceanos Azuis e lacunas no mercado onde o cliente possa se destacar sem competir diretamente no vermelho.</p>
+        <ul class="item-list">
+          <li>Mapeamento de espaços pouco explorados no setor</li>
+          <li>Análise de tendências e movimentos de mercado</li>
+          <li>Identificação de diferenciais reais e sustentáveis</li>
+          <li>Validação da viabilidade do modelo proposto</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 02</span>
+        <div class="item-name">BENCHMARKING</div>
+        <p class="item-desc">Estudo de referências nacionais e globais que validam e inspiram o modelo de negócio — sem copiar, aprendendo o que funciona.</p>
+        <ul class="item-list">
+          <li>Análise de 3 a 5 referências nacionais do setor</li>
+          <li>Análise de 2 a 3 referências globais relevantes</li>
+          <li>Extração de práticas aplicáveis ao contexto do cliente</li>
+          <li>Mapa de diferenciação — o que vai fazer diferente</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 03</span>
+        <div class="item-name">SEGMENTAÇÃO DE PÚBLICO</div>
+        <p class="item-desc">Definição detalhada dos perfis de consumo e comportamento do público-alvo — quem vai comprar, como pensa e o que valoriza.</p>
+        <ul class="item-list">
+          <li>Criação de 2 a 3 personas detalhadas</li>
+          <li>Mapeamento de comportamento de consumo</li>
+          <li>Identificação de gatilhos de compra e objeções</li>
+          <li>Definição do cliente ideal prioritário</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PILAR 2 DARK -->
+<div class="pillars-bg">
+  <div class="wrap">
+    <div class="sec-label">Pilar 02</div>
+    <h2 class="sec-h sec-h-w">ESTRUTURA DE<br>CONCEITO E PRODUTO</h2>
+    <p class="sec-d sec-d-w">Com o mercado entendido, construímos o que a empresa vai ser — proposta de valor, o que vende, como precifica e como gera experiência memorável.</p>
+    <div class="pilar-block" style="border-color: rgba(255,255,255,0.08);">
+      <div class="pilar-header pilar-header-light">
+        <div>
+          <div class="pilar-num">Pilar 02 · 3 Frentes de Construção</div>
+          <div class="pilar-title pilar-title-dark">O QUE A EMPRESA VAI SER</div>
+        </div>
+        <span class="tag tag-fill">Fase de Conceito</span>
+      </div>
+      <div class="pilar-body">
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 01</span>
+          <div class="item-name item-name-w">PROPOSTA DE VALOR</div>
+          <p class="item-desc item-desc-w">Criação dos diferenciais que tornam a marca memorável e autêntica — o que ela entrega que ninguém mais entrega daquela forma.</p>
+          <ul class="item-list item-list-w">
+            <li>Definição do posicionamento único da marca</li>
+            <li>Construção da proposta de valor em linguagem clara</li>
+            <li>Diferenciação frente aos concorrentes mapeados</li>
+            <li>Validação da proposta com o público-alvo definido</li>
+          </ul>
+        </div>
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 02</span>
+          <div class="item-name item-name-w">MIX DE OFERTAS E PRICING</div>
+          <p class="item-desc item-desc-w">Estruturação de um portfólio de produtos e serviços inteligente — desenhado para elevar o ticket médio e maximizar a margem.</p>
+          <ul class="item-list item-list-w">
+            <li>Definição dos produtos e serviços do portfólio</li>
+            <li>Estrutura de entrada, core e premium</li>
+            <li>Precificação estratégica com base em valor e margem</li>
+            <li>Estratégia de upsell e cross-sell</li>
+          </ul>
+        </div>
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 03</span>
+          <div class="item-name item-name-w">ESTRATÉGIA DE EXPERIÊNCIA</div>
+          <p class="item-desc item-desc-w">Desenvolvimento de elementos que tornem o negócio memorável e gerem marketing espontâneo — o cliente vira promotor.</p>
+          <ul class="item-list item-list-w">
+            <li>Mapeamento dos momentos de encantamento</li>
+            <li>Elementos visuais e sensoriais da experiência</li>
+            <li>Estratégia de conteúdo orgânico e instagramabilidade</li>
+            <li>Mecanismos de indicação e recomendação</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PILAR 3 -->
+<div class="wrap">
+  <div class="sec-label">Pilar 03</div>
+  <h2 class="sec-h">ENGENHARIA<br>OPERACIONAL</h2>
+  <p class="sec-d">Como a empresa vai funcionar por dentro — do suprimento à entrega, do espaço ao time. Operação que escala sem depender de heróis.</p>
+  <div class="pilar-block">
+    <div class="pilar-header">
+      <div>
+        <div class="pilar-num">Pilar 03 · 3 Frentes Operacionais</div>
+        <div class="pilar-title">COMO A EMPRESA FUNCIONA</div>
+      </div>
+      <span class="tag tag-fill">Fase Operacional</span>
+    </div>
+    <div class="pilar-body">
+      <div class="pilar-item">
+        <span class="item-tag">Frente 01</span>
+        <div class="item-name">CADEIA DE VALOR</div>
+        <p class="item-desc">Desenho do fluxo linear de processos — do suprimento à entrega final. Cada etapa documentada, com responsável e padrão de qualidade.</p>
+        <ul class="item-list">
+          <li>Mapeamento de todas as etapas do processo produtivo</li>
+          <li>Identificação de fornecedores e dependências críticas</li>
+          <li>Definição de padrões de qualidade por etapa</li>
+          <li>Pontos de controle e indicadores operacionais</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 02</span>
+        <div class="item-name">LAYOUT E FLUXO DE ATENDIMENTO</div>
+        <p class="item-desc">Planejamento do espaço físico ou digital para otimizar velocidade, experiência e conversão — o ambiente que faz o cliente comprar.</p>
+        <ul class="item-list">
+          <li>Definição do layout físico ou estrutura digital</li>
+          <li>Fluxo de atendimento do cliente passo a passo</li>
+          <li>Pontos de contato e momentos de decisão</li>
+          <li>Otimização para velocidade e experiência simultâneas</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 03</span>
+        <div class="item-name">ROTINAS E EQUIPE</div>
+        <p class="item-desc">Definição do quadro de colaboradores necessário e criação de checklists diários de operação — a empresa funciona igual todo dia.</p>
+        <ul class="item-list">
+          <li>Dimensionamento do time necessário para operar</li>
+          <li>Funções e responsabilidades de cada cargo</li>
+          <li>Checklists de abertura, operação e fechamento</li>
+          <li>Rotinas diárias e semanais da equipe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PILAR 4 DARK -->
+<div class="pillars-bg">
+  <div class="wrap">
+    <div class="sec-label">Pilar 04</div>
+    <h2 class="sec-h sec-h-w">PLANEJAMENTO<br>FINANCEIRO E VIABILIDADE</h2>
+    <p class="sec-d sec-d-w">Os números que dizem se o negócio é viável — e como fazê-lo viável. Investimento, projeções e indicadores que guiam a operação desde o primeiro dia.</p>
+    <div class="pilar-block" style="border-color: rgba(255,255,255,0.08);">
+      <div class="pilar-header pilar-header-light">
+        <div>
+          <div class="pilar-num">Pilar 04 · 3 Frentes Financeiras</div>
+          <div class="pilar-title pilar-title-dark">OS NÚMEROS QUE VALIDAM</div>
+        </div>
+        <span class="tag tag-fill">Fase Financeira</span>
+      </div>
+      <div class="pilar-body">
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 01</span>
+          <div class="item-name item-name-w">CAPEX E INVESTIMENTO INICIAL</div>
+          <p class="item-desc item-desc-w">Detalhamento completo dos custos com estrutura, equipamentos e capital de giro — o empresário sabe exatamente quanto precisa e para quê.</p>
+          <ul class="item-list item-list-w">
+            <li>Levantamento de todos os investimentos necessários</li>
+            <li>Categorização — estrutura, equipamentos, capital de giro</li>
+            <li>Custo total de implantação com margem de segurança</li>
+            <li>Fontes de financiamento e estratégia de captação</li>
+          </ul>
+        </div>
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 02</span>
+          <div class="item-name item-name-w">METAS E PROJEÇÕES</div>
+          <p class="item-desc item-desc-w">Cenários conservadores e otimistas para guiar a operação — o empresário sabe o que precisa vender para sobreviver e para crescer.</p>
+          <ul class="item-list item-list-w">
+            <li>Projeção de faturamento mensal para 12 meses</li>
+            <li>Cenário conservador, realista e otimista</li>
+            <li>Ponto de equilíbrio — quando o negócio paga as contas</li>
+            <li>Metas diárias e horárias derivadas do faturamento alvo</li>
+          </ul>
+        </div>
+        <div class="pilar-item pilar-item-dark">
+          <span class="item-tag">Frente 03</span>
+          <div class="item-name item-name-w">INDICADORES DE SAÚDE — KPIs</div>
+          <p class="item-desc item-desc-w">Os números que o dono precisa acompanhar para saber se o negócio está saudável — payback, margens e custos fixos ideais.</p>
+          <ul class="item-list item-list-w">
+            <li>Payback estimado — em quanto tempo recupera o investimento</li>
+            <li>Margem bruta e líquida ideais para o setor</li>
+            <li>Custo fixo máximo saudável vs faturamento</li>
+            <li>KPIs operacionais e financeiros de acompanhamento semanal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- PILAR 5 -->
+<div class="wrap">
+  <div class="sec-label">Pilar 05</div>
+  <h2 class="sec-h">LANÇAMENTO E<br>ROADMAP DE IMPLANTAÇÃO</h2>
+  <p class="sec-d">Com tudo estruturado, construímos o plano de execução — como chegar aos primeiros clientes, o cronograma passo a passo e como proteger o negócio dos riscos reais.</p>
+  <div class="pilar-block">
+    <div class="pilar-header">
+      <div>
+        <div class="pilar-num">Pilar 05 · 3 Frentes de Execução</div>
+        <div class="pilar-title">DO PLANO À REALIDADE</div>
+      </div>
+      <span class="tag tag-fill">60 a 90 dias</span>
+    </div>
+    <div class="pilar-body">
+      <div class="pilar-item">
+        <span class="item-tag">Frente 01</span>
+        <div class="item-name">ESTRATÉGIA DE TRAÇÃO</div>
+        <p class="item-desc">Planejamento de parcerias estratégicas e ações de marketing para os primeiros meses — como chegar às primeiras vendas sem depender de sorte.</p>
+        <ul class="item-list">
+          <li>Identificação de parceiros estratégicos de lançamento</li>
+          <li>Ações de marketing para os primeiros 30 dias</li>
+          <li>Estratégia de geração de buzz e prova social inicial</li>
+          <li>Canal de aquisição prioritário para o perfil do negócio</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 02</span>
+        <div class="item-name">CRONOGRAMA DE IMPLANTAÇÃO</div>
+        <p class="item-desc">Mapa de execução passo a passo cobrindo 60 a 90 dias — o empresário sabe exatamente o que fazer em cada semana até o lançamento.</p>
+        <ul class="item-list">
+          <li>Cronograma semana a semana até a inauguração</li>
+          <li>Marcos principais e critérios de avanço</li>
+          <li>Responsáveis e dependências de cada entrega</li>
+          <li>Checklist de pré-abertura oficial</li>
+        </ul>
+      </div>
+      <div class="pilar-item">
+        <span class="item-tag">Frente 03</span>
+        <div class="item-name">MATRIZ DE RISCOS E MITIGAÇÃO</div>
+        <p class="item-desc">Identificação dos desafios potenciais — sazonalidade, fluxo baixo, dependência de fornecedor — e planos de contingência para cada um.</p>
+        <ul class="item-list">
+          <li>Mapeamento dos principais riscos do negócio e do setor</li>
+          <li>Probabilidade e impacto de cada risco</li>
+          <li>Plano de contingência para os riscos prioritários</li>
+          <li>Indicadores de alerta precoce — quando agir antes do problema</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- DELIVERABLES -->
+<div class="del-bg">
+  <div class="wrap">
+    <div class="sec-label">Entregável Final</div>
+    <h2 class="sec-h sec-h-w">DOSSIÊ DE<br>IMPLEMENTAÇÃO COMERCIAL</h2>
+    <p class="sec-d sec-d-w">Ao final do processo o cliente recebe 5 documentos prontos para usar — não para guardar na gaveta, mas para operar a partir do primeiro dia.</p>
+    <div class="del-grid">
+      <div class="del-group">
+        <div class="del-group-h">01 · Plano de Negócios Executivo</div>
+        <span class="del-group-sub">Documento mestre</span>
+        <ul class="del-list">
+          <li>Toda a estratégia e posicionamento consolidados</li>
+          <li>Análise de mercado e benchmarking</li>
+          <li>Proposta de valor e diferenciação</li>
+          <li>Mix de produtos e estrutura de pricing</li>
+          <li>Visão geral do modelo de negócio</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Formato: PDF executivo + versão editável</span></div>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">02 · Dashboard de Gestão Financeira</div>
+        <span class="del-group-sub">Planilha personalizada</span>
+        <ul class="del-list">
+          <li>Acompanhamento de metas diárias e horárias</li>
+          <li>Controle de faturamento mensal vs projeção</li>
+          <li>Indicadores financeiros de saúde automáticos</li>
+          <li>Alertas de desvio de meta</li>
+          <li>Projeção dos próximos 3 meses</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Formato: Google Sheets / Excel pronto para usar</span></div>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">03 · Manual de Processos Operacionais</div>
+        <span class="del-group-sub">Guia prático de operação</span>
+        <ul class="del-list">
+          <li>Checklist de abertura do negócio</li>
+          <li>Checklist de operação diária</li>
+          <li>Checklist de fechamento</li>
+          <li>Rotinas semanais da equipe</li>
+          <li>Padrões de qualidade por etapa</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Formato: PDF + versão digital para uso diário</span></div>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">04 · Guia de Formalização</div>
+        <span class="del-group-sub">Conformidade legal</span>
+        <ul class="del-list">
+          <li>CNAE correto para o tipo de negócio</li>
+          <li>Regimes tributários e qual escolher</li>
+          <li>Alvarás e licenças necessárias</li>
+          <li>Passo a passo de abertura do CNPJ</li>
+          <li>Obrigações fiscais e contábeis básicas</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Formato: PDF passo a passo</span></div>
+      </div>
+      <div class="del-group">
+        <div class="del-group-h">05 · Mapa de Lançamento — Roadmap</div>
+        <span class="del-group-sub">Cronograma visual</span>
+        <ul class="del-list">
+          <li>Cronograma visual semana a semana</li>
+          <li>Fases de pré-operação e inauguração</li>
+          <li>Marcos e critérios de avanço</li>
+          <li>Responsáveis por cada entrega</li>
+          <li>Checklist de pré-abertura oficial</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Formato: PDF visual + versão editável</span></div>
+      </div>
+      <div class="del-group" style="background: rgba(232,90,26,0.08); border: 1px solid rgba(232,90,26,0.2);">
+        <div class="del-group-h">O Dossiê Completo</div>
+        <span class="del-group-sub">O que o cliente tem nas mãos</span>
+        <ul class="del-list">
+          <li>5 documentos prontos para usar</li>
+          <li>Estrutura comercial completa</li>
+          <li>Operação documentada desde o dia 1</li>
+          <li>Números validados e projetados</li>
+          <li>Roadmap de execução claro</li>
+        </ul>
+        <div class="del-highlight"><span class="del-highlight-text">Não é para guardar — é para operar</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOSSIE CARDS -->
+<div class="dossie-bg">
+  <div class="wrap">
+    <div class="sec-label">Visão Rápida</div>
+    <h2 class="sec-h">OS 5 DOCUMENTOS<br>EM DETALHE</h2>
+    <p class="sec-d">O que está dentro de cada entregável — o empresário sabe exatamente o que vai receber.</p>
+    <div class="dossie-grid">
+      <div class="dossie-card">
+        <div class="dossie-n">01</div>
+        <span class="dossie-tag">Documento Mestre</span>
+        <div class="dossie-name">PLANO DE NEGÓCIOS EXECUTIVO</div>
+        <p class="dossie-desc">Estratégia completa. Do mercado ao modelo.</p>
+        <ul class="dossie-list">
+          <li>Análise de mercado e oportunidade</li>
+          <li>Benchmarking e referências</li>
+          <li>Público-alvo e personas</li>
+          <li>Proposta de valor e posicionamento</li>
+          <li>Portfólio e pricing</li>
+          <li>Estratégia de experiência</li>
+        </ul>
+      </div>
+      <div class="dossie-card">
+        <div class="dossie-n">02</div>
+        <span class="dossie-tag">Planilha Personalizada</span>
+        <div class="dossie-name">DASHBOARD FINANCEIRO</div>
+        <p class="dossie-desc">Visibilidade total dos números que importam.</p>
+        <ul class="dossie-list">
+          <li>Meta diária e horária</li>
+          <li>Faturamento vs projeção</li>
+          <li>Margem e custos fixos</li>
+          <li>Payback e projeções</li>
+          <li>KPIs automáticos</li>
+          <li>Alertas de desvio</li>
+        </ul>
+      </div>
+      <div class="dossie-card">
+        <div class="dossie-n">03</div>
+        <span class="dossie-tag">Guia Prático</span>
+        <div class="dossie-name">MANUAL DE PROCESSOS</div>
+        <p class="dossie-desc">Como o negócio opera igual todo dia.</p>
+        <ul class="dossie-list">
+          <li>Checklist de abertura</li>
+          <li>Checklist de operação</li>
+          <li>Checklist de fechamento</li>
+          <li>Rotinas da equipe</li>
+          <li>Padrões de qualidade</li>
+          <li>Processos críticos documentados</li>
+        </ul>
+      </div>
+      <div class="dossie-card">
+        <div class="dossie-n">04</div>
+        <span class="dossie-tag">Conformidade Legal</span>
+        <div class="dossie-name">GUIA DE FORMALIZAÇÃO</div>
+        <p class="dossie-desc">Abrir certo para não fechar errado.</p>
+        <ul class="dossie-list">
+          <li>CNAE correto</li>
+          <li>Regime tributário ideal</li>
+          <li>Alvarás necessários</li>
+          <li>Abertura do CNPJ</li>
+          <li>Obrigações fiscais</li>
+          <li>Conformidade básica</li>
+        </ul>
+      </div>
+      <div class="dossie-card">
+        <div class="dossie-n">05</div>
+        <span class="dossie-tag">Cronograma Visual</span>
+        <div class="dossie-name">MAPA DE LANÇAMENTO</div>
+        <p class="dossie-desc">O que fazer em cada semana até abrir.</p>
+        <ul class="dossie-list">
+          <li>Cronograma semana a semana</li>
+          <li>Fases de pré-operação</li>
+          <li>Marcos e critérios</li>
+          <li>Responsáveis definidos</li>
+          <li>Checklist de pré-abertura</li>
+          <li>Plano de contingência</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANCHOR + PRICING -->
+<style>
+.anchor-bg { background: var(--navy); padding: 5rem 0; }
+.anchor-table { width: 100%; border-collapse: collapse; border-radius: 3px; overflow: hidden; margin-bottom: 2rem; }
+.anchor-table thead { background: rgba(232,90,26,0.12); }
+.anchor-table th { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid rgba(232,90,26,0.2); }
+.anchor-table td { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.6); padding: 0.9rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.anchor-table tr:hover td { background: rgba(255,255,255,0.02); }
+.anchor-table .anchor-val { color: #fff; font-weight: 900; }
+.anchor-table tfoot td { background: rgba(232,90,26,0.08); color: rgba(255,255,255,0.45); border-top: 2px solid rgba(232,90,26,0.3); }
+.anchor-table tfoot .anchor-val { color: var(--orange); font-size: 1rem; }
+.anchor-strike { text-decoration: line-through; color: rgba(255,255,255,0.25); }
+
+.pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--navy); border: 2px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-top: 3rem; }
+.pkg-card { padding: 2.5rem; }
+.pkg-card.estrutura { background: rgba(255,255,255,0.03); }
+.pkg-card.implementacao { background: rgba(232,90,26,0.07); border-left: 3px solid var(--orange); }
+.pkg-ey { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.75rem; }
+.pkg-card.estrutura .pkg-ey { color: rgba(255,255,255,0.3); }
+.pkg-card.implementacao .pkg-ey { color: var(--orange); }
+.pkg-price { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; letter-spacing: 0.03em; line-height: 1; margin-bottom: 0.25rem; }
+.pkg-card.estrutura .pkg-price { color: #fff; }
+.pkg-card.implementacao .pkg-price { color: var(--orange); }
+.pkg-period { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; }
+.pkg-card.estrutura .pkg-period { color: rgba(255,255,255,0.28); }
+.pkg-card.implementacao .pkg-period { color: rgba(232,90,26,0.6); }
+.pkg-sep { height: 1px; margin-bottom: 1.5rem; }
+.pkg-card.estrutura .pkg-sep { background: rgba(255,255,255,0.08); }
+.pkg-card.implementacao .pkg-sep { background: rgba(232,90,26,0.3); }
+.pkg-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pkg-list li { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+.pkg-card.estrutura .pkg-list li { color: rgba(255,255,255,0.5); }
+.pkg-card.implementacao .pkg-list li { color: rgba(255,255,255,0.7); }
+.pkg-list li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-size: 0.7rem; margin-top: 1px; }
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+
+<div class="anchor-bg">
+  <div class="wrap">
+    <div class="sec-label">Por que vale o investimento</div>
+    <h2 class="sec-h sec-h-w">SE VOCÊ FOSSE CONTRATAR<br>CADA ENTREGA SEPARADA</h2>
+    <p class="sec-d sec-d-w">O mercado cobra por cada entregável individualmente. Veja o que você pagaria para ter o mesmo resultado contratando separado.</p>
+
+    <table class="anchor-table">
+      <thead>
+        <tr>
+          <th>Entregável</th>
+          <th>O que o mercado cobra</th>
+          <th>Valor de mercado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Plano de Negócios Executivo</td>
+          <td>Consultoria especializada em planejamento estratégico</td>
+          <td class="anchor-val">R$4.500</td>
+        </tr>
+        <tr>
+          <td>Dashboard de Gestão Financeira</td>
+          <td>Analista financeiro ou contador especializado</td>
+          <td class="anchor-val">R$1.200</td>
+        </tr>
+        <tr>
+          <td>Manual de Processos Operacionais</td>
+          <td>Consultoria de processos e mapeamento operacional</td>
+          <td class="anchor-val">R$2.500</td>
+        </tr>
+        <tr>
+          <td>Guia de Formalização</td>
+          <td>Escritório de contabilidade — orientação tributária e legal</td>
+          <td class="anchor-val">R$800</td>
+        </tr>
+        <tr>
+          <td>Mapa de Lançamento — Roadmap</td>
+          <td>Gestor de projetos com cronograma e matriz de riscos</td>
+          <td class="anchor-val">R$2.000</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>Total se contratado separado</strong></td>
+          <td class="anchor-val anchor-strike">R$11.000</td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>Farol Estrutura — tudo junto em 3 meses</strong></td>
+          <td class="anchor-val">R$4.500</td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>Farol Implementação — plano + execução em 6 meses</strong></td>
+          <td class="anchor-val">R$7.000</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="pkg-grid">
+      <div class="pkg-card estrutura">
+        <div class="pkg-ey">Pacote 01 · 3 Meses</div>
+        <div class="pkg-price">R$4.500</div>
+        <div class="pkg-period">Farol Estrutura</div>
+        <div class="pkg-sep"></div>
+        <ul class="pkg-list">
+          <li>Plano de Negócios Executivo completo</li>
+          <li>Dashboard de Gestão Financeira personalizado</li>
+          <li>Manual de Processos Operacionais</li>
+          <li>Guia de Formalização — CNAE, tributário e alvarás</li>
+          <li>Mapa de Lançamento — Roadmap de 60 a 90 dias</li>
+          <li>Dossiê de Implementação Comercial completo</li>
+          <li>Duração: 3 meses</li>
+        </ul>
+      </div>
+      <div class="pkg-card implementacao">
+        <div class="pkg-ey">Pacote 02 · 6 Meses · Recomendado</div>
+        <div class="pkg-price">R$7.000</div>
+        <div class="pkg-period">Farol Implementação</div>
+        <div class="pkg-sep"></div>
+        <ul class="pkg-list">
+          <li>Tudo do Farol Estrutura incluído</li>
+          <li>Acompanhamento da implementação lado a lado</li>
+          <li>Treinamento e capacitação do time</li>
+          <li>Implementação de todos os processos na operação</li>
+          <li>Reuniões quinzenais de acompanhamento das atividades</li>
+          <li>Suporte contínuo via WhatsApp</li>
+          <li>Duração: 6 meses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Farol do Empreendedor · Produto 02 · Consultoria Individual<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>
