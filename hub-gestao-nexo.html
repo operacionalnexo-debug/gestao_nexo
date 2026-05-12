@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hub de Gestão — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E85A1A;
+  --navy:#08112A;
+  --navy-mid:#0F1E40;
+  --navy-light:#162D5E;
+  --off:#F0EDE6;
+  --gray:#C8C4BB;
+  --gray-dark:#3A3530;
+  --muted:#7A7570;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--navy);color:#fff;line-height:1.3;min-height:100vh;}
+
+/* BG */
+.bg-fixed{
+  position:fixed;inset:0;z-index:0;
+  background:var(--navy);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,.018) 79px,rgba(255,255,255,.018) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.018) 79px,rgba(255,255,255,.018) 80px);
+}
+.bg-gradient{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 20%,rgba(232,90,26,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 70% at 85% 80%,rgba(22,45,94,.6) 0%,transparent 60%);
+}
+
+/* LOGO WATERMARK */
+.watermark{
+  position:fixed;
+  right:-5%;bottom:-8%;
+  width:50%;
+  opacity:.035;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* LAYOUT */
+.app{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 3rem 4rem;}
+
+/* HEADER */
+.header{
+  padding:2rem 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+  margin-bottom:3.5rem;
+}
+.header-brand{display:flex;align-items:center;gap:1rem;}
+.header-logo-img{width:44px;height:44px;object-fit:contain;}
+.header-text{}
+.header-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.1em;color:#fff;line-height:1;}
+.header-name span{color:var(--orange);}
+.header-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.header-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;padding:5px 12px;border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.35);border-radius:2px;}
+.header-date{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+/* HERO */
+.hero{margin-bottom:4rem;}
+.hero-eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem;}
+.hero-line{width:36px;height:2px;background:var(--orange);}
+.hero-eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:.03em;color:#fff;margin-bottom:.5rem;}
+.hero-title span{color:var(--orange);}
+.hero-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);max-width:600px;line-height:1.65;}
+
+/* STATS BAR */
+.stats-bar{
+  display:flex;flex-wrap:wrap;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:3px;overflow:hidden;
+  margin-bottom:4rem;
+}
+.stat-item{flex:1;min-width:120px;padding:1.25rem 1.75rem;border-right:1px solid rgba(255,255,255,.08);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--orange);line-height:1;display:block;}
+.stat-l{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3px;display:block;}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.section-line{width:3px;height:28px;background:var(--orange);border-radius:2px;}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#fff;}
+.section-count{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:2px;}
+.section-mb{margin-bottom:3.5rem;}
+
+/* PRODUCT CARDS */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;margin-bottom:.5rem;}
+.prod-card{
+  background:rgba(255,255,255,.025);
+  padding:2rem 1.75rem;
+  position:relative;
+  transition:background .15s;
+  cursor:pointer;
+  text-decoration:none;
+  display:block;
+  color:inherit;
+}
+.prod-card:hover{background:rgba(255,255,255,.05);}
+.prod-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);opacity:0;transition:opacity .15s;}
+.prod-card:hover::before{opacity:1;}
+.prod-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
+.prod-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(232,90,26,.12);line-height:1;}
+.prod-badge{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;border:1.5px solid rgba(232,90,26,.3);color:var(--orange);padding:3px 8px;border-radius:2px;}
+.prod-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;color:#fff;margin-bottom:.5rem;line-height:1.1;}
+.prod-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:.75rem;}
+.prod-meta{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.prod-arrow{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:rgba(232,90,26,.4);margin-top:.5rem;display:block;transition:color .15s;}
+.prod-card:hover .prod-arrow{color:var(--orange);}
+
+/* MANUAL CARDS */
+.manuals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.manual-card{
+  background:rgba(255,255,255,.025);
+  padding:2rem 1.75rem;
+  position:relative;
+  transition:background .15s;
+  cursor:pointer;
+  text-decoration:none;
+  display:block;
+  color:inherit;
+}
+.manual-card:hover{background:rgba(255,255,255,.05);}
+.manual-card::after{content:'';position:absolute;top:0;left:1.75rem;right:1.75rem;height:2px;background:var(--orange);opacity:0;transition:opacity .15s;}
+.manual-card:hover::after{opacity:1;}
+.manual-area{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:.4rem;display:block;}
+.manual-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:#fff;margin-bottom:.5rem;line-height:1.1;}
+.manual-owner{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.75rem;}
+.manual-frentes{list-style:none;display:flex;flex-direction:column;gap:4px;margin-bottom:.75rem;}
+.manual-frentes li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:flex-start;gap:.4rem;}
+.manual-frentes li::before{content:'—';color:var(--orange);font-size:.65rem;flex-shrink:0;}
+.manual-arrow{font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:rgba(232,90,26,.4);transition:color .15s;}
+.manual-card:hover .manual-arrow{color:var(--orange);}
+
+/* RITUALS */
+.rituals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.ritual-cell{background:rgba(255,255,255,.025);padding:1.75rem 1.5rem;text-align:center;}
+.ritual-freq{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;color:var(--orange);display:block;line-height:1;margin-bottom:.35rem;}
+.ritual-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#fff;margin-bottom:.4rem;}
+.ritual-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.35);line-height:1.5;}
+
+/* SOCIOS */
+.socios-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.socio-card{background:rgba(255,255,255,.025);padding:2.5rem 2rem;}
+.socio-role{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.socio-name{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.05em;color:#fff;margin-bottom:.25rem;}
+.socio-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.07);}
+.socio-resp-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.75rem;}
+.socio-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.socio-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.socio-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+/* DIVERGENCE */
+.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.rule-cell{background:rgba(232,90,26,.06);border:1px solid rgba(232,90,26,.15);padding:1.5rem;}
+.rule-sit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.rule-how{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1.55;}
+
+/* PRODUCTS EXTRA ROW */
+.products-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+
+/* SEP */
+.sep{height:2px;background:linear-gradient(90deg,var(--orange) 0%,transparent 100%);margin:3.5rem 0;}
+
+/* FOOTER */
+.footer{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:2rem 0;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  margin-top:4rem;
+}
+.footer-brand{display:flex;align-items:center;gap:.75rem;}
+.footer-logo-img{width:32px;height:32px;object-fit:contain;opacity:.6;}
+.footer-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;color:#fff;}
+.footer-name span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:900px){
+  .app{padding:0 1.5rem 3rem;}
+  .products-grid,.manuals-grid,.products-grid-2{grid-template-columns:1fr;}
+  .rituals-grid{grid-template-columns:repeat(2,1fr);}
+  .socios-grid,.rules-grid{grid-template-columns:1fr;}
+  .stats-bar{flex-wrap:wrap;}
+}
+.cover-lema{display:flex;flex-direction:column;gap:3px;margin-bottom:.75rem;}.cover-lema-line{font-family:"Bebas Neue",sans-serif;font-size:1.3rem;letter-spacing:.12em;color:#fff;}.cover-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);}.cover-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);}.cover-lema-tag em{color:var(--orange);font-style:normal;}.hub-lema{display:flex;flex-direction:column;gap:2px;}.hub-lema-main{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.12em;color:#fff;}.hub-lema-sub{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);}.hub-lema-tag{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.22);}.hub-lema-tag em{color:var(--orange);font-style:normal;}</style>
+</head>
+<body>
+
+<div class="bg-fixed"></div>
+<div class="bg-gradient"></div>
+
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-text">
+        <div class="header-name">NEXO <span>Estratégia</span></div>
+        <div class="header-sub">Hub de Gestão · Documento Interno · Filipe + Pedro</div>
+      </div>
+    </div>
+    <div class="hub-lema" style="text-align:right;">
+      <span class="hub-lema-main">Plano · Foco · Execução</span>
+      <span class="hub-lema-sub">Estratégia + Conecta + Propósito + Transforma</span>
+      <span class="hub-lema-tag">Conectamos pontos. Geramos direção. Criamos <em>impacto.</em></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><div class="hero-line"></div><span class="hero-eyebrow-text">Central de Operações · Todos os Documentos</span></div>
+    <div class="hero-title">HUB DE<br><span>GESTÃO</span><br>NEXO</div>
+    <p class="hero-desc">Tudo que foi construído em um só lugar — produtos, manuais de área, rituais, divisão de sócios e processos. O manual de como a Nexo funciona.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-n">6</span><span class="stat-l">Produtos</span></div>
+    <div class="stat-item"><span class="stat-n">6</span><span class="stat-l">Áreas documentadas</span></div>
+    <div class="stat-item"><span class="stat-n">11</span><span class="stat-l">HTMLs gerados</span></div>
+    <div class="stat-item"><span class="stat-n">4</span><span class="stat-l">Rituais de gestão</span></div>
+    <div class="stat-item"><span class="stat-n">2</span><span class="stat-l">Sócios · papéis definidos</span></div>
+  </div>
+
+  <!-- PRODUTOS PRINCIPAIS -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">PRODUTOS PRINCIPAIS</div>
+      <span class="section-count">3 produtos</span>
+    </div>
+    <div class="products-grid">
+      <a class="prod-card" href="metodo-nexo-crescimento.html">
+        <div class="prod-top"><span class="prod-num">01</span><span class="prod-badge">Alto Ticket · 6 meses</span></div>
+        <div class="prod-name">MÉTODO NEXO DE CRESCIMENTO</div>
+        <p class="prod-desc">Consultoria 360° — do diagnóstico à autonomia. 6 dimensões, 4 fases, Dossiê Nexo completo.</p>
+        <div class="prod-meta">R$12.000 → R$30.000 · Método completo</div>
+        <span class="prod-arrow">ABRIR DOCUMENTO →</span>
+      </a>
+      <a class="prod-card" href="farol-empreendedor.html">
+        <div class="prod-top"><span class="prod-num">02</span><span class="prod-badge">Intermediário · 2 pacotes</span></div>
+        <div class="prod-name">FAROL DO EMPREENDEDOR</div>
+        <p class="prod-desc">Consultoria individual — da visão à estrutura comercial pronta para operar. 5 pilares universais.</p>
+        <div class="prod-meta">R$4.500 Estrutura · R$7.000 Implementação</div>
+        <span class="prod-arrow">ABRIR DOCUMENTO →</span>
+      </a>
+      <a class="prod-card" href="checkmate-comercial.html">
+        <div class="prod-top"><span class="prod-num">03</span><span class="prod-badge">Treinamento · 30 dias</span></div>
+        <div class="prod-name">CHECKMATE COMERCIAL</div>
+        <p class="prod-desc">Diagnóstico + 2 treinamentos em 30 dias. A jornada do vendedor de alto impacto.</p>
+        <div class="prod-meta">R$1.200 · Presencial ou Online</div>
+        <span class="prod-arrow">ABRIR DOCUMENTO →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- PRODUTOS DIGITAIS -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">PRODUTOS DIGITAIS</div>
+      <span class="section-count">2 produtos · porta de entrada</span>
+    </div>
+    <div class="products-grid-2">
+      <a class="prod-card" href="nexo-tools.html">
+        <div class="prod-top"><span class="prod-num">04</span><span class="prod-badge">Digital 01 · Porta de entrada</span></div>
+        <div class="prod-name">NEXO TOOLS</div>
+        <p class="prod-desc">21 ferramentas em um link — 10 GPTs, 5 Skills do Claude, 6 Frameworks e Guias.</p>
+        <div class="prod-meta">R$197 · Acesso via link</div>
+        <span class="prod-arrow">ABRIR DOCUMENTO →</span>
+      </a>
+      <a class="prod-card" href="kit-dashboards-nexo.html">
+        <div class="prod-top"><span class="prod-num">05</span><span class="prod-badge">Digital 02 · Controle visual</span></div>
+        <div class="prod-name">KIT DASHBOARDS NEXO</div>
+        <p class="prod-desc">5 planilhas prontas para usar — comercial, time, financeiro, indicadores e gestão semanal.</p>
+        <div class="prod-meta">R$197 · Google Sheets ou Excel</div>
+        <span class="prod-arrow">ABRIR DOCUMENTO →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- MANUAIS DE ÁREA -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">MANUAIS DE ÁREA</div>
+      <span class="section-count">6 áreas · estrutura completa</span>
+    </div>
+    <div class="manuals-grid">
+      <a class="manual-card" href="manual-comercial.html">
+        <span class="manual-area">Área 01</span>
+        <div class="manual-name">COMERCIAL</div>
+        <div class="manual-owner">Dono: Pedro</div>
+        <ul class="manual-frentes">
+          <li>Prospecção e qualificação</li>
+          <li>Proposta e negociação</li>
+          <li>Fechamento e passagem para CS</li>
+          <li>ICP · funil · scripts por canal</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+      <a class="manual-card" href="manual-customer-success.html">
+        <span class="manual-area">Área 02</span>
+        <div class="manual-name">CUSTOMER SUCCESS</div>
+        <div class="manual-owner">Dono: Filipe</div>
+        <ul class="manual-frentes">
+          <li>Onboarding e 4 fases do contrato</li>
+          <li>Health Score — verde, amarelo, vermelho</li>
+          <li>Protocolo de risco</li>
+          <li>Renovação, expansão e indicação</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+      <a class="manual-card" href="manual-projetos.html">
+        <span class="manual-area">Área 03</span>
+        <div class="manual-name">PROJETOS</div>
+        <div class="manual-owner">Dono: Filipe</div>
+        <ul class="manual-frentes">
+          <li>Sprints de 2 semanas</li>
+          <li>Divisão de entregáveis por frente</li>
+          <li>Base do Cliente em HTML</li>
+          <li>Controle de escopo</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+      <a class="manual-card" href="manual-marketing.html">
+        <span class="manual-area">Área 04</span>
+        <div class="manual-name">MARKETING</div>
+        <div class="manual-owner">Dono: Filipe</div>
+        <ul class="manual-frentes">
+          <li>4 pilares de conteúdo</li>
+          <li>Ciclo mensal — planejamento ao análise</li>
+          <li>Gestão de terceirizados</li>
+          <li>Estratégia de cases</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+      <a class="manual-card" href="manual-financeiro.html">
+        <span class="manual-area">Área 05</span>
+        <div class="manual-name">FINANCEIRO</div>
+        <div class="manual-owner">Dono: Pedro</div>
+        <ul class="manual-frentes">
+          <li>Cobrança via Asaas</li>
+          <li>Planilha — 5 abas essenciais</li>
+          <li>Margem por produto</li>
+          <li>Jurídico e contratos</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+      <a class="manual-card" href="manual-pessoas.html">
+        <span class="manual-area">Área 06</span>
+        <div class="manual-name">PESSOAS</div>
+        <div class="manual-owner">Dono: Filipe</div>
+        <ul class="manual-frentes">
+          <li>3 gatilhos para contratar</li>
+          <li>Roadmap de contratações</li>
+          <li>Onboarding de 30 dias</li>
+          <li>Cultura — resultado e comprometimento</li>
+        </ul>
+        <span class="manual-arrow">ABRIR MANUAL →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- DIVISÃO DE SÓCIOS -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">DIVISÃO DE SÓCIOS</div>
+      <span class="section-count">Filipe + Pedro</span>
+    </div>
+    <div class="socios-grid">
+      <div class="socio-card">
+        <span class="socio-role">COO · Frente Interna</span>
+        <div class="socio-name">FILIPE</div>
+        <div class="socio-title">Customer Success · Projetos · Marketing · Pessoas</div>
+        <div class="socio-resp-title">Responsabilidades</div>
+        <ul class="socio-list">
+          <li>Visão de longo prazo e decisões de produto</li>
+          <li>Posicionamento e marca da empresa</li>
+          <li>Marketing e direção criativa</li>
+          <li>Ponto de contato principal com clientes ativos</li>
+          <li>Gestão dos projetos em andamento</li>
+          <li>Gestão de terceirizados e do time</li>
+          <li>Processos internos e rotina da equipe</li>
+          <li>RH e cultura</li>
+        </ul>
+      </div>
+      <div class="socio-card">
+        <span class="socio-role">CEO · Frente Comercial</span>
+        <div class="socio-name">PEDRO</div>
+        <div class="socio-title">Comercial · Financeiro</div>
+        <div class="socio-resp-title">Responsabilidades</div>
+        <ul class="socio-list">
+          <li>Prospecção e relacionamento com novos clientes</li>
+          <li>Condução de propostas e fechamento de contratos</li>
+          <li>Parcerias estratégicas</li>
+          <li>Financeiro e indicadores</li>
+          <li>Garantia de qualidade das entregas</li>
+          <li>Palavra final em descontos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGRAS DE INTERFACE -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">REGRAS DE INTERFACE</div>
+      <span class="section-count">Como os sócios trabalham juntos</span>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-cell">
+        <span class="rule-sit">Divergência em qualquer área</span>
+        <p class="rule-how">Quem é líder da função decide — ao menos para testar a solução</p>
+      </div>
+      <div class="rule-cell">
+        <span class="rule-sit">Novo cliente fechado</span>
+        <p class="rule-how">Alinhamento interno entre sócios → alinhamento conjunto com o cliente</p>
+      </div>
+      <div class="rule-cell">
+        <span class="rule-sit">Onboarding de novo cliente</span>
+        <p class="rule-how">Os dois participam no início — Filipe assume como ponto de contato após onboarding</p>
+      </div>
+      <div class="rule-cell">
+        <span class="rule-sit">Preço e desconto</span>
+        <p class="rule-how">Preços tabelados. Desconto máximo 10% — palavra final de Pedro</p>
+      </div>
+      <div class="rule-cell">
+        <span class="rule-sit">Contratações</span>
+        <p class="rule-how">Decidem juntos — os dois precisam dizer sim. Se um diz não, não avança</p>
+      </div>
+      <div class="rule-cell">
+        <span class="rule-sit">Urgência real</span>
+        <p class="rule-how">Liga — não manda áudio de 3 minutos. Urgência não resolve no WhatsApp</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- RITUAIS -->
+  <div class="section-mb">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">RITUAIS DE GESTÃO</div>
+      <span class="section-count">4 rituais fixos</span>
+    </div>
+    <div class="rituals-grid">
+      <div class="ritual-cell">
+        <span class="ritual-freq">DIÁRIO</span>
+        <div class="ritual-name">Alinhamento diário</div>
+        <p class="ritual-desc">Check-in assíncrono via WhatsApp — foco do dia, travamento e urgência. 15 min ou menos.</p>
+      </div>
+      <div class="ritual-cell">
+        <span class="ritual-freq">SEMANAL</span>
+        <div class="ritual-name">Reunião de sócios</div>
+        <p class="ritual-desc">60 min — números, clientes, projetos, decisões em aberto e foco da semana. Pauta enviada 2h antes.</p>
+      </div>
+      <div class="ritual-cell">
+        <span class="ritual-freq">MENSAL</span>
+        <div class="ritual-name">Revisão mensal</div>
+        <p class="ritual-desc">2h — resultado do mês, o que funcionou, saúde dos clientes, progresso da reestruturação e foco do mês.</p>
+      </div>
+      <div class="ritual-cell">
+        <span class="ritual-freq">TRIMESTRAL</span>
+        <div class="ritual-name">Revisão trimestral</div>
+        <p class="ritual-desc">Meio dia fora do escritório — resultado vs metas, decisões estratégicas e alinhamento entre sócios.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">
+      <div class="footer-name">NEXO <span>Estratégia</span></div>
+    </div>
+    <div style="text-align:right;">
+      <div class="hub-lema-main" style="font-size:1rem;color:rgba(255,255,255,.5);">Plano · Foco · Execução</div>
+      <div class="footer-meta">Hub de Gestão · Documento Interno · Filipe & Pedro<br>nexoestrategia.com.br · 2026</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
