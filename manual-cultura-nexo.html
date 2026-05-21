@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visão, Missão e Valores — Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E85A1A;
+  --navy:#08112A;
+  --navy-mid:#0F1E40;
+  --navy-light:#162D5E;
+  --off:#F0EDE6;
+  --gray:#C8C4BB;
+  --gray-dark:#3A3530;
+  --muted:#7A7570;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:700;background:var(--navy);color:#fff;line-height:1.3;}
+
+/* ── COVER ── */
+.cover{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.cover-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.02) 59px,rgba(255,255,255,.02) 60px);}
+.cover-slash{position:absolute;top:0;right:0;width:38%;height:100%;background:var(--orange);clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);opacity:.055;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem;max-width:1200px;margin:0 auto;width:100%;}
+.cover-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1rem;}
+.cover-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+.cover-logo span{color:var(--orange);}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--orange);color:var(--orange);border-radius:2px;}
+.tag-fill{background:var(--orange);color:#fff;border-color:var(--orange);}
+.tag-dark{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.4);}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3.5rem 0 2rem;}
+.eyebrow{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem;}
+.eyebrow-line{width:36px;height:2px;background:var(--orange);}
+.eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);}
+.cover-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:.9;letter-spacing:.03em;color:#fff;margin-bottom:.4rem;}
+.cover-h1 span{color:var(--orange);display:block;}
+.cover-h1-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:.1em;color:rgba(255,255,255,.2);display:block;margin-bottom:2.5rem;}
+.cover-bar{width:56px;height:3px;background:var(--orange);margin-bottom:2rem;}
+.cover-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);max-width:580px;line-height:1.65;margin-bottom:3rem;}
+
+/* LEMA BLOCK */
+.lema-block{background:rgba(232,90,26,.07);border:1px solid rgba(232,90,26,.2);border-radius:3px;padding:2rem 2.5rem;margin-bottom:2rem;max-width:700px;}
+.lema-main{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:.08em;color:#fff;line-height:1;margin-bottom:.5rem;}
+.lema-main em{color:var(--orange);font-style:normal;}
+.lema-pillars{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;}
+.lema-pillar{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:rgba(255,255,255,.3);position:relative;}
+.lema-pillar.active{color:var(--orange);}
+.lema-pillar+.lema-pillar::before{content:'·';position:absolute;left:-.9rem;color:rgba(255,255,255,.15);}
+
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.cover-quote{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.18);max-width:500px;}
+
+/* ── BAND ── */
+.band{background:var(--orange);padding:1.4rem 3.5rem;position:relative;overflow:hidden;}
+.band-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,2rem);letter-spacing:.06em;color:#fff;position:relative;z-index:1;}
+.band::after{content:'"';font-size:9rem;color:rgba(255,255,255,.08);position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Barlow',sans-serif;font-style:italic;}
+
+/* ── WRAP ── */
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 3.5rem;}
+.bg-navy{background:var(--navy);}
+.bg-mid{background:var(--navy-mid);}
+.bg-off{background:var(--off);}
+.sep{height:3px;background:linear-gradient(90deg,var(--orange) 0%,var(--navy) 100%);}
+
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.sec-label::before{content:'';display:block;width:26px;height:2px;background:var(--orange);}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1rem;}
+.sec-h-w{color:#fff;}.sec-h-d{color:var(--navy);}
+.sec-d{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;max-width:680px;line-height:1.65;margin-bottom:3rem;}
+.sec-d-w{color:rgba(255,255,255,.32);}.sec-d-d{color:var(--muted);}
+
+/* ── VISÃO PILLARS ── */
+.vision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;margin-bottom:3rem;}
+.vision-card{background:rgba(255,255,255,.025);padding:2.5rem 2rem;border-top:3px solid var(--orange);transition:background .15s;}
+.vision-card:hover{background:rgba(255,255,255,.045);}
+.vision-n{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(232,90,26,.12);line-height:1;margin-bottom:.5rem;}
+.vision-quote{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);font-style:italic;margin-bottom:.75rem;line-height:1.4;}
+.vision-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#fff;margin-bottom:1rem;}
+.vision-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.42);line-height:1.7;}
+
+/* GROWTH BLOCK */
+.growth-block{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:3px;padding:2rem;margin-bottom:3rem;}
+.growth-block-h{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.growth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.growth-item-h{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;}
+.growth-item-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.65;}
+
+/* ── MISSÃO ── */
+.missao-origin{background:rgba(232,90,26,.07);border-left:3px solid var(--orange);padding:1.75rem 2rem;border-radius:0 3px 3px 0;margin-bottom:2rem;}
+.origin-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.75rem;}
+.origin-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.75;}
+
+.missao-falta{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;margin-bottom:3rem;}
+.falta-card{background:rgba(255,255,255,.025);padding:1.75rem;text-align:center;}
+.falta-icon{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);line-height:1;margin-bottom:.5rem;display:block;}
+.falta-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;}
+.falta-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.35);line-height:1.55;}
+
+.entrega-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.entrega-card{background:rgba(255,255,255,.025);padding:1.5rem;}
+.entrega-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.entrega-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;margin-bottom:.5rem;}
+.entrega-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.55;}
+
+/* ── VALORES ── */
+.valor-block{margin-bottom:4px;border:1px solid rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.valor-header{background:rgba(232,90,26,.06);border-bottom:1px solid rgba(232,90,26,.18);padding:1.25rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.valor-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(232,90,26,.25);line-height:1;}
+.valor-header-right{}
+.valor-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;color:#fff;}
+.valor-tagline{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);}
+.valor-body{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.015);}
+.valor-col{padding:1.75rem 2rem;border-right:1px solid rgba(255,255,255,.05);}
+.valor-col:last-child{border-right:none;}
+.valor-col-h{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.12em;color:var(--orange);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid rgba(232,90,26,.18);display:block;}
+.valor-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.75;}
+.pratica-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.pratica-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.pratica-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+/* ── CULTURA ── */
+.cultura-cols{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;margin-bottom:2rem;}
+.cultura-col{background:rgba(255,255,255,.025);padding:2rem;}
+.cultura-col-h{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em;color:var(--orange);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(232,90,26,.2);}
+.cultura-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cultura-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:.5rem;line-height:1.4;}
+.cultura-list li::before{content:'→';color:var(--orange);flex-shrink:0;}
+
+.nunca-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;margin-bottom:2rem;}
+.nunca-card{background:rgba(255,255,255,.025);padding:1.75rem;}
+.nunca-tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.4rem;}
+.nunca-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;color:#fff;margin-bottom:.6rem;}
+.nunca-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1.6;}
+
+/* CLIENTE IDEAL */
+.cliente-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--gray);border:2px solid var(--navy);border-radius:3px;overflow:hidden;margin-bottom:2rem;}
+.cliente-card{padding:2rem;}
+.cliente-card.quer{background:var(--off);}
+.cliente-card.nao{background:#fff0ee;}
+.cliente-h{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid;}
+.cliente-card.quer .cliente-h{color:var(--navy);border-color:var(--orange);}
+.cliente-card.nao .cliente-h{color:#C03000;border-color:#D4430E;}
+.cliente-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cliente-list li{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;line-height:1.4;display:flex;align-items:flex-start;gap:.5rem;}
+.cliente-card.quer .cliente-list li{color:var(--gray-dark);}
+.cliente-card.quer .cliente-list li::before{content:'✓';color:var(--orange);flex-shrink:0;}
+.cliente-card.nao .cliente-list li{color:#8B2500;}
+.cliente-card.nao .cliente-list li::before{content:'✗';color:#D4430E;flex-shrink:0;}
+
+/* CELEBRA */
+.celebra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.celebra-card{background:rgba(255,255,255,.025);padding:2rem;}
+.celebra-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(232,90,26,.12);line-height:1;margin-bottom:.4rem;}
+.celebra-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:#fff;margin-bottom:.6rem;}
+.celebra-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.65;}
+
+/* SÍNTESE */
+.sintese-block{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.2);border-radius:3px;padding:3rem;margin-top:2rem;}
+.sintese-h{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:#fff;margin-bottom:2rem;}
+.sintese-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.sintese-item-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:.5rem;}
+.sintese-item-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.65;}
+.sintese-lema{text-align:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(232,90,26,.2);}
+.sintese-lema-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,4vw,2.5rem);letter-spacing:.1em;color:#fff;}
+.sintese-lema-text em{color:var(--orange);font-style:normal;}
+.sintese-lema-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:.5rem;display:block;}
+
+/* FOOTER */
+.footer{background:var(--navy);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:3px solid var(--orange);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.footer-logo span{color:var(--orange);}
+.footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:right;}
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem;}
+  .cover-inner{padding:1.5rem;}
+  .vision-grid,.missao-falta,.entrega-grid,.nunca-grid,.celebra-grid,.sintese-grid{grid-template-columns:1fr;}
+  .valor-body,.cultura-cols,.cliente-grid,.growth-grid{grid-template-columns:1fr;}
+  .band,.footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-inner">
+    <div class="cover-nav">
+      <div class="cover-logo">NEXO <span>Estratégia</span></div>
+      <span class="tag tag-dark">Documento Oficial · Cultura e Identidade · 2026</span>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quem somos · O que acreditamos · Como agimos</span></div>
+      <div class="cover-h1">
+        VISÃO, MISSÃO
+        <span>E VALORES</span>
+      </div>
+      <span class="cover-h1-sub">A BASE QUE GUIA TUDO NA NEXO</span>
+      <div class="cover-bar"></div>
+      <p class="cover-desc">Não é um documento para pendurar na parede. É o manual de como a Nexo existe, decide e age — em todo projeto, com todo cliente, com todo colaborador.</p>
+
+      <div class="lema-block">
+        <div class="lema-main">Estratégia Conecta,<br><em>Propósito Transforma.</em></div>
+        <div class="lema-pillars">
+          <span class="lema-pillar active">Estratégia</span>
+          <span class="lema-pillar active">Clareza</span>
+          <span class="lema-pillar active">Execução</span>
+        </div>
+      </div>
+    </div>
+    <div class="cover-foot">
+      <span class="cover-quote">"Conectamos pontos. Geramos direção. Criamos impacto."</span>
+      <span class="tag tag-dark">Filipe + Pedro · Nexo 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="band"><span class="band-text">RESOLUÇÃO · TRANSPARÊNCIA · HUMANIDADE · INTEGRIDADE · PERTENCIMENTO · CLAREZA — OS 6 VALORES QUE DEFINEM A NEXO.</span></div>
+
+<!-- ══════════════════════ -->
+<!-- VISÃO -->
+<!-- ══════════════════════ -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para onde vamos</div>
+    <h2 class="sec-h sec-h-w">VISÃO</h2>
+    <p class="sec-d sec-d-w">Ser a consultoria estratégica de referência no Nordeste — a empresa que empresários procuram quando querem resolver de verdade, crescer com estrutura e ter qualidade de vida no processo.</p>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-n">01</div>
+        <div class="vision-quote">"Esses caras resolvem."</div>
+        <div class="vision-title">RESOLUÇÃO</div>
+        <p class="vision-text">Não existe problema operacional, estratégico ou de gestão que a Nexo não enfrente. Não somos uma consultoria de relatório — somos a empresa que entra, diagnostica, planeja e executa lado a lado até o problema estar resolvido. Resolvemos porque construímos metodologia prática, aprendemos com cada empresa e não fugimos da complexidade.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-n">02</div>
+        <div class="vision-quote">"Essa empresa tem caráter."</div>
+        <div class="vision-title">CARÁTER</div>
+        <p class="vision-text">Queremos ser reconhecidos não só pelo que entregamos para os clientes, mas pelo que representamos como empresa. Uma Nexo que tem papel na sociedade — que gera impacto além do faturamento, que cuida do time, que tem presença na comunidade e que age com os valores que prega. Ser uma empresa que as pessoas admiram de dentro para fora.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-n">03</div>
+        <div class="vision-quote">"Essa empresa dá certo — e faz os outros darem certo também."</div>
+        <div class="vision-title">SUCESSO</div>
+        <p class="vision-text">Nosso sucesso não é só o nosso crescimento. É poder olhar para a carteira de clientes e ver empresas que transformaram o negócio, empresários que voltaram a ter qualidade de vida, donos que finalmente conseguem sair da operação. Nosso sucesso se mede pelo sucesso de quem passou pela Nexo.</p>
+      </div>
+    </div>
+
+    <div class="growth-block">
+      <div class="growth-block-h">COMO QUEREMOS CRESCER</div>
+      <div class="growth-grid">
+        <div>
+          <div class="growth-item-h">CRESCIMENTO ORGÂNICO</div>
+          <p class="growth-item-text">Saudável antes de grande. Se precisar perder cliente para manter padrão, perdemos. Se precisar crescer mais devagar para manter a excelência do que entregamos, crescemos mais devagar. Nunca volume no lugar de qualidade.</p>
+        </div>
+        <div>
+          <div class="growth-item-h">PRESENÇA NO NORDESTE</div>
+          <p class="growth-item-text">João Pessoa como base, Pernambuco e Rio Grande do Norte como expansão. O digital abre o Brasil — mas o Nordeste é onde queremos ser referência primeiro. Ser a empresa que as pessoas da região procuram quando precisam resolver de verdade.</p>
+        </div>
+        <div>
+          <div class="growth-item-h">ECOSSISTEMA, NÃO CARTEIRA</div>
+          <p class="growth-item-text">Clientes que participam da vida da Nexo, que se conectam entre si, que fazem parte de algo maior do que uma relação comercial. Não só prestador de serviço — parceiro estratégico de longo prazo. Eventos, jantares, conexão genuína.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════ -->
+<!-- MISSÃO -->
+<!-- ══════════════════════ -->
+<div class="bg-mid">
+  <div class="wrap">
+    <div class="sec-label">Por que existimos</div>
+    <h2 class="sec-h sec-h-w">MISSÃO</h2>
+    <p class="sec-d sec-d-w">Conectar o empresário com a clareza estratégica, a estrutura operacional e o propósito que o fez começar — para que ele possa crescer de forma consistente, com liberdade.</p>
+
+    <div class="missao-origin">
+      <span class="origin-label">De onde viemos</span>
+      <p class="origin-text">A Nexo nasceu de um incômodo real com o mercado. Dois sócios que viveram o mercado digital de dentro — startups, lançamentos, alta pressão, metas sem processo, crescimento sem estrutura — e viram de perto o que acontece quando uma empresa cresce sem organização interna. Vende muito, entrega mal. Fatura mais, sobra menos. Contrata mais gente, fica mais caótico.<br><br>A Nexo nasceu para ser o oposto disso. Para mostrar que existe outro caminho: crescer com estrutura, com processo, com clareza de onde está indo e por quê.<br><br>O nome não foi por acaso. <strong style="color:var(--orange)">Nexo significa conexão.</strong> E a maior conexão que a gente precisa fazer não é entre estratégia e resultado — é entre o empresário e o motivo que o fez abrir aquele negócio. Quando esse fio se perde, a empresa perde a direção. Nosso trabalho começa aí.</p>
+    </div>
+
+    <div class="sec-label" style="margin-bottom:16px;">O que faltaria se a Nexo deixasse de existir</div>
+    <div class="missao-falta" style="margin-bottom:3rem;">
+      <div class="falta-card">
+        <span class="falta-icon">→</span>
+        <div class="falta-title">DIRECIONAMENTO</div>
+        <p class="falta-desc">O empresário que cresceu mas perdeu o controle não saberia para onde ir. Falta alguém que aponte o caminho com clareza.</p>
+      </div>
+      <div class="falta-card">
+        <span class="falta-icon">→</span>
+        <div class="falta-title">CLAREZA</div>
+        <p class="falta-desc">Alguém que fala a verdade sobre o que está funcionando e o que não está — sem meias palavras, sem validar por validar.</p>
+      </div>
+      <div class="falta-card">
+        <span class="falta-icon">→</span>
+        <div class="falta-title">PLANEJAMENTO</div>
+        <p class="falta-desc">A virada de chave que separa uma empresa que sobrevive de uma empresa que escala. Sem planejamento, crescimento vira caos.</p>
+      </div>
+      <div class="falta-card">
+        <span class="falta-icon">→</span>
+        <div class="falta-title">UM PARCEIRO HONESTO</div>
+        <p class="falta-desc">Alguém que está do lado do empreendedor de verdade — não para validar tudo que ele faz, mas para ajudá-lo a fazer melhor.</p>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-bottom:16px;">O que fazemos na prática</div>
+    <div class="entrega-grid">
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 01</span>
+        <div class="entrega-title">ESTRATÉGIA DE NEGÓCIO</div>
+        <p class="entrega-text">Posicionamento, modelo de negócio, precificação e plano de crescimento. O mapa do onde está e para onde vai.</p>
+      </div>
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 02</span>
+        <div class="entrega-title">ESTRUTURA COMERCIAL</div>
+        <p class="entrega-text">Processo de vendas, time, rotina, scripts e indicadores. Receita consistente que não depende só do dono para acontecer.</p>
+      </div>
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 03</span>
+        <div class="entrega-title">GESTÃO OPERACIONAL</div>
+        <p class="entrega-text">Processos internos documentados, rotinas por área, ritos de gestão. A empresa que funciona mesmo sem o dono presente.</p>
+      </div>
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 04</span>
+        <div class="entrega-title">CULTURA E PESSOAS</div>
+        <p class="entrega-text">Valores, onboarding, desenvolvimento do time, critérios de contratação. A empresa que atrai e retém quem acredita no mesmo propósito.</p>
+      </div>
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 05</span>
+        <div class="entrega-title">FINANCEIRO</div>
+        <p class="entrega-text">Controle de receita, custos, margem real por produto. Deixar de gerir no feeling e ver o negócio em números de verdade.</p>
+      </div>
+      <div class="entrega-card">
+        <span class="entrega-tag">Frente 06</span>
+        <div class="entrega-title">PLANEJAMENTO E GESTÃO</div>
+        <p class="entrega-text">Ritos de gestão, indicadores, tomada de decisão com dado. A semana do dono organizada para gerar resultado — não só apagar incêndio.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════ -->
+<!-- VALORES -->
+<!-- ══════════════════════ -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Como a Nexo age</div>
+    <h2 class="sec-h sec-h-w">OS 6 VALORES</h2>
+    <p class="sec-d sec-d-w">Valores não são o que a empresa diz que é. São o que a empresa faz quando ninguém está olhando, quando está sob pressão, quando seria mais fácil agir diferente.</p>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">01</span>
+        <div class="valor-header-right">
+          <div class="valor-title">RESOLUÇÃO</div>
+          <div class="valor-tagline">"Seja qual for a complexidade do problema — a gente encontra o caminho."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Resolução não é só entregar o que foi combinado. É se comprometer com o resultado, não com a entrega. A Nexo não faz consultoria de relatório — faz consultoria de transformação.<br><br>Quando travamos, aprendemos. Quando erramos, corrigimos. O que não fazemos é deixar o problema sem solução. Cada empresa nova que atendemos nos ensina algo que a anterior não ensinou — e isso é o que nos faz melhores a cada projeto.</p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Não vendemos o que não conseguimos entregar</li>
+            <li>Quando aparece um problema que ainda não vimos, estudamos até resolver</li>
+            <li>Resultado é o critério — não o esforço, não o tempo, não a intenção</li>
+            <li>Metodologia prática, ágil e ajustável — não mirabolante e teórica</li>
+            <li>O projeto não termina na entrega — termina quando o cliente implementou</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">02</span>
+        <div class="valor-header-right">
+          <div class="valor-title">TRANSPARÊNCIA</div>
+          <div class="valor-tagline">"Se a gente está errado, a gente assume. Se acerta, celebra."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Transparência não é só falar a verdade quando é fácil. É falar a verdade quando é difícil — quando o cliente não quer ouvir, quando o prazo apertou, quando o erro foi nosso.<br><br>A Nexo não foge de conversa difícil. Não cobre problema com promessa. Não vende expectativa que não pode cumprir. Isso vale para dentro também: o ambiente da Nexo é onde as pessoas podem falar o que pensam, assumir o que erraram e receber feedback sem drama.</p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Se erramos, assumimos antes que o cliente perceba — não depois</li>
+            <li>Se não conseguimos entregar no prazo, comunicamos antes — nunca depois</li>
+            <li>Feedback é ferramenta, não punição — direto, claro e construtivo</li>
+            <li>Não validamos decisão ruim só para o cliente ficar satisfeito</li>
+            <li>A verdade dita com cuidado é mais valiosa do que o silêncio confortável</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">03</span>
+        <div class="valor-header-right">
+          <div class="valor-title">HUMANIDADE</div>
+          <div class="valor-tagline">"A gente não quer ser aquela empresa que vai explorar o funcionário ao máximo."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Antes de qualquer metodologia, existe um ser humano do outro lado. O empresário que veio até a Nexo tem uma história, um sonho, uma razão para ter aberto aquele negócio. O colaborador que trabalha com a gente tem uma vida além do expediente.<br><br>Humanidade é reconhecer isso em cada interação. Não destratar. Nunca. Independente de pressão, de prazo, de situação. Gritar, esculhambar, desqualificar não tem espaço na Nexo — com colaborador, com cliente, com ninguém.<br><br>Quando algo dá errado — e vai dar errado — a conversa começa com: <em style="color:var(--orange);">"vamos entender o que aconteceu e resolver juntos."</em></p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Erro vira aprendizado quando tratado com humanidade e contexto</li>
+            <li>Colaborador sabe que vai ser cobrado — e também que vai ser cuidado</li>
+            <li>Cliente que não respeita esse valor não é o cliente que queremos</li>
+            <li>Nenhum resultado justifica desumanizar quem está do outro lado</li>
+            <li>Olhar para o empreendedor antes de olhar para o negócio dele</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">04</span>
+        <div class="valor-header-right">
+          <div class="valor-title">INTEGRIDADE</div>
+          <div class="valor-tagline">"A gente não vai abrir mão da nossa ética — mesmo sob pressão de prazo ou de cliente."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Integridade é fazer a coisa certa mesmo quando ninguém está olhando. Mesmo quando o cliente está pressionando. Mesmo quando o prazo está impossível. Mesmo quando seria mais fácil fazer diferente.<br><br>Na Nexo, o que foi combinado é sagrado. Se prometemos, entregamos. Se não conseguimos cumprir, falamos antes — não depois. Não existe versão flexível da nossa ética dependendo de quem é o cliente ou quanto é o contrato.<br><br>Isso vale também para o que esperamos de quem trabalha com a gente e de quem nos contrata. Desonestidade não tem lugar aqui.</p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Não abrimos exceção de ética por dinheiro — sob nenhuma circunstância</li>
+            <li>Cliente que descumpre o combinado, que some, que não se compromete — não é o nosso cliente</li>
+            <li>Colaborador desonesto é desligado, independente de quando e do motivo</li>
+            <li>Se for preciso devolver dinheiro para manter a ética, a gente devolve</li>
+            <li>Palavra dada é compromisso — não intenção</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">05</span>
+        <div class="valor-header-right">
+          <div class="valor-title">PERTENCIMENTO</div>
+          <div class="valor-tagline">"Quero que as pessoas sintam que estão fazendo algo com pessoas do bem."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Pertencimento não é família. É algo mais honesto: é saber que o time que está do seu lado acredita no mesmo propósito, trabalha pelos mesmos valores e quer o mesmo tipo de empresa. É se sentir parte de algo que vai além da sua função.<br><br>Na Nexo, resultado é celebrado coletivamente. Conquista de um cliente é conquista do time. O colaborador que ajudou a entregar aquele projeto também fez parte daquele sucesso — e isso precisa ser reconhecido de forma concreta, não só em discurso.</p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Vitórias são compartilhadas — reconhecimento humano antes de financeiro</li>
+            <li>Momentos com o time e as famílias — não só em datas comemorativas</li>
+            <li>Progressão de carreira baseada em resultado e cultura — não em tempo de casa</li>
+            <li>Colaborador que chega à Nexo entra num time com propósito — não numa linha de produção</li>
+            <li>Crescimento pessoal e profissional são parte do pacote — não bônus</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-block">
+      <div class="valor-header">
+        <span class="valor-num">06</span>
+        <div class="valor-header-right">
+          <div class="valor-title">CLAREZA</div>
+          <div class="valor-tagline">"A Nexo existe para trazer clareza, execução e liberdade."</div>
+        </div>
+      </div>
+      <div class="valor-body">
+        <div class="valor-col">
+          <span class="valor-col-h">O QUE SIGNIFICA</span>
+          <p class="valor-text">Clareza é o produto central da Nexo antes de qualquer entregável. O empresário que chega até nós quase sempre está confuso — sobre o que priorizar, sobre por que as coisas não funcionam, sobre o que fazer primeiro. Nosso trabalho começa sempre pela clareza.<br><br>Clareza no diagnóstico: o que está funcionando e o que não está, sem ilusão. Clareza no plano: o que vai ser feito, em qual ordem, por quem. Clareza na execução: o cliente sabe exatamente onde está e o que vem a seguir.</p>
+        </div>
+        <div class="valor-col">
+          <span class="valor-col-h">NA PRÁTICA</span>
+          <ul class="pratica-list">
+            <li>Nenhum entregável sai sem que o cliente entenda o que significa</li>
+            <li>Reunião sem clareza de próximos passos não termina</li>
+            <li>O cliente que saiu da Nexo precisa saber fazer sozinho — não depender de nós eternamente</li>
+            <li>Complexidade não justifica falta de clareza — simplificamos sem perder profundidade</li>
+            <li>A Nexo não entrega documento — entrega entendimento</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════ -->
+<!-- CULTURA -->
+<!-- ══════════════════════ -->
+<div class="bg-off">
+  <div class="wrap">
+    <div class="sec-label">Como vivemos os valores</div>
+    <h2 class="sec-h sec-h-d">CULTURA<br>DA NEXO</h2>
+    <p class="sec-d sec-d-d">A Nexo é uma empresa transparente, humana e profissional — os três juntos, sem negociar nenhum dos três. Cultura é o que acontece quando ninguém está olhando.</p>
+
+    <div class="cultura-cols" style="margin-bottom:3px;">
+      <div class="cultura-col">
+        <div class="cultura-col-h">COMO É TRABALHAR AQUI</div>
+        <ul class="cultura-list">
+          <li>Você vai ser cobrado — e vai saber exatamente pelo quê</li>
+          <li>Você vai poder errar — e vai ter espaço para corrigir</li>
+          <li>Você vai receber feedback direto — não passivo-agressivo, não acumulado</li>
+          <li>Você vai sentir que faz parte de algo que tem propósito real</li>
+          <li>Você vai crescer — pessoal e profissionalmente</li>
+          <li>Você vai trabalhar com pessoas que acreditam no mesmo que você</li>
+        </ul>
+      </div>
+      <div class="cultura-col">
+        <div class="cultura-col-h">QUANDO ALGO DÁ ERRADO</div>
+        <ul class="cultura-list">
+          <li>A conversa começa com "o que aconteceu?" — não com "quem foi?"</li>
+          <li>O erro vira aprendizado quando tratado com humanidade</li>
+          <li>Ninguém é desligado sem feedback claro, prazo e oportunidade de mudar</li>
+          <li>Problema com cliente é resolvido com transparência — não escondido</li>
+          <li>Se o erro foi nosso, a gente assume — antes que o cliente perceba</li>
+          <li>Pressão não justifica desumanidade com ninguém</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nunca-grid" style="margin-top:3px;margin-bottom:3rem;">
+      <div class="nunca-card">
+        <span class="nunca-tag">Nunca Toleramos</span>
+        <div class="nunca-title">DESONESTIDADE</div>
+        <p class="nunca-text">De colaborador, de sócio ou de cliente. Quem não é honesto com o combinado, com o trabalho e com as pessoas não tem espaço na Nexo — independente do contexto ou do valor do contrato.</p>
+      </div>
+      <div class="nunca-card">
+        <span class="nunca-tag">Nunca Toleramos</span>
+        <div class="nunca-title">DESRESPEITO</div>
+        <p class="nunca-text">Gritar, esculhambar, desqualificar. Pressão não é argumento. Resultado não justifica desumanizar. Nenhuma situação autoriza tratar mal quem está do outro lado.</p>
+      </div>
+      <div class="nunca-card">
+        <span class="nunca-tag">Nunca Toleramos</span>
+        <div class="nunca-title">COMPROMETIMENTO SEM EXECUÇÃO</div>
+        <p class="nunca-text">Dizer que vai fazer e não fazer. Aparecer em reunião sem ter feito o que foi combinado. Comprometer-se na presença e sumir na ausência. Palavra é compromisso — não intenção.</p>
+      </div>
+    </div>
+
+    <!-- Cliente ideal -->
+    <div class="sec-label" style="margin-bottom:16px;">Perfil do cliente que queremos — e do que não queremos</div>
+    <div class="cliente-grid">
+      <div class="cliente-card quer">
+        <div class="cliente-h">O CLIENTE QUE QUEREMOS</div>
+        <ul class="cliente-list">
+          <li>Está aberto a ouvir o que precisa ser dito — mesmo que não seja o que quer</li>
+          <li>Está disposto a mudar o que não está funcionando</li>
+          <li>Cumpre o que combina — aparece nas reuniões, responde, entrega o que precisa</li>
+          <li>Entende que crescer exige processo — não só vontade e pressão</li>
+          <li>Trata os consultores como parceiros — não como subordinados</li>
+          <li>Celebra os avanços e tem abertura para os ajustes de rota</li>
+        </ul>
+      </div>
+      <div class="cliente-card nao">
+        <div class="cliente-h">O CLIENTE QUE NÃO QUEREMOS</div>
+        <ul class="cliente-list">
+          <li>Contrata mas não se envolve no processo</li>
+          <li>Desmarca, some, não entrega o que é pedido para avançar</li>
+          <li>Quer resultado mas resiste a qualquer mudança</li>
+          <li>Usa a consultoria para validar o que já decidiu — não para decidir melhor</li>
+          <li>Não honra o que foi combinado — prazos, pagamentos, participação</li>
+          <li>Trata o consultor como fornecedor executante — não como estrategista</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Celebração -->
+    <div class="sec-label" style="margin-bottom:16px;margin-top:3rem;">Como celebramos resultado</div>
+    <div class="celebra-grid">
+      <div class="celebra-card">
+        <div class="celebra-n">01</div>
+        <div class="celebra-title">RECONHECIMENTO HUMANO</div>
+        <p class="celebra-text">Palavra de valorização, feedback positivo, presença e atenção. Quem contribuiu para a conquista é reconhecido publicamente dentro do time — antes de qualquer bônus financeiro.</p>
+      </div>
+      <div class="celebra-card">
+        <div class="celebra-n">02</div>
+        <div class="celebra-title">RECONHECIMENTO FINANCEIRO</div>
+        <p class="celebra-text">Comissão, PLR, plano de carreira e presentes reais quando possível. Resultado compartilhado de forma concreta — não só em discurso. Quem entregou participa do que foi conquistado.</p>
+      </div>
+      <div class="celebra-card">
+        <div class="celebra-n">03</div>
+        <div class="celebra-title">MOMENTOS COM O TIME</div>
+        <p class="celebra-text">Happy hour, jantar, dia com as famílias, presentes fora de datas comemorativas. Não porque é protocolo — porque é quem a Nexo quer ser. Uma empresa que celebra de verdade.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════ -->
+<!-- SÍNTESE -->
+<!-- ══════════════════════ -->
+<div class="bg-navy">
+  <div class="wrap">
+    <div class="sec-label">Para uso externo</div>
+    <h2 class="sec-h sec-h-w">SÍNTESE<br>DA NEXO</h2>
+    <p class="sec-d sec-d-w">Como apresentar a Nexo em poucas palavras — sem perder profundidade.</p>
+
+    <div class="sintese-block">
+      <div class="sintese-h">NEXO ESTRATÉGIA — QUEM SOMOS</div>
+      <div class="sintese-grid">
+        <div>
+          <span class="sintese-item-label">Quem somos</span>
+          <p class="sintese-item-text">A Nexo Estratégia é uma consultoria estratégica que entra nas empresas, olha para dentro antes de olhar para fora, e constrói junto com o empresário a estrutura que ele precisa para crescer com consistência e qualidade de vida.</p>
+        </div>
+        <div>
+          <span class="sintese-item-label">O que fazemos</span>
+          <p class="sintese-item-text">Estratégia de negócio, estrutura comercial, gestão operacional, cultura e pessoas, financeiro e planejamento — as 6 dimensões que fazem uma empresa funcionar sem depender só do dono.</p>
+        </div>
+        <div>
+          <span class="sintese-item-label">Como fazemos</span>
+          <p class="sintese-item-text">Com metodologia prática, ágil e ajustável. Sem relatório engavetado. Sem pressão que não gera resultado. Com transparência, planejamento e execução real — do diagnóstico ao acompanhamento.</p>
+        </div>
+      </div>
+      <div class="sintese-lema">
+        <div class="sintese-lema-text">Estratégia Conecta, <em>Propósito Transforma.</em></div>
+        <span class="sintese-lema-sub">Estratégia · Clareza · Execução · nexoestrategia.com.br</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">NEXO <span>Estratégia</span></div>
+  <div class="footer-meta">Visão, Missão e Valores · Documento Oficial · Filipe + Pedro<br>nexoestrategia.com.br · 2026</div>
+</div>
+
+</body>
+</html>
