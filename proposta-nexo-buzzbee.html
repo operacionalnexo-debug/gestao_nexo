@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Integrada — Nexo + BuzzBee</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #152336;
+    --orange: #E85D04;
+    --orange-light: #F4863B;
+    --cream: #F0EDE6;
+    --white: #FFFFFF;
+    --gray: #8A95A3;
+    --gray-light: #C8CDD4;
+    --border: rgba(232,93,4,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    border: 120px solid rgba(232,93,4,0.08);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 60px solid rgba(232,93,4,0.05);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--orange);
+    display: block;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 0.92;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+    margin-bottom: 40px;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 12px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--gray-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 2px;
+  }
+
+  .badge.hot {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--white);
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--orange);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--orange);
+    display: block;
+  }
+
+  /* ── INTRO BRIDGE ── */
+  .bridge {
+    background: var(--cream);
+    padding: 80px;
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1100px;
+  }
+
+  .bridge h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  .bridge p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #4A5568;
+    max-width: 440px;
+  }
+
+  .bridge-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .pill {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 22px;
+    border: 1px solid rgba(13,27,42,0.1);
+    background: var(--white);
+    border-radius: 4px;
+  }
+
+  .pill-icon {
+    width: 36px; height: 36px;
+    background: var(--orange);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .pill-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .pill-text span {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── DARK SECTION ── */
+  .dark-section {
+    background: var(--navy);
+    padding: 80px;
+  }
+
+  .dark-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .dark-section .sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  /* ── 6 DIMENSOES GRID ── */
+  .dim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .dim-card {
+    padding: 32px 28px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+
+  .dim-card:nth-child(3n) { border-right: none; }
+  .dim-card:nth-child(4), .dim-card:nth-child(5), .dim-card:nth-child(6) { border-bottom: none; }
+
+  .dim-num {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+  }
+
+  .dim-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .dim-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .dim-desc {
+    font-size: 11px;
+    color: var(--gray);
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+
+  .dim-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .dim-items li {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dim-items li::before {
+    content: '+';
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 12px;
+  }
+
+  /* ── FASES ── */
+  .fases-section {
+    background: var(--navy-mid);
+    padding: 80px;
+  }
+
+  .fases-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .fases-section .sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  .fase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .fase-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .fase-num-col {
+    background: rgba(232,93,4,0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 0;
+  }
+
+  .fase-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .fase-time {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .fase-body {
+    padding: 24px 32px;
+  }
+
+  .fase-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  .fase-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .fase-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+
+  .fase-deliverable {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,93,4,0.15);
+    border: 1px solid rgba(232,93,4,0.3);
+    color: var(--orange-light);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .fase-deliverable::before { content: '●'; font-size: 6px; }
+
+  /* ── LIGHT SECTION ── */
+  .light-section {
+    background: var(--cream);
+    padding: 80px;
+  }
+
+  .light-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .light-section .sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  /* ── BUZZBEE SERVICES ── */
+  .buzz-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .buzz-card {
+    background: var(--white);
+    border: 1px solid rgba(13,27,42,0.08);
+    border-radius: 4px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .buzz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--orange);
+  }
+
+  .buzz-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .buzz-card-desc {
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* ── PACOTES ── */
+  .pacotes-section {
+    background: var(--navy);
+    padding: 80px;
+  }
+
+  .pacotes-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .pacotes-section .sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  .pacotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .pacote-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pacote-card.destaque {
+    border-color: var(--orange);
+    background: rgba(232,93,4,0.05);
+  }
+
+  .pacote-rec {
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 0 4px 0 4px;
+  }
+
+  .pacote-eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .pacote-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .pacote-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 44px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .pacote-price-label {
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 500;
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .pacote-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+
+  .pacote-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .pacote-items li {
+    font-size: 12px;
+    color: var(--gray-light);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .pacote-items li::before {
+    content: '→';
+    color: var(--orange);
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .pacote-tag {
+    display: inline-block;
+    background: rgba(232,93,4,0.15);
+    border: 1px solid rgba(232,93,4,0.3);
+    color: var(--orange-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+
+  /* ── ENTREGAVEIS ── */
+  .entregaveis-section {
+    background: var(--navy-mid);
+    padding: 80px;
+  }
+
+  .entregaveis-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .entregaveis-section .sub {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 56px;
+    font-weight: 500;
+  }
+
+  .ent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .ent-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 24px;
+  }
+
+  .ent-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .ent-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .ent-sub {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 14px;
+  }
+
+  .ent-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ent-items li {
+    font-size: 10px;
+    color: var(--gray-light);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ent-items li::before {
+    content: '→';
+    color: var(--orange);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .ent-format {
+    margin-top: 16px;
+    background: rgba(232,93,4,0.12);
+    border: 1px solid rgba(232,93,4,0.25);
+    color: var(--orange-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--orange);
+    padding: 80px;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 0.92;
+    margin-bottom: 20px;
+  }
+
+  .cta-section p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .cta-btn:hover { background: #0D1B2A; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 32px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  footer .logos {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  footer .logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  footer .logo-text span { color: var(--orange); }
+
+  footer .sep {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  footer p {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .hero, .bridge, .dark-section, .fases-section, .light-section,
+    .pacotes-section, .entregaveis-section, .cta-section, footer {
+      padding: 48px 24px;
+    }
+    .bridge-grid, .pacotes-grid, .ent-grid, .buzz-grid { grid-template-columns: 1fr; }
+    .dim-grid { grid-template-columns: 1fr; }
+    .dim-card:nth-child(n) { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .dim-card:last-child { border-bottom: none; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Proposta Integrada</div>
+  <h1>Estratégia<br><span>que</span> se<br>implanta.</h1>
+  <p class="hero-sub">Nexo Estratégia cuida da estrutura do negócio.<br>BuzzBee cuida da presença digital e geração de leads.<br>Juntos, você cresce com método e visibilidade.</p>
+  <div class="hero-badges">
+    <div class="badge hot">Nexo Estratégia</div>
+    <div class="badge hot">BuzzBee</div>
+    <div class="badge">Consultoria 360°</div>
+    <div class="badge">Método + Marketing</div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="bridge">
+  <div class="section-label">Por que essa parceria</div>
+  <div class="bridge-grid">
+    <div>
+      <h2>Estrutura<br>sem visibilidade<br>não escala.<br>Visibilidade<br>sem estrutura<br>não sustenta.</h2>
+    </div>
+    <div class="bridge-pills">
+      <div class="pill">
+        <div class="pill-icon">🏗</div>
+        <div class="pill-text">
+          <strong>Nexo Estratégia</strong>
+          <span>Diagnóstico profundo, construção das 6 dimensões do negócio e implantação dos processos — com método e entregáveis concretos.</span>
+        </div>
+      </div>
+      <div class="pill">
+        <div class="pill-icon">📣</div>
+        <div class="pill-text">
+          <strong>BuzzBee</strong>
+          <span>Posicionamento digital, conteúdo estratégico e geração de leads para o negócio estruturado aparecer, atrair e converter.</span>
+        </div>
+      </div>
+      <div class="pill">
+        <div class="pill-icon">🎯</div>
+        <div class="pill-text">
+          <strong>O resultado</strong>
+          <span>Um negócio que funciona por dentro e cresce por fora — com processos, time, presença e clientes chegando pelo canal certo.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 DIMENSÕES -->
+<section class="dark-section">
+  <div class="section-label">Metodologia Nexo</div>
+  <h2>As 6 Dimensões<br>Nexo</h2>
+  <p class="sub">Toda empresa é diagnosticada nas 6 frentes. O Índice Nexo mede cada dimensão no dia zero e no encerramento.</p>
+
+  <div class="dim-grid">
+    <div class="dim-card">
+      <div class="dim-num">01</div>
+      <div class="dim-label">Dimensão 01</div>
+      <div class="dim-title">Negócio</div>
+      <div class="dim-desc">O que a empresa vende, para quem, como se posiciona e se o modelo faz sentido.</div>
+      <ul class="dim-items">
+        <li>Modelo e posicionamento</li>
+        <li>Proposta de valor clara</li>
+        <li>Precificação estratégica</li>
+        <li>Diferenciação de mercado</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">02</div>
+      <div class="dim-label">Dimensão 02</div>
+      <div class="dim-title">Comercial</div>
+      <div class="dim-desc">Como a empresa vende — processo, time, rotina e consistência de resultado.</div>
+      <ul class="dim-items">
+        <li>Processo de vendas documentado</li>
+        <li>Qualificação e funil</li>
+        <li>Rotina e scripts do time</li>
+        <li>Previsibilidade de receita</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">03</div>
+      <div class="dim-label">Dimensão 03</div>
+      <div class="dim-title">Entrega</div>
+      <div class="dim-desc">Como o cliente vive a experiência dentro da empresa — do fechamento ao pós-venda.</div>
+      <ul class="dim-items">
+        <li>Jornada do cliente mapeada</li>
+        <li>Processos com padrão definido</li>
+        <li>Momentos de encantamento</li>
+        <li>Pós-venda e recompra</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">04</div>
+      <div class="dim-label">Dimensão 04</div>
+      <div class="dim-title">Operação</div>
+      <div class="dim-desc">Como a empresa funciona por dentro — rotinas, setores e fluidez operacional.</div>
+      <ul class="dim-items">
+        <li>Processos internos documentados</li>
+        <li>Comunicação entre setores</li>
+        <li>Redução de retrabalho</li>
+        <li>Autonomia operacional</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">05</div>
+      <div class="dim-label">Dimensão 05</div>
+      <div class="dim-title">Pessoas</div>
+      <div class="dim-desc">Quem está dentro da empresa, como se comporta e o que acredita.</div>
+      <ul class="dim-items">
+        <li>Cultura real documentada</li>
+        <li>Alinhamento do time</li>
+        <li>Contratação e onboarding</li>
+        <li>Performance e desenvolvimento</li>
+      </ul>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">06</div>
+      <div class="dim-label">Dimensão 06</div>
+      <div class="dim-title">Gestão</div>
+      <div class="dim-desc">Como o dono e líderes tomam decisões, acompanham resultados e conduzem o negócio.</div>
+      <ul class="dim-items">
+        <li>Ritos de gestão e reuniões</li>
+        <li>Dashboard de indicadores</li>
+        <li>Tomada de decisão estruturada</li>
+        <li>Visão e metas documentadas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4 FASES -->
+<section class="fases-section">
+  <div class="section-label">Jornada Nexo</div>
+  <h2>As 4 Fases<br>do Método</h2>
+  <p class="sub">Cada fase tem objetivo claro, cadência de trabalho e entregável concreto.</p>
+
+  <div class="fase-list">
+    <div class="fase-item">
+      <div class="fase-num-col">
+        <div class="fase-num">01</div>
+        <div class="fase-time">Sem. 1–2</div>
+      </div>
+      <div class="fase-body">
+        <div class="fase-tag">Onboarding + Diagnóstico</div>
+        <div class="fase-title">Raio-X</div>
+        <div class="fase-desc">Logo após o fechamento o cliente entra no grupo e agenda a reunião de diagnóstico. Aplicamos o Nexo Assessment — entrevistas profundas, análise de processos e números — mapeando as 6 dimensões com nível de 1 a 5. Relatório entregue em até 10 dias.</div>
+        <div class="fase-deliverable">Relatório Raio-X Nexo · Índice Nexo Inicial · 3 Gargalos Prioritários · Oportunidades Imediatas</div>
+      </div>
+    </div>
+    <div class="fase-item">
+      <div class="fase-num-col">
+        <div class="fase-num">02</div>
+        <div class="fase-time">Sem. 3–4</div>
+      </div>
+      <div class="fase-body">
+        <div class="fase-tag">Sessão Estratégica Nexo</div>
+        <div class="fase-title">Estratégia</div>
+        <div class="fase-desc">Imersão com dono e líderes para co-construir o plano. O cliente não recebe um plano pronto — ele participa da construção. Ao final valida, ajusta e se compromete com o mapa de crescimento.</div>
+        <div class="fase-deliverable">Mapa de Crescimento Nexo · Plano por Frente · Responsáveis · Cronograma dos 6 Meses</div>
+      </div>
+    </div>
+    <div class="fase-item">
+      <div class="fase-num-col">
+        <div class="fase-num">03</div>
+        <div class="fase-time">Meses 2–5</div>
+      </div>
+      <div class="fase-body">
+        <div class="fase-tag">Fase Principal · 4 Meses</div>
+        <div class="fase-title">Construção e Implantação</div>
+        <div class="fase-desc">A fase mais densa. Trabalhamos frente por frente conforme as prioridades do diagnóstico — construindo processos, capacitando o time, implantando a jornada do cliente, documentando a cultura e estruturando a gestão. Ficamos do lado durante cada implantação. Suporte contínuo via WhatsApp e Base Nexo atualizada ao longo de todo o processo.</div>
+        <div class="fase-deliverable">Todos os Entregáveis por Frente · 5 Relatórios Nexo Mensais · Base Nexo Completa</div>
+      </div>
+    </div>
+    <div class="fase-item">
+      <div class="fase-num-col">
+        <div class="fase-num">04</div>
+        <div class="fase-time">Mês 6</div>
+      </div>
+      <div class="fase-body">
+        <div class="fase-tag">Encerramento</div>
+        <div class="fase-title">Consolidação e Legado</div>
+        <div class="fase-desc">Garantir que tudo funciona sem nós. Reaplicação do Nexo Assessment para gerar o Índice Final — a prova visual da transformação. Sessão de encerramento com dono e líderes: celebração, plano de continuidade e convite à Comunidade Nexo.</div>
+        <div class="fase-deliverable">Dossiê Nexo Completo · Índice Nexo Final · Comparativo Antes/Depois · Plano de Continuidade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREGÁVEIS NEXO -->
+<section class="entregaveis-section">
+  <div class="section-label">Entregável Final Nexo</div>
+  <h2>Dossiê de<br>Implementação<br>Comercial</h2>
+  <p class="sub">Ao final do processo o cliente recebe 5 documentos prontos para usar — não para guardar na gaveta, mas para operar a partir do primeiro dia.</p>
+
+  <div class="ent-grid">
+    <div class="ent-card">
+      <div class="ent-num">01 · Documento Mestre</div>
+      <div class="ent-title">Plano de Negócios Executivo</div>
+      <div class="ent-sub">Estratégia completa</div>
+      <ul class="ent-items">
+        <li>Toda a estratégia e posicionamento consolidados</li>
+        <li>Análise de mercado e benchmarking</li>
+        <li>Proposta de valor e diferenciação</li>
+        <li>Mix de produtos e estrutura de pricing</li>
+        <li>Visão geral do modelo de negócio</li>
+      </ul>
+      <div class="ent-format">PDF Executivo + Versão Editável</div>
+    </div>
+    <div class="ent-card">
+      <div class="ent-num">02 · Planilha Personalizada</div>
+      <div class="ent-title">Dashboard de Gestão Financeira</div>
+      <div class="ent-sub">Visibilidade dos números</div>
+      <ul class="ent-items">
+        <li>Acompanhamento de metas diárias e horárias</li>
+        <li>Controle de faturamento mensal vs projeção</li>
+        <li>Indicadores financeiros de saúde automáticos</li>
+        <li>Alertas de desvio de meta</li>
+        <li>Projeção dos próximos 3 meses</li>
+      </ul>
+      <div class="ent-format">Google Sheets / Excel Pronto para Usar</div>
+    </div>
+    <div class="ent-card">
+      <div class="ent-num">03 · Guia Prático</div>
+      <div class="ent-title">Manual de Processos Operacionais</div>
+      <div class="ent-sub">Operação que repete</div>
+      <ul class="ent-items">
+        <li>Checklist de abertura do negócio</li>
+        <li>Checklist de operação diária</li>
+        <li>Checklist de fechamento</li>
+        <li>Rotinas semanais da equipe</li>
+        <li>Padrões de qualidade por etapa</li>
+      </ul>
+      <div class="ent-format">PDF + Versão Digital para Uso Diário</div>
+    </div>
+    <div class="ent-card">
+      <div class="ent-num">04 · Conformidade Legal</div>
+      <div class="ent-title">Guia de Formalização</div>
+      <div class="ent-sub">Abrir certo</div>
+      <ul class="ent-items">
+        <li>CNAE correto para o tipo de negócio</li>
+        <li>Regimes tributários e qual escolher</li>
+        <li>Alvarás e licenças necessárias</li>
+        <li>Passo a passo de abertura do CNPJ</li>
+        <li>Obrigações fiscais e contábeis básicas</li>
+      </ul>
+      <div class="ent-format">PDF Passo a Passo</div>
+    </div>
+    <div class="ent-card">
+      <div class="ent-num">05 · Cronograma Visual</div>
+      <div class="ent-title">Mapa de Lançamento — Roadmap</div>
+      <div class="ent-sub">Do plano à inauguração</div>
+      <ul class="ent-items">
+        <li>Cronograma visual semana a semana</li>
+        <li>Fases de pré-operação e inauguração</li>
+        <li>Marcos e critérios de avanço</li>
+        <li>Responsáveis por cada entrega</li>
+        <li>Checklist de pré-abertura oficial</li>
+      </ul>
+      <div class="ent-format">PDF Visual + Versão Editável</div>
+    </div>
+    <div class="ent-card" style="background: rgba(232,93,4,0.06); border-color: rgba(232,93,4,0.2);">
+      <div class="ent-num" style="color: var(--orange-light);">O Dossiê Completo</div>
+      <div class="ent-title">O que o cliente tem nas mãos</div>
+      <div class="ent-sub">Não é para guardar — é para operar</div>
+      <ul class="ent-items">
+        <li>5 documentos prontos para usar</li>
+        <li>Estrutura comercial completa</li>
+        <li>Operação documentada desde o dia 1</li>
+        <li>Números validados e projetados</li>
+        <li>Roadmap de execução claro</li>
+      </ul>
+      <div class="ent-format" style="background: var(--orange); border-color: var(--orange); color: white;">Não é para guardar — é para operar</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUZZBEE -->
+<section class="light-section">
+  <div class="section-label">Frente Digital — BuzzBee</div>
+  <h2>Marketing que<br>gera clientes,<br>não só likes.</h2>
+  <p class="sub">Enquanto a Nexo estrutura o negócio, a BuzzBee coloca sua marca na frente de quem precisa do que você vende — com estratégia, conteúdo e dados.</p>
+
+  <!-- BLOCO 1: ESTRATÉGIA -->
+  <div style="margin-bottom:40px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;color:var(--orange);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+      <span style="display:block;width:20px;height:2px;background:var(--orange);"></span>
+      Pilar 01 · Estratégia e Posicionamento
+    </div>
+    <div class="buzz-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Diagnóstico Digital</div>
+        <div class="buzz-card-title">Mapeamento de Concorrentes</div>
+        <div class="buzz-card-desc">Análise do posicionamento dos principais concorrentes nas redes sociais — o que publicam, com que frequência e o que gera mais engajamento.</div>
+      </div>
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Identidade Digital</div>
+        <div class="buzz-card-title">Definição de Identidade e Tom de Voz</div>
+        <div class="buzz-card-desc">Estabelecimento da personalidade da marca no digital — como ela fala, o que defende, o que diferencia e como aparece visualmente para o público certo.</div>
+      </div>
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Persona e Público</div>
+        <div class="buzz-card-title">Mapeamento do Público-Alvo Digital</div>
+        <div class="buzz-card-desc">Definição de quem é o cliente ideal, o que consome, o que dói e o que deseja — base para todo o conteúdo e comunicação do período.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: CONTEÚDO -->
+  <div style="margin-bottom:40px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;color:var(--orange);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+      <span style="display:block;width:20px;height:2px;background:var(--orange);"></span>
+      Pilar 02 · Produção de Conteúdo
+    </div>
+    <div class="buzz-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Feed Mensal</div>
+        <div class="buzz-card-title">12–16 Posts Criativos por Mês</div>
+        <div class="buzz-card-desc">Conteúdo visual e textual para feed — carrosséis educativos, posts de autoridade, provas sociais e conteúdo de conexão com o público. Design alinhado à identidade da marca.</div>
+      </div>
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Estratégia de Stories</div>
+        <div class="buzz-card-title">Planejamento de Stories para Engajamento</div>
+        <div class="buzz-card-desc">Definição de linha editorial e estratégia de stories — temas, gatilhos de interação, frequência e sequência lógica para manter o público aquecido e aumentar o alcance orgânico.</div>
+      </div>
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Vídeos Curtos</div>
+        <div class="buzz-card-title">Estratégia de Reels e Shorts</div>
+        <div class="buzz-card-desc">Roteiros, copywriting e direcionamento estratégico para vídeos curtos em formato que converte — com gancho, desenvolvimento e CTA definidos. Foco em alcance orgânico e geração de leads.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: PLANEJAMENTO E RESULTADOS -->
+  <div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;color:var(--orange);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+      <span style="display:block;width:20px;height:2px;background:var(--orange);"></span>
+      Pilar 03 · Planejamento e Acompanhamento
+    </div>
+    <div class="buzz-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Editorial Mensal</div>
+        <div class="buzz-card-title">Calendário Estratégico de Conteúdo</div>
+        <div class="buzz-card-desc">Planejamento mensal com temas, formatos, datas e objetivos de cada publicação — organizado por pilares de conteúdo (autoridade, conexão, conversão e bastidores).</div>
+      </div>
+      <div class="buzz-card">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Métricas e Dados</div>
+        <div class="buzz-card-title">Relatório Mensal de Performance</div>
+        <div class="buzz-card-desc">Acompanhamento de alcance, impressões, engajamento, crescimento de seguidores e primeiros leads — com análise do que funcionou e ajustes para o próximo ciclo.</div>
+      </div>
+      <div class="buzz-card" style="background:var(--navy);border-color:transparent;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">Alinhamento</div>
+        <div class="buzz-card-title" style="color:var(--white);">Reunião Mensal de Estratégia</div>
+        <div class="buzz-card-desc" style="color:var(--gray-light);">Encontro mensal com o cliente para revisar resultados, ajustar a estratégia de conteúdo e planejar o próximo mês — sempre alinhado ao momento do negócio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVO DE PREÇOS -->
+<section class="dark-section">
+  <div class="section-label">Investimento</div>
+  <h2>O que cada<br>serviço vale<br>separado.</h2>
+  <p class="sub">Para você entender o que está recebendo — e o quanto a proposta integrada representa.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;">
+    <!-- BuzzBee individual -->
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:36px 32px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Se contratado individualmente</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;color:var(--orange);margin-bottom:16px;">BuzzBee · Gestão de Redes</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--white);line-height:1;">R$2.000</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:24px;margin-top:4px;">por mês</div>
+      <div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin-bottom:20px;"></div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;">
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Estratégia de posicionamento e branding</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>12–16 posts feed/mês + stories interativos</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reels, Shorts e copywriting estratégico</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Calendário editorial mensal</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Relatório mensal de métricas</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reunião mensal de alinhamento</li>
+      </ul>
+    </div>
+
+    <!-- Nexo individual -->
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:36px 32px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Se contratado individualmente</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;color:var(--orange);margin-bottom:16px;">Nexo · Farol Implementação · 6 meses</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:900;color:var(--white);line-height:1;">R$8.000</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:24px;margin-top:4px;">total do projeto · 6 meses</div>
+      <div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin-bottom:20px;"></div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;">
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Diagnóstico Raio-X das 6 dimensões</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Sessão estratégica de co-construção</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Implantação de processos frente por frente</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reuniões quinzenais + suporte WhatsApp</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>5 relatórios Nexo mensais</li>
+        <li style="font-size:12px;color:var(--gray-light);display:flex;align-items:flex-start;gap:10px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Dossiê completo (5 documentos operacionais)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Soma -->
+  <div style="max-width:900px;margin-top:3px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;color:var(--gray);letter-spacing:0.1em;">Total se contratados separado (6 meses)</div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="font-size:11px;color:var(--gray);">R$8.000 Nexo + R$12.000 BuzzBee (6×R$2.000)</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--gray-light);">R$20.000</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPOSTA INTEGRADA -->
+<section class="pacotes-section">
+  <div class="section-label">Proposta Integrada · Nexo + BuzzBee</div>
+  <h2>Os dois juntos.<br>Por R$2.000<br>por mês.</h2>
+  <p class="sub">Uma oferta exclusiva para quem quer estrutura e presença ao mesmo tempo — sem escolher um ou outro.</p>
+
+  <div style="max-width:960px;">
+    <!-- Card principal -->
+    <div style="background:rgba(232,93,4,0.06);border:2px solid var(--orange);border-radius:6px;padding:48px;position:relative;overflow:hidden;margin-bottom:20px;">
+      <div style="position:absolute;top:0;right:0;background:var(--orange);color:var(--white);font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:8px 20px;border-radius:0 6px 0 6px;">Proposta Especial</div>
+
+      <div style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Nexo Estratégia + BuzzBee · 6 meses</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.05;margin-bottom:28px;">Estrutura que funciona.<br>Presença que vende.</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+            <!-- Nexo lado -->
+            <div>
+              <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="display:block;width:16px;height:1px;background:var(--orange);"></span>Nexo Estratégia</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Diagnóstico Raio-X das 6 dimensões</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Sessão estratégica de co-construção</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Implantação frente por frente (4 meses)</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reuniões quinzenais + suporte WhatsApp</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>5 relatórios mensais Nexo</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Dossiê completo (5 documentos)</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Índice Nexo antes e depois</li>
+              </ul>
+            </div>
+            <!-- BuzzBee lado -->
+            <div>
+              <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="display:block;width:16px;height:1px;background:var(--orange);"></span>BuzzBee</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Estratégia de posicionamento e identidade digital</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>12–16 posts feed/mês + stories interativos</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reels, Shorts e copywriting estratégico</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Calendário editorial mensal por pilares</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Relatório mensal de performance digital</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Reunião mensal de alinhamento editorial</li>
+                <li style="font-size:12px;color:var(--gray-light);display:flex;gap:8px;"><span style="color:var(--orange);font-weight:900;flex-shrink:0;">→</span>Conteúdo integrado à estratégia Nexo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preço -->
+        <div style="text-align:right;min-width:180px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;">De R$20.000</div>
+          <div style="font-size:11px;font-weight:700;color:var(--gray);text-decoration:line-through;margin-bottom:16px;">R$20.000 em 6 meses</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:64px;font-weight:900;color:var(--orange);line-height:0.9;">R$2.000</div>
+          <div style="font-size:12px;color:var(--gray-light);margin-top:8px;font-weight:600;">por mês · 6 meses</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--gray);">R$1.000 Nexo + R$1.000 BuzzBee</div>
+          <div style="margin-top:20px;display:inline-block;background:rgba(232,93,4,0.15);border:1px solid rgba(232,93,4,0.35);color:var(--orange-light);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:8px 16px;border-radius:3px;">Economia de R$8.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé do card -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:3px;padding:20px 22px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--orange);">6</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-light);margin-top:2px;">Meses de acompanhamento</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:3px;padding:20px 22px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--orange);">2</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-light);margin-top:2px;">Empresas trabalhando por você</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:3px;padding:20px 22px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--orange);">R$8k</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-light);margin-top:2px;">De economia na proposta integrada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Pronto para<br>crescer com<br>método?</h2>
+  <p>Entre em contato e vamos montar o plano ideal para o seu negócio.</p>
+  <a href="#" class="cta-btn">Quero começar agora</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logos">
+    <div class="logo-text">Nexo <span>Estratégia</span></div>
+    <div class="sep"></div>
+    <div class="logo-text">Buzz<span>Bee</span></div>
+  </div>
+  <p>Consultoria Estratégica + Marketing Digital · João Pessoa, PB</p>
+</footer>
+
+</body>
+</html>
