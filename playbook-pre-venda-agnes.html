@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook de Pré-Venda · Nexo Estratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E85A1A;--navy:#08112A;--navy-mid:#0F1E40;--navy-light:#162D5E;
+  --off:#F0EDE6;--gray:#C8C4BB;--gray-dark:#3A3530;--muted:#7A7570;
+  --green:#27AE60;--red:#C0392B;--amber:#D4880E;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;font-weight:500;background:var(--navy);color:#fff;line-height:1.55;}
+
+/* LAYOUT */
+.layout{display:flex;max-width:1400px;margin:0 auto;}
+.sidebar{width:260px;flex-shrink:0;background:var(--navy-mid);height:100vh;position:sticky;top:0;overflow-y:auto;padding:2rem 0;border-right:1px solid rgba(255,255,255,.06);}
+.content{flex:1;min-width:0;padding:0 3.5rem 6rem;}
+
+/* SIDEBAR */
+.side-brand{padding:0 1.75rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:1rem;}
+.side-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.1em;}
+.side-logo span{color:var(--orange);}
+.side-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.25rem;}
+.side-nav{list-style:none;}
+.side-nav li a{display:block;padding:.6rem 1.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;border-left:2px solid transparent;transition:all .15s;}
+.side-nav li a:hover{color:#fff;border-left-color:var(--orange);background:rgba(232,90,26,.05);}
+.side-nav .side-num{color:var(--orange);font-size:.7rem;margin-right:.5rem;}
+.side-sec-label{padding:1.25rem 1.75rem .4rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);}
+
+/* HERO */
+.hero{padding:4rem 0 3rem;border-bottom:2px solid var(--orange);margin-bottom:3rem;position:relative;}
+.hero-eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;}
+.hero-eyebrow-line{width:32px;height:2px;background:var(--orange);}
+.hero-eyebrow-text{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5.5rem);line-height:.92;letter-spacing:.02em;margin-bottom:1rem;}
+.hero-title span{color:var(--orange);}
+.hero-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.02em;color:rgba(255,255,255,.5);max-width:640px;line-height:1.6;}
+.hero-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
+.hero-meta-item{}
+.hero-meta-k{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:block;}
+.hero-meta-v{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;color:#fff;}
+
+/* SECTIONS */
+.section{margin-bottom:4rem;scroll-margin-top:2rem;}
+.section-tag{display:inline-flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem;}
+.section-tag-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--orange);color:#fff;border-radius:3px;font-size:.7rem;}
+.section-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:.03em;line-height:1;margin-bottom:1rem;}
+.section-intro{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.02em;color:rgba(255,255,255,.5);max-width:720px;line-height:1.65;margin-bottom:2rem;}
+.section-divider{height:2px;background:linear-gradient(90deg,var(--orange),transparent);margin:0 0 2rem;}
+
+h3.block-h{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:#fff;margin:2.5rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.08);}
+h4.sub-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin:1.75rem 0 .75rem;}
+p.body{font-size:.95rem;color:rgba(255,255,255,.72);margin-bottom:1rem;line-height:1.7;}
+p.body strong{color:#fff;font-weight:700;}
+.lead-in{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;color:var(--orange);margin-bottom:1.25rem;letter-spacing:.02em;}
+
+/* CARDS */
+.card{background:var(--navy-mid);border-radius:4px;padding:1.5rem 1.75rem;margin-bottom:1rem;border-left:3px solid var(--orange);}
+.card-h{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;color:#fff;margin-bottom:.5rem;}
+.card p{font-size:.9rem;color:rgba(255,255,255,.62);line-height:1.65;}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+
+.tile{background:var(--navy-mid);border-radius:4px;padding:1.5rem;border-top:3px solid var(--orange);}
+.tile-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(232,90,26,.25);line-height:1;margin-bottom:.25rem;}
+.tile-h{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.04em;color:#fff;margin-bottom:.5rem;}
+.tile p{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* LISTS */
+ul.checklist{list-style:none;margin:1rem 0;}
+ul.checklist li{position:relative;padding-left:1.75rem;margin-bottom:.6rem;font-size:.92rem;color:rgba(255,255,255,.72);line-height:1.6;}
+ul.checklist li::before{content:'';position:absolute;left:0;top:.45em;width:8px;height:8px;background:var(--orange);border-radius:1px;}
+ul.arrow{list-style:none;margin:1rem 0;}
+ul.arrow li{position:relative;padding-left:1.5rem;margin-bottom:.55rem;font-size:.92rem;color:rgba(255,255,255,.72);line-height:1.6;}
+ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--orange);font-weight:700;}
+
+/* SCRIPT BOX */
+.script{background:#0A1428;border:1px solid rgba(232,90,26,.2);border-radius:4px;padding:1.25rem 1.5rem;margin:1rem 0;position:relative;}
+.script::before{content:'SCRIPT';position:absolute;top:-9px;left:16px;background:var(--orange);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.55rem;letter-spacing:.2em;padding:2px 8px;border-radius:2px;}
+.script p{font-family:'Barlow',sans-serif;font-size:.92rem;color:rgba(255,255,255,.85);line-height:1.7;margin:.5rem 0;font-style:italic;}
+.script .label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);font-style:normal;display:block;margin-top:.75rem;margin-bottom:.15rem;}
+.script .label:first-child{margin-top:0;}
+
+.example-good,.example-bad{border-radius:4px;padding:1rem 1.25rem;margin:.75rem 0;font-size:.9rem;line-height:1.65;}
+.example-good{background:rgba(39,174,96,.08);border-left:3px solid var(--green);}
+.example-bad{background:rgba(192,57,43,.08);border-left:3px solid var(--red);}
+.example-good .tag,.example-bad .tag{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.35rem;}
+.example-good .tag{color:var(--green);}
+.example-bad .tag{color:var(--red);}
+.example-good p,.example-bad p{color:rgba(255,255,255,.8);font-style:italic;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.tbl th{background:var(--navy-light);color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1rem;text-align:left;}
+.tbl td{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.72);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.015);}
+.tbl td strong{color:#fff;}
+
+/* PRODUCT CARD */
+.prod{background:var(--navy-mid);border-radius:4px;padding:1.75rem;margin-bottom:1.25rem;border-top:3px solid var(--orange);}
+.prod-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.prod-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:#fff;}
+.prod-price{text-align:right;}
+.prod-price-v{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange);line-height:1;}
+.prod-price-k{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.prod-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.prod-meta-item{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.prod-meta-item span{color:var(--orange);}
+
+/* CALLOUT */
+.callout{background:rgba(232,90,26,.08);border:1px solid rgba(232,90,26,.22);border-radius:4px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+.callout-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:.5rem;}
+.callout p{font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.65;}
+
+.rule-box{background:var(--navy);border:1px dashed rgba(232,90,26,.35);border-radius:4px;padding:1.25rem 1.5rem;margin:1.25rem 0;}
+.rule-box .rh{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;color:var(--orange);margin-bottom:.5rem;}
+.rule-box p{font-size:.9rem;color:rgba(255,255,255,.7);}
+
+/* STAGE FLOW */
+.flow{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0;}
+.flow-step{flex:1;min-width:120px;background:var(--navy-mid);border-radius:4px;padding:1rem;border-top:2px solid var(--orange);}
+.flow-step-n{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--orange);line-height:1;}
+.flow-step-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin:.35rem 0;}
+.flow-step p{font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.5;}
+
+/* FOOTER */
+.pb-footer{border-top:2px solid var(--orange);margin-top:4rem;padding-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.pb-footer-lema{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;}
+.pb-footer-lema span{color:var(--orange);}
+.pb-footer-meta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:right;}
+
+.two-col{columns:2;column-gap:2rem;}
+.two-col li{break-inside:avoid;}
+
+@media(max-width:1000px){
+  .sidebar{display:none;}
+  .content{padding:0 1.5rem 4rem;}
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+  .two-col{columns:1;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="side-brand">
+    <div class="side-logo">NEXO <span>Estratégia</span></div>
+    <div class="side-sub">Playbook de Pré-Venda</div>
+  </div>
+  <div class="side-sec-label">Fundamentos</div>
+  <ul class="side-nav">
+    <li><a href="#papel"><span class="side-num">01</span>Seu papel</a></li>
+    <li><a href="#funil"><span class="side-num">02</span>O funil Nexo</a></li>
+    <li><a href="#produtos"><span class="side-num">03</span>Os produtos</a></li>
+    <li><a href="#icp"><span class="side-num">04</span>ICP e perfis</a></li>
+  </ul>
+  <div class="side-sec-label">Operação</div>
+  <ul class="side-nav">
+    <li><a href="#fluxo"><span class="side-num">05</span>O fluxo da pré-venda</a></li>
+    <li><a href="#scripts"><span class="side-num">06</span>Scripts base</a></li>
+    <li><a href="#qualificacao"><span class="side-num">07</span>Qualificação</a></li>
+    <li><a href="#objecoes"><span class="side-num">08</span>Objeções</a></li>
+    <li><a href="#agendamento"><span class="side-num">09</span>Agendamento e show</a></li>
+    <li><a href="#passagem"><span class="side-num">10</span>Passagem pro closer</a></li>
+  </ul>
+  <div class="side-sec-label">Gestão</div>
+  <ul class="side-nav">
+    <li><a href="#metricas"><span class="side-num">11</span>Métricas</a></li>
+    <li><a href="#rotina"><span class="side-num">12</span>Rotina e carreira</a></li>
+  </ul>
+</aside>
+
+<!-- CONTENT -->
+<main class="content">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">Documento Operacional · Uso Interno</span></div>
+  <h1 class="hero-title">PLAYBOOK DE<br><span>PRÉ-VENDA</span></h1>
+  <p class="hero-desc">O guia completo da cadeira de pré-venda da Nexo. Tudo que você precisa para dominar o fluxo, conhecer os produtos, qualificar bem e preparar o lead para o fechamento. Feito para ser estudado, consultado e evoluído.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><span class="hero-meta-k">Responsável</span><span class="hero-meta-v">Agnes · Pré-Venda</span></div>
+    <div class="hero-meta-item"><span class="hero-meta-k">Reporta para</span><span class="hero-meta-v">Filipe</span></div>
+    <div class="hero-meta-item"><span class="hero-meta-k">Fecha com</span><span class="hero-meta-v">Pedro · Closer</span></div>
+  </div>
+</div>
+
+<!-- 01 PAPEL -->
+<section class="section" id="papel">
+  <div class="section-tag"><span class="section-tag-num">01</span>Seu papel na Nexo</div>
+  <h2 class="section-h">A CADEIRA DE PRÉ-VENDA</h2>
+  <p class="section-intro">Você é a dona da pré-venda. Isso significa que tudo que acontece entre o lead chegar e o lead entrar na reunião com o closer passa por você. Sua missão não é vender o produto. É preparar o lead para comprar.</p>
+  <div class="section-divider"></div>
+
+  <p class="lead-in">A regra que rege tudo: a pré-venda não vende o programa. A pré-venda vende o valor de avançar para uma conversa que é genuinamente útil para o lead.</p>
+
+  <p class="body">Existe uma confusão comum que destrói operações comerciais: achar que marketing, pré-venda e vendas são a mesma coisa. Não são. Cada um tem um trabalho distinto, e misturar os papéis é o erro mais caro que existe.</p>
+
+  <div class="grid-3">
+    <div class="tile">
+      <div class="tile-num">01</div>
+      <div class="tile-h">MARKETING</div>
+      <p>Gera demanda qualificada. O tráfego e o conteúdo trazem gente interessada até você. O trabalho do marketing termina quando o lead chega.</p>
+    </div>
+    <div class="tile">
+      <div class="tile-h" style="color:var(--orange);margin-top:2rem;">VOCÊ · PRÉ-VENDA</div>
+      <p>Constrói predisposição. Aprofunda contexto, desperta consciência do problema e prepara o lead para uma conversa de verdade. Você não fecha.</p>
+    </div>
+    <div class="tile">
+      <div class="tile-num">03</div>
+      <div class="tile-h">CLOSER</div>
+      <p>Diagnostica fundo e fecha. O Pedro recebe o lead preparado por você e conduz a decisão. Preço e valor são conversa dele.</p>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rh">A linha que você nunca cruza</div>
+    <p>Você não fecha venda e não negocia preço. Se o lead perguntar valor, você reconhece a pergunta e devolve o foco para a conversa: o preço faz sentido depois que a gente entende o cenário, e isso é exatamente o que o especialista vai fazer na reunião. Vender o programa na pré-venda derruba o funil.</p>
+  </div>
+
+  <h4 class="sub-h">O que se espera de você</h4>
+  <ul class="checklist">
+    <li><strong>Predisposição, não agendamento.</strong> Agendar por agendar enche a agenda do closer de lead frio e derruba a taxa de fechamento. Você agenda quem está pronto.</li>
+    <li><strong>Qualificação como inteligência.</strong> Cada conversa gera informação que o closer usa. Você não preenche formulário, você lê o lead.</li>
+    <li><strong>Conexão antes de dor.</strong> Nunca cutuca a dor no primeiro contato. Primeiro cria segurança, depois explora.</li>
+    <li><strong>Passagem impecável.</strong> O closer precisa chegar na reunião sabendo de onde você parou, não do zero.</li>
+  </ul>
+</section>
+
+<!-- 02 FUNIL -->
+<section class="section" id="funil">
+  <div class="section-tag"><span class="section-tag-num">02</span>Como o lead chega até você</div>
+  <h2 class="section-h">O FUNIL DA NEXO</h2>
+  <p class="section-intro">Antes de falar com qualquer lead, você precisa saber de onde ele veio e em que estágio de consciência ele está. Um lead de tráfego frio é diferente de uma indicação, que é diferente de quem veio de conteúdo.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">As origens de lead</h3>
+  <table class="tbl">
+    <tr><th>Origem</th><th>Temperatura</th><th>Como abordar</th></tr>
+    <tr><td><strong>Tráfego pago</strong><br>Campanhas do Wanderley</td><td>Frio a morno</td><td>Ele levantou a mão num criativo, mas quase não conhece a Nexo. Abertura contextual, construir contexto antes de qualquer coisa.</td></tr>
+    <tr><td><strong>Indicação · Clube de Parceiros</strong></td><td>Morno a quente</td><td>Chega com confiança emprestada de quem indicou. Reconheça a ponte logo no início. Confiança já existe, foco em fit e timing.</td></tr>
+    <tr><td><strong>Conteúdo e redes</strong></td><td>Morno</td><td>Já acompanha a Nexo, conhece o discurso. Consciência do problema costuma ser maior. Pode aprofundar cenário mais rápido.</td></tr>
+    <tr><td><strong>Prospecção ativa</strong></td><td>Frio</td><td>Ele não pediu contato. Abertura por observação estratégica ou hipótese de problema. Zero pressão, muito contexto.</td></tr>
+  </table>
+
+  <h3 class="block-h">Os estágios de consciência</h3>
+  <p class="body">Todo lead está em algum ponto desta régua. Sua leitura do estágio define o próximo passo. <strong>Curiosidade não é prontidão.</strong> Nunca trate um lead curioso como se estivesse pronto para a reunião.</p>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-step-n">1</div><div class="flow-step-h">Descoberta</div><p>Acabou de conhecer, ainda não sabe o que precisa</p></div>
+    <div class="flow-step"><div class="flow-step-n">2</div><div class="flow-step-h">Curiosidade</div><p>Quer saber mais, sem intenção clara</p></div>
+    <div class="flow-step"><div class="flow-step-n">3</div><div class="flow-step-h">Interesse</div><p>Reconhece que tem um problema real</p></div>
+    <div class="flow-step"><div class="flow-step-n">4</div><div class="flow-step-h">Consideração</div><p>Avalia se a Nexo é o caminho</p></div>
+    <div class="flow-step"><div class="flow-step-n">5</div><div class="flow-step-h">Pronto</div><p>Tem dor, desejo, fit e abertura</p></div>
+  </div>
+  <div class="callout">
+    <div class="callout-h">Leitura de estágio</div>
+    <p>Seu trabalho é levar o lead de onde ele está até "pronto para a reunião". Se ele está em curiosidade, você não agenda ainda, você aprofunda. Empurrar um lead de estágio 2 direto para a reunião é o erro que mais queima o closer.</p>
+  </div>
+</section>
+
+<!-- 03 PRODUTOS -->
+<section class="section" id="produtos">
+  <div class="section-tag"><span class="section-tag-num">03</span>O que a Nexo vende</div>
+  <h2 class="section-h">OS PRODUTOS</h2>
+  <p class="section-intro">Você não precisa vender o produto, mas precisa conhecê-lo por dentro. Quando você entende o que cada um resolve e para quem serve, sua qualificação fica muito mais precisa e você sabe para onde apontar o lead.</p>
+  <div class="section-divider"></div>
+
+  <div class="prod">
+    <div class="prod-head">
+      <div><div class="prod-name">MÉTODO NEXO DE CRESCIMENTO</div></div>
+      <div class="prod-price"><div class="prod-price-v">R$ 12.000</div><div class="prod-price-k">Programa completo</div></div>
+    </div>
+    <div class="prod-meta">
+      <span class="prod-meta-item">Duração: <span>6 meses</span></span>
+      <span class="prod-meta-item">Formato: <span>Híbrido</span></span>
+      <span class="prod-meta-item">Carro-chefe</span>
+    </div>
+    <p class="body">O programa mais completo. Consultoria estratégica de 6 meses que estrutura a empresa por dentro nas 6 dimensões: cultura e liderança, comercial, gestão operacional, planejamento, pessoas e processos, e financeiro. Diagnóstico, plano e execução acompanhada ao lado da liderança.</p>
+    <h4 class="sub-h">Para quem serve</h4>
+    <p class="body">Empresas consolidadas, com faturamento e estrutura, que cresceram mas ficaram desorganizadas e querem profissionalizar a operação. O dono está sufocado, faz tudo, e a empresa não roda sem ele.</p>
+    <h4 class="sub-h">Sinais de que o lead encaixa aqui</h4>
+    <ul class="arrow">
+      <li>Fala que a empresa depende dele para tudo</li>
+      <li>Cresceu em faturamento mas sente que virou caos</li>
+      <li>Time sem processo, gestão no improviso</li>
+      <li>Quer sair da operação e não consegue</li>
+    </ul>
+  </div>
+
+  <div class="prod">
+    <div class="prod-head">
+      <div><div class="prod-name">FAROL DO EMPREENDEDOR</div></div>
+      <div class="prod-price"><div class="prod-price-v">R$ 4.500 a 7.000</div><div class="prod-price-k">Dois pacotes</div></div>
+    </div>
+    <div class="prod-meta">
+      <span class="prod-meta-item">Estrutura: <span>R$ 4.500 · 3 meses</span></span>
+      <span class="prod-meta-item">Implementação: <span>R$ 7.000 · 6 meses</span></span>
+    </div>
+    <p class="body">Programa de estruturação para quem vai abrir ou reorganizar um negócio. Transforma ideia e vontade em um plano de negócio real e executável. O pacote Estrutura entrega o plano completo. O Implementação vai além e acompanha a execução.</p>
+    <h4 class="sub-h">Para quem serve</h4>
+    <p class="body">Quem vai abrir um negócio, está no início e quer estruturar, ou precisa reorganizar a base antes de crescer. Empresa mais nova ou menos consolidada que o perfil do Método.</p>
+    <h4 class="sub-h">Sinais de que o lead encaixa aqui</h4>
+    <ul class="arrow">
+      <li>Está começando ou vai começar um negócio</li>
+      <li>Tem a ideia mas não tem plano nem estrutura</li>
+      <li>Negócio pequeno, ainda sem processo nenhum</li>
+      <li>Precisa de direção antes de escalar</li>
+    </ul>
+  </div>
+
+  <div class="prod">
+    <div class="prod-head">
+      <div><div class="prod-name">TREINAMENTO DE TIME</div></div>
+      <div class="prod-price"><div class="prod-price-v">R$ 1.200</div><div class="prod-price-k">Ticket de entrada</div></div>
+    </div>
+    <div class="prod-meta">
+      <span class="prod-meta-item">Duração: <span>30 dias</span></span>
+      <span class="prod-meta-item">Complementar</span>
+    </div>
+    <p class="body">Programa intensivo de desenvolvimento de equipe: performance comercial, postura e mentalidade, rotina e produtividade. Pode ser contratado sozinho ou como complemento do Método. Bom produto de entrada para um relacionamento maior.</p>
+    <h4 class="sub-h">Para quem serve</h4>
+    <p class="body">Empresas que já têm estrutura mas querem elevar a performance da equipe de forma pontual. Também serve como porta de entrada para quem ainda não está pronto para o Método.</p>
+    <h4 class="sub-h">Sinais de que o lead encaixa aqui</h4>
+    <ul class="arrow">
+      <li>Time existe mas performa abaixo do esperado</li>
+      <li>Quer treinar a equipe sem um programa longo agora</li>
+      <li>Ainda não tem verba ou maturidade para o Método</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <div class="callout-h">Como usar isso na pré-venda</div>
+    <p>Você não empurra produto. Você escuta o cenário e forma uma hipótese de onde o lead encaixa, e passa essa leitura para o closer. Um dono sufocado de empresa consolidada aponta para o Método. Um negócio começando aponta para o Farol. Alguém que só quer treinar o time pode entrar pelo Treinamento. O closer confirma e conduz.</p>
+  </div>
+</section>
+
+<!-- 04 ICP -->
+<section class="section" id="icp">
+  <div class="section-tag"><span class="section-tag-num">04</span>Quem é o cliente certo</div>
+  <h2 class="section-h">ICP E PERFIS</h2>
+  <p class="section-intro">ICP é o perfil de cliente ideal. Saber reconhecer quem encaixa e quem não encaixa é o que separa uma pré-venda que enche a agenda do closer de gente errada de uma que entrega leads prontos. Qualificar é tão importante quanto desqualificar.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">O cliente que a Nexo quer</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-h">Perfil de negócio</div>
+      <ul class="checklist">
+        <li>Empresa consolidada, com faturamento e estrutura</li>
+        <li>Cresceu mas ficou desorganizada por dentro</li>
+        <li>Dono sobrecarregado, empresa depende dele</li>
+        <li>Tem time, mas sem processo ou gestão clara</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-h">Perfil de postura</div>
+      <ul class="checklist">
+        <li>Aberto a ouvir o que precisa mudar</li>
+        <li>Disposto a se envolver no processo</li>
+        <li>Cumpre o que combina, aparece, responde</li>
+        <li>Entende que crescer exige estrutura, não só vontade</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="block-h">O cliente que a Nexo não quer</h3>
+  <p class="body">Reconhecer isso cedo economiza o tempo de todo mundo. Se você identificar esses sinais, não force o agendamento. Um lead desqualificado com honestidade vale mais que uma reunião que o closer vai perder.</p>
+  <ul class="checklist two-col">
+    <li>Contrata mas não se envolve no processo</li>
+    <li>Some, desmarca, não entrega o que é pedido</li>
+    <li>Quer resultado mas resiste a qualquer mudança</li>
+    <li>Usa a consultoria só para validar o que já decidiu</li>
+    <li>Não honra prazos, pagamentos ou combinados</li>
+    <li>Trata o consultor como executor, não estrategista</li>
+    <li>Busca solução mágica e imediata sem esforço</li>
+    <li>Não tem verba nem perspectiva de investir na estrutura</li>
+  </ul>
+
+  <div class="rule-box">
+    <div class="rh">A pergunta que te guia</div>
+    <p>Em toda conversa, pergunte a si mesma: essa empresa vai conseguir extrair valor do que a Nexo entrega, e tem condição de se comprometer com o processo? Se a resposta é não, o próximo passo não é agendar mais rápido, é aprofundar ou reconhecer que não é o momento.</p>
+  </div>
+</section>
+
+<!-- 05 FLUXO -->
+<section class="section" id="fluxo">
+  <div class="section-tag"><span class="section-tag-num">05</span>O passo a passo</div>
+  <h2 class="section-h">O FLUXO DA PRÉ-VENDA</h2>
+  <p class="section-intro">A pré-venda não é uma mensagem, é uma progressão. Cada camada tem um propósito psicológico. Pular uma camada quebra as de baixo. Este é o coração do seu trabalho.</p>
+  <div class="section-divider"></div>
+
+  <div class="card"><div class="card-h">1 · Abertura</div><p>Ganhar uma resposta sem parecer vendedora. Sem pitch, sem pressão, sem cutucar dor. Escolha o ângulo pela origem do lead: contextual, observação estratégica ou hipótese de problema.</p></div>
+  <div class="card"><div class="card-h">2 · Conexão</div><p>Gerar segurança psicológica para o lead baixar a guarda. Rapport genuíno, mostrar que você leu e ouviu de verdade. É curto, mas pular isso envenena tudo depois.</p></div>
+  <div class="card"><div class="card-h">3 · Exploração de cenário</div><p>Entender a situação real antes de inferir a necessidade. Cenário atual, principal bloqueio, contexto operacional, ritmo, fit. Pergunte aberto, escute mais do que fala.</p></div>
+  <div class="card"><div class="card-h">4 · Aprofundamento da dor</div><p>Levar o lead de "incômodo vago" para "isso está me custando X". Impacto financeiro, emocional, custo de ficar parado, oportunidade perdida. Só funciona depois da conexão.</p></div>
+  <div class="card"><div class="card-h">5 · Aprofundamento do desejo</div><p>Tornar o futuro vívido e específico. "Se isso estivesse resolvido em 90 dias, o que muda?" O desejo é o contraste articulado entre o agora e um futuro plausível.</p></div>
+  <div class="card"><div class="card-h">6 · Urgência</div><p>Ajudar o lead a sentir por que agora. Custo de adiar em conta, não em drama. Janelas que fecham, problemas que compõem. Nunca urgência falsa.</p></div>
+  <div class="card"><div class="card-h">7 · Qualificação</div><p>Ler os 5 critérios de prontidão: dor real, desejo claro, fit, timing e abertura. Se algum falta, o próximo passo não é agendar, é aprofundar onde está o buraco.</p></div>
+  <div class="card"><div class="card-h">8 · Valorização da reunião</div><p>Vender o valor da conversa, não do programa. A reunião é um diagnóstico personalizado, rara, específica e útil. O lead deve querer a reunião pelo valor dela.</p></div>
+  <div class="card"><div class="card-h">9 · Agendamento</div><p>Marcar de um jeito que protege o comparecimento. Reforçar o valor, dizer a duração, pedir ambiente focado, confirmar decisor, obter micro-compromisso verbal.</p></div>
+  <div class="card"><div class="card-h">10 · Alinhamento</div><p>Um toque curto entre agendar e a reunião. Reconfirma valor e objetivo, ajusta expectativa de formato, levanta contexto que o closer precisa.</p></div>
+  <div class="card"><div class="card-h">11 · Follow-up</div><p>Manter o lead quente na janela de espera. Cada toque carrega valor, um insight ou um preparo, nunca "só confirmando se tá de pé".</p></div>
+  <div class="card"><div class="card-h">12 · Passagem para o closer</div><p>O closer precisa chegar sabendo de onde você parou. Contexto, dor nas palavras do lead, desejo, urgência, objeções já surgidas, status do decisor.</p></div>
+</section>
+
+<!-- 06 SCRIPTS -->
+<section class="section" id="scripts">
+  <div class="section-tag"><span class="section-tag-num">06</span>O que falar</div>
+  <h2 class="section-h">SCRIPTS BASE</h2>
+  <p class="section-intro">Estes scripts são base, não roteiro engessado. Adapte ao lead e ao contexto, mas mantenha a lógica por trás de cada um. O tom da Nexo é direto, humano e estratégico. Nunca robótico, nunca de vendedor desesperado.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">Abertura por origem</h3>
+
+  <h4 class="sub-h">Lead de tráfego pago (frio a morno)</h4>
+  <div class="script">
+    <span class="label">Primeiro contato</span>
+    <p>Oi [nome], tudo bem? Aqui é a Agnes, da Nexo Estratégia. Vi que você demonstrou interesse na gente por aqui. Antes de te direcionar qualquer coisa, queria entender melhor o seu momento. Me conta rapidinho: como está a sua empresa hoje?</p>
+  </div>
+
+  <h4 class="sub-h">Indicação · Clube de Parceiros (morno a quente)</h4>
+  <div class="script">
+    <span class="label">Primeiro contato</span>
+    <p>Oi [nome], tudo bem? Aqui é a Agnes, da Nexo. O [nome de quem indicou] comentou com a gente sobre você e achou que a gente poderia somar. Fiquei feliz com a indicação. Antes de qualquer coisa, queria entender o seu cenário pra ver como a gente realmente pode ajudar. Como está a empresa hoje?</p>
+  </div>
+
+  <h4 class="sub-h">Prospecção ativa (frio)</h4>
+  <div class="script">
+    <span class="label">Primeiro contato · observação estratégica</span>
+    <p>Oi [nome], tudo bem? Aqui é a Agnes, da Nexo Estratégia. Acompanhei um pouco do [empresa / trabalho dele] e notei um ponto que costuma aparecer em negócios nesse momento. Não quero te tomar tempo à toa, mas me arrisco numa pergunta: hoje seu maior desafio está mais em estruturar o interno ou em crescer as vendas?</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-h">Por que essas aberturas funcionam</div>
+    <p>Nenhuma delas vende. Todas se posicionam como alguém que quer entender antes de direcionar. Isso inverte o jogo: você deixa de ser vendedora e vira consultora. O lead baixa a guarda porque não sente que está sendo processado.</p>
+  </div>
+
+  <h3 class="block-h">Exploração de cenário</h3>
+  <p class="body">Depois que o lead responde a abertura, você investiga. Perguntas abertas, uma de cada vez, escutando de verdade. Não dispare tudo como interrogatório.</p>
+  <div class="script">
+    <span class="label">Perguntas de cenário</span>
+    <p>Me conta um pouco de como funciona a empresa hoje. Quantas pessoas são no time?</p>
+    <p>O que está funcionando bem e o que mais te incomoda no dia a dia?</p>
+    <p>Se você pudesse resolver uma coisa na empresa amanhã, qual seria?</p>
+    <p>Hoje, o quanto a operação depende de você para acontecer?</p>
+  </div>
+
+  <h3 class="block-h">Aprofundamento da dor</h3>
+  <p class="body">Só entre aqui depois da conexão. O objetivo é fazer o lead perceber o tamanho real do que está vivendo, sem manipular. Você não inventa dor, você ajuda ele a enxergar a que já existe.</p>
+  <div class="script">
+    <span class="label">Perguntas de dor</span>
+    <p>Esse problema que você mencionou, ele te custa o quê hoje? Em tempo, em dinheiro, em cabeça?</p>
+    <p>Há quanto tempo você convive com isso?</p>
+    <p>Se nada mudar nos próximos 6 meses, como você imagina que vai estar?</p>
+    <p>O que você deixa de fazer por estar preso resolvendo isso?</p>
+  </div>
+
+  <h3 class="block-h">Aprofundamento do desejo</h3>
+  <div class="script">
+    <span class="label">Perguntas de desejo</span>
+    <p>Se isso estivesse resolvido daqui a 90 dias, o que muda concretamente pra você?</p>
+    <p>Como seria seu dia a dia se você não estivesse mais carregando isso sozinho?</p>
+    <p>O que você começaria a fazer que hoje não consegue?</p>
+  </div>
+
+  <h3 class="block-h">Valorização da reunião</h3>
+  <p class="body">Este é o momento em que você apresenta a reunião. Repare: você vende o valor da conversa, nunca o programa nem o preço.</p>
+  <div class="script">
+    <span class="label">Convite para a reunião</span>
+    <p>Pelo que você me contou, faz muito sentido a gente marcar uma conversa com o especialista. O objetivo dela não é te apresentar produto. É entender seu cenário a fundo e te dar uma leitura estratégica de onde está o seu maior ponto de alavanca. Mesmo que você não feche nada, sai com clareza. São uns 40 minutos. Posso te encaixar essa semana?</p>
+  </div>
+
+  <div class="example-bad">
+    <span class="tag">Não faça isso</span>
+    <p>"O Método Nexo custa R$12.000 e resolve tudo na sua empresa, quer fechar?" — vender programa e preço na pré-venda derruba o funil e queima o lead.</p>
+  </div>
+  <div class="example-good">
+    <span class="tag">Faça isso</span>
+    <p>"O objetivo da conversa é te dar uma leitura estratégica do seu cenário. O investimento e o caminho, quem vai desenhar com você é o especialista, depois de entender de verdade a sua empresa."</p>
+  </div>
+</section>
+
+<!-- 07 QUALIFICACAO -->
+<section class="section" id="qualificacao">
+  <div class="section-tag"><span class="section-tag-num">07</span>Quem está pronto</div>
+  <h2 class="section-h">QUALIFICAÇÃO</h2>
+  <p class="section-intro">Qualificação não é burocracia, é inteligência comercial. Você avalia se o lead está pronto para a reunião. Se não estiver, o certo não é agendar mais rápido, é aprofundar onde falta ou ser honesta que não é o momento.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">Os 5 critérios de prontidão</h3>
+  <p class="body">Um lead só avança para o closer quando os cinco estão presentes. Se algum falta, você sabe exatamente onde trabalhar.</p>
+  <div class="grid-3">
+    <div class="tile"><div class="tile-h">Dor real</div><p>Existe um problema nomeado e que custa algo. Não é incômodo vago.</p></div>
+    <div class="tile"><div class="tile-h">Desejo claro</div><p>O lead consegue articular o futuro que quer.</p></div>
+    <div class="tile"><div class="tile-h">Fit</div><p>A empresa encaixa no perfil que a Nexo atende de verdade.</p></div>
+    <div class="tile"><div class="tile-h">Timing</div><p>Existe razão para ser agora, não algum dia.</p></div>
+    <div class="tile"><div class="tile-h">Abertura</div><p>Disposição para um processo estruturado e para se comprometer.</p></div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rh">Curiosidade não é prontidão</div>
+    <p>Um lead que só quer "saber mais", sem nenhum dos cinco critérios, não está pronto. Colocar ele na frente do closer desperdiça o tempo de todos e derruba a taxa de fechamento. Aprofunde primeiro.</p>
+  </div>
+
+  <h3 class="block-h">Como qualificar sem parecer interrogatório</h3>
+  <p class="body">Os critérios não são um formulário que você lê em voz alta. Eles emergem da conversa natural. Enquanto você explora cenário, dor e desejo, você já está coletando os cinco. A qualificação acontece dentro do diálogo, não como uma etapa separada e fria.</p>
+  <div class="example-bad">
+    <span class="tag">Interrogatório</span>
+    <p>"Qual seu faturamento? Quantos funcionários? Tem verba? Está pronto para investir? Quem decide?" — o lead responde o formulário mas não se engaja de verdade.</p>
+  </div>
+  <div class="example-good">
+    <span class="tag">Conversa</span>
+    <p>"Me conta como está a empresa hoje..." e, ao longo da troca, você naturalmente descobre porte, dor, urgência e quem decide, sem soar como checklist.</p>
+  </div>
+</section>
+
+<!-- 08 OBJECOES -->
+<section class="section" id="objecoes">
+  <div class="section-tag"><span class="section-tag-num">08</span>Quando o lead trava</div>
+  <h2 class="section-h">OBJEÇÕES</h2>
+  <p class="section-intro">Na pré-venda, você lida apenas com objeções de agenda e de avançar. Objeção de preço e de valor é conversa do closer. Sua função é destravar a resistência de dar o próximo passo, não vencer a decisão de compra.</p>
+  <div class="section-divider"></div>
+
+  <div class="callout">
+    <div class="callout-h">A regra de ouro das objeções</div>
+    <p>Se o lead objetar preço ou valor na pré-venda, você não entra nesse mérito. Você reconhece e devolve para a reunião: é exatamente isso que o especialista vai esclarecer com você, depois de entender seu cenário. Toda objeção de valor você redireciona para o closer.</p>
+  </div>
+
+  <h3 class="block-h">Objeções de agenda que você trata</h3>
+
+  <h4 class="sub-h">"Agora não tenho tempo"</h4>
+  <div class="script">
+    <p>Entendo total, imagino que a rotina esteja cheia, e é justamente por isso que essa conversa costuma valer a pena: são 40 minutos que te dão clareza pra parar de apagar incêndio. Prefere no fim do dia ou num horário mais tranquilo pra você?</p>
+  </div>
+
+  <h4 class="sub-h">"Me manda por escrito / material antes"</h4>
+  <div class="script">
+    <p>Posso te mandar sim, mas a real é que material genérico não vai te dizer muito. O que faz diferença é uma leitura do seu cenário específico, e isso a gente só consegue conversando. É rápido e você sai com algo prático. Consigo te encaixar quinta ou sexta?</p>
+  </div>
+
+  <h4 class="sub-h">"Preciso pensar / ver com meu sócio"</h4>
+  <div class="script">
+    <p>Faz todo sentido envolver o [sócio]. Inclusive, se puder, seria ótimo ter os dois na conversa, porque a leitura que o especialista vai trazer interessa a quem decide junto. Qual o melhor horário pra vocês dois?</p>
+  </div>
+
+  <h4 class="sub-h">"Deixa eu ver e te retorno"</h4>
+  <div class="script">
+    <p>Combinado. Só pra eu te ajudar a não perder o timing: o que precisaria acontecer pra essa conversa fazer sentido pra você? Assim eu já deixo tudo alinhado do meu lado.</p>
+  </div>
+
+  <div class="rule-box">
+    <div class="rh">Se a objeção for de preço</div>
+    <p>"Quanto custa?" na pré-venda: <em>"O investimento depende do caminho que faz sentido pra sua empresa, e é isso que o especialista vai desenhar com você na conversa, depois de entender seu cenário. Faz sentido a gente marcar pra você ter essa clareza?"</em> Você nunca dá o preço nem negocia. Isso é do closer.</p>
+  </div>
+</section>
+
+<!-- 09 AGENDAMENTO -->
+<section class="section" id="agendamento">
+  <div class="section-tag"><span class="section-tag-num">09</span>Proteger o comparecimento</div>
+  <h2 class="section-h">AGENDAMENTO E SHOW</h2>
+  <p class="section-intro">Agendar é fácil. Fazer o lead aparecer preparado é o que importa. Um agendamento bem feito já protege o show rate. Um mal feito enche a agenda de no-show.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">O checklist do agendamento</h3>
+  <ul class="checklist">
+    <li><strong>Reforce o valor.</strong> Antes de marcar, relembre o que vai acontecer nos 40 minutos e por que vale.</li>
+    <li><strong>Diga a duração.</strong> Deixe claro quanto tempo dura, para o lead reservar de verdade.</li>
+    <li><strong>Peça ambiente focado.</strong> Nada de dirigindo, nada de reunião empilhada. Um lugar tranquilo.</li>
+    <li><strong>Confirme o decisor.</strong> Se a decisão é compartilhada, sócio ou cônjuge presente na conversa.</li>
+    <li><strong>Obtenha micro-compromisso.</strong> "Posso contar contigo?" Um sim verbal aumenta o show.</li>
+    <li><strong>Mande o convite na hora.</strong> Calendário imediato, com tudo reforçado no corpo.</li>
+  </ul>
+
+  <div class="script">
+    <span class="label">Fechamento do agendamento</span>
+    <p>Fechado então. Vou te mandar o convite agora pra [dia] às [hora]. O que a gente vai fazer nesses 40 minutos é entender seu cenário e te dar uma leitura estratégica do maior ponto de alavanca da sua empresa. Só te peço pra estar num lugar tranquilo, sem dirigir, pra gente aproveitar bem. Posso contar contigo?</p>
+  </div>
+
+  <h3 class="block-h">Alinhamento e follow-up antes da reunião</h3>
+  <p class="body">Entre agendar e a reunião acontecer, um toque de valor mantém o lead quente e reduz o no-show. Nunca "só confirmando se tá de pé". Sempre com propósito.</p>
+  <div class="script">
+    <span class="label">Toque de alinhamento · véspera</span>
+    <p>Oi [nome], tudo certo pra amanhã às [hora]? Pra gente aproveitar ao máximo, pensa rapidinho numa coisa: se tivesse uma única mudança que destravaria sua empresa hoje, qual seria? A gente começa por aí. Até amanhã!</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-h">Se o show rate cair</div>
+    <p>No-show alto quase sempre é sinal de que a valorização da reunião ou o alinhamento estão fracos, não de que o lead é ruim. Antes de culpar o lead, revise se você vendeu o valor da conversa e se fez o toque de véspera.</p>
+  </div>
+</section>
+
+<!-- 10 PASSAGEM -->
+<section class="section" id="passagem">
+  <div class="section-tag"><span class="section-tag-num">10</span>Entregar o bastão</div>
+  <h2 class="section-h">PASSAGEM PARA O CLOSER</h2>
+  <p class="section-intro">Todo o seu trabalho se perde se o closer chega na reunião do zero. A passagem é o que faz o Pedro começar de onde você parou. Um bom handoff é a diferença entre uma reunião quente e uma fria.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">O que precisa chegar no closer</h3>
+  <ul class="checklist">
+    <li><strong>Contexto do lead.</strong> Quem é, o que faz, tamanho da empresa.</li>
+    <li><strong>A dor real, nas palavras dele.</strong> Não a sua interpretação, o que ele mesmo disse.</li>
+    <li><strong>O desejo articulado.</strong> O futuro que ele quer.</li>
+    <li><strong>A fonte de urgência.</strong> Por que agora.</li>
+    <li><strong>Objeções ou hesitações já surgidas.</strong> O que ele já sinalizou de resistência.</li>
+    <li><strong>Status do decisor.</strong> Ele decide sozinho? Tem sócio, cônjuge?</li>
+    <li><strong>O que ele espera da reunião.</strong> O que ele disse que quer tirar dali.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-h">A forma é opcional, a informação não é</div>
+    <p>Pode ser um card no CRM, um áudio de 90 segundos, uma mensagem estruturada. O canal importa menos que o sinal chegar. Um áudio rico vale mais que um campo de CRM vazio. O que não pode é o closer entrar achando que o lead é quente e encontrar um estranho.</p>
+  </div>
+
+  <h3 class="block-h">Template de passagem</h3>
+  <div class="script">
+    <span class="label">Resumo para o closer</span>
+    <p><strong>Lead:</strong> [nome], [empresa], [porte / segmento].</p>
+    <p><strong>Origem:</strong> [tráfego / indicação / conteúdo].</p>
+    <p><strong>Dor (palavras dele):</strong> "[frase do lead]".</p>
+    <p><strong>Desejo:</strong> [o que ele quer que mude].</p>
+    <p><strong>Urgência:</strong> [por que agora].</p>
+    <p><strong>Hipótese de produto:</strong> [Método / Farol / Treinamento] e por quê.</p>
+    <p><strong>Decisor:</strong> [decide sozinho / tem sócio].</p>
+    <p><strong>Hesitações:</strong> [objeções já surgidas].</p>
+    <p><strong>O que espera da reunião:</strong> [expectativa dele].</p>
+  </div>
+</section>
+
+<!-- 11 METRICAS -->
+<section class="section" id="metricas">
+  <div class="section-tag"><span class="section-tag-num">11</span>O que medir</div>
+  <h2 class="section-h">MÉTRICAS DA PRÉ-VENDA</h2>
+  <p class="section-intro">Você não melhora o que não mede. Estas são as métricas da sua cadeira, na ordem em que devem ser corrigidas. Quando algo estiver ruim, o número aponta exatamente qual camada consertar.</p>
+  <div class="section-divider"></div>
+
+  <table class="tbl">
+    <tr><th>#</th><th>Métrica</th><th>O que revela</th></tr>
+    <tr><td>1</td><td><strong>Taxa de resposta na abertura</strong></td><td>Se isso está quebrado, nada abaixo importa. Revise a mensagem de abertura.</td></tr>
+    <tr><td>2</td><td><strong>Conversa para qualificação</strong></td><td>Das respostas, quantas chegam à exploração real? Mede a força da conexão e do cenário.</td></tr>
+    <tr><td>3</td><td><strong>Qualificação para agendamento</strong></td><td>Dos qualificados, quantos marcam? Mede a valorização da reunião.</td></tr>
+    <tr><td>4</td><td><strong>Show rate</strong></td><td>Dos agendados, quantos aparecem? Mede agendamento, alinhamento e follow-up.</td></tr>
+    <tr><td>5</td><td><strong>Qualidade da reunião</strong></td><td>A leitura do closer sobre o quão preparado o lead chegou. Mede exploração e passagem.</td></tr>
+    <tr><td>6</td><td><strong>Reunião para fechamento</strong></td><td>O sinal final. Se cai, a qualificação pode estar deixando passar lead frio.</td></tr>
+  </table>
+
+  <div class="rule-box">
+    <div class="rh">Como ler o sinal</div>
+    <p>Se a taxa de resposta está boa mas o show rate está ruim, o problema está entre a valorização da reunião e o follow-up, camadas 8 a 11. Se o show está bom mas a qualidade da reunião está baixa, o problema está na exploração ou na passagem, camadas 3 a 7 ou 12. Conserte a camada certa, não a errada.</p>
+  </div>
+</section>
+
+<!-- 12 ROTINA -->
+<section class="section" id="rotina">
+  <div class="section-tag"><span class="section-tag-num">12</span>Como crescer na cadeira</div>
+  <h2 class="section-h">ROTINA E CARREIRA</h2>
+  <p class="section-intro">A cadeira de pré-venda é o começo de uma trilha. A ideia é você dominar a operação, gerar resultado consistente e evoluir para gestora de pré-venda. Este é o caminho.</p>
+  <div class="section-divider"></div>
+
+  <h3 class="block-h">A rotina diária ideal</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-h">Começo do dia</div>
+      <ul class="arrow">
+        <li>Revisar os leads novos que entraram</li>
+        <li>Priorizar quem está mais quente ou aguardando resposta</li>
+        <li>Fazer os follow-ups de véspera das reuniões do dia</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-h">Durante o dia</div>
+      <ul class="arrow">
+        <li>Abordagens e conversas de exploração</li>
+        <li>Qualificação e agendamentos</li>
+        <li>Registro de tudo no CRM em tempo real</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-h">Fim do dia</div>
+      <ul class="arrow">
+        <li>Passagens pendentes para o closer</li>
+        <li>Higiene da base: atualizar status de cada lead</li>
+        <li>Toques de alinhamento das reuniões do dia seguinte</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-h">Toda semana</div>
+      <ul class="arrow">
+        <li>Olhar as métricas da semana com o Filipe</li>
+        <li>Identificar qual camada está mais fraca</li>
+        <li>Testar um ajuste por vez, medir o efeito</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="block-h">A trilha de desenvolvimento</h3>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-step-n">1</div><div class="flow-step-h">Dominar a operação</div><p>Executar o fluxo com consistência e bater as métricas da cadeira</p></div>
+    <div class="flow-step"><div class="flow-step-n">2</div><div class="flow-step-h">Refinar e otimizar</div><p>Ler os próprios números, testar melhorias, criar seus próprios scripts</p></div>
+    <div class="flow-step"><div class="flow-step-n">3</div><div class="flow-step-h">Documentar e ensinar</div><p>Transformar o que funciona em processo replicável</p></div>
+    <div class="flow-step"><div class="flow-step-n">4</div><div class="flow-step-h">Gestora de pré-venda</div><p>Liderar e desenvolver um time de pré-venda com autonomia</p></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-h">O que te leva para gestora</div>
+    <p>Não é tempo de casa, é resultado e domínio. Quando você conhece a operação a ponto de melhorá-la, documentar o que funciona e conseguir ensinar outra pessoa a fazer, você está pronta para liderar. Este playbook é o seu ponto de partida, e um dia vai ser você escrevendo a próxima versão dele.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="pb-footer">
+  <div class="pb-footer-lema">Estratégia Conecta, <span>Propósito Transforma.</span></div>
+  <div class="pb-footer-meta">Playbook de Pré-Venda · Uso Interno<br>Nexo Estratégia · 2026</div>
+</div>
+
+</main>
+</div>
+</body>
+</html>
